@@ -20,13 +20,17 @@ class HomeScreen:
         # Thiết lập kích thước & vị trí
         self.root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
 
+        btn_logout = tk.Button(self.root, text="Đăng Xuất", command=self.dangxuat_return_login)
+        btn_logout.pack(pady="15",side="top", anchor="e")
+
+
         label_welcome = tk.Label(self.root, text="Chào mừng bạn đến với Trang Chủ!", font=("Arial", 14))
         label_welcome.pack(pady=0)
-
-        btn_logout = tk.Button(self.root, text="Đăng Xuất", command=self.root.destroy)
-        btn_logout.pack(pady="10",side="top", anchor="e")
-
-		#vòng kiểm tra sức khoẻ
         
         self.root.mainloop()
+    def dangxuat_return_login(self):
+        from main import LoginApp
+        self.root.destroy()
+        LoginApp()
+
 # HomeScreen()
