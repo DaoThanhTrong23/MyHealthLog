@@ -27,7 +27,7 @@ class LoginApp:
         #Ảnh icon login
         image_path = "Images/login.png"
         img = Image.open(image_path)
-        img = img.resize((80,80))
+        img = img.resize((90,90))
         self.photo = ImageTk.PhotoImage(img)
 
         # Hiển thị ảnh
@@ -36,12 +36,12 @@ class LoginApp:
 
         # Nhãn và ô nhập tên đăng nhập
         tk.Label(self.root, text="Tên tài khoản:").pack(pady=5)
-        self.entry_username = tk.Entry(self.root,width=30, font=("Arial", 13))
+        self.entry_username = tk.Entry(self.root,width=30, font=("Arial", 12))
         self.entry_username.pack(pady=5, ipady=5)
 
         # Nhãn và ô nhập mật khẩu
         tk.Label(self.root, text="Mật khẩu:").pack(pady=5)
-        self.entry_password = tk.Entry(self.root,width=30,font=("Arial", 13), show="*")
+        self.entry_password = tk.Entry(self.root,width=30,font=("Arial", 12), show="*")
         self.entry_password.pack(pady=5,ipady=5)
 
         # Nhãn hiển thị thông báo
@@ -53,11 +53,11 @@ class LoginApp:
         button_frame.pack(pady=10)
 
         # Nút đăng nhập
-        self.btn_login = tk.Button(button_frame, text="Đăng Nhập", command=self.check_login, width=15,font=("SF Pro Display", 13))
+        self.btn_login = tk.Button(button_frame, text="Đăng Nhập", command=self.check_login, width=15,font=("SF Pro Display", 12))
         self.btn_login.grid(row=0, column=0, padx=10, pady=10)
 
         # Nút thoát
-        self.btn_exit = tk.Button(button_frame, text="Thoát", command=self.thoat_chuong_trinh, width=5,font=("Arial", 13), border= 0, )
+        self.btn_exit = tk.Button(button_frame, text="Thoát", command=self.thoat_chuong_trinh, width=5,font=("Arial", 12))
         self.btn_exit.grid(row=0, column=1, padx=10, pady=10)
 
     def check_login(self):
