@@ -9,13 +9,13 @@ class LoginApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("Đăng nhập hiện đại")
+        self.title("Đăng nhập thông tin tài khoản")
         self.geometry("400x350")
         self.resizable(False, False)
 
         # Tiêu đề
         self.label_title = ctk.CTkLabel(self, text="Chào mừng bạn", font=("Arial", 24, "bold"))
-        self.label_title.pack(pady=30)
+        self.label_title.pack(pady=30)  
 
         # Entry tài khoản
         self.username_entry = ctk.CTkEntry(self, placeholder_text="Tài khoản", width=250, font=("Arial", 14))
