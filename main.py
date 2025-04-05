@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import customtkinter as ctk
 import json
+from tkinter import messagebox
 
 class LoginApp:
     def __init__(self):
@@ -76,10 +77,11 @@ class LoginApp:
 
             for user in data:
                 if user["nameUser"] == username and user["passwordUser"] == password:
+                    role = user.get("roleUser", "General")
                     self.root.destroy()
-                    HomeScreen()
+                    HomeScreen(role=role)
                     return
-            # Nếu không khớp ai cả
+
             self.label_message.config(text="Sai tài khoản hoặc mật khẩu!")
 
         except FileNotFoundError:
@@ -96,7 +98,7 @@ class LoginApp:
 
 #Trang chủ 
 class HomeScreen:
-    def __init__(self):
+    def __init__(self, role):
         self.root = tk.Tk()
         self.root.title("MyHealthLog")
 
@@ -115,6 +117,9 @@ class HomeScreen:
         self.add_menu_button("Tài khoản", self.show_account)
         self.add_menu_button("Chỉ số BMI", self.show_bmi)
         self.add_menu_button("Tính Calo", self.show_calo)
+        if role == "Manager":
+            self.add_menu_button("Danh sách user", self.show_listUser)
+
         self.add_menu_button("Đăng Xuất", self.logout)
 
         # ===== Nội dung mặc định =====
@@ -139,10 +144,14 @@ class HomeScreen:
     def show_calo(self):
         self.update_content("Tính lượng calo cần thiết")
 
+    def show_listUser(self):
+        self.update_content("Show danh sách các user(Tên, tuoi, gt, cân nặng, chiều cao, chỉ cố bmi)")
     def logout(self):
         from main import LoginApp
-        self.root.destroy()
-        LoginApp()
+        check = messagebox.askyesno("Xác nhận", "Bạn có chắc chắn muốn thoát?")
+        if check:
+            self.root.destroy()
+            LoginApp()
 
     def update_content(self, text):
         for widget in self.content_frame.winfo_children():
