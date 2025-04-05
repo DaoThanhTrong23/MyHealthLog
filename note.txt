@@ -1,16 +1,16 @@
-"""
-import requests
-
+TEST API
+##########
 API_KEY = "PUhoiqhxWNmrGpyNCE8vpA==xCDpcEnzQ5DPv0GF"
 query = "banana"  # Ví dụ tìm thông tin dinh dưỡng của chuối
-
 url = f"https://api.api-ninjas.com/v1/nutrition?query={query}"
-
 headers = {"X-Api-Key": API_KEY}
-
 response = requests.get(url, headers=headers)
 data = response.json()
-
 print(data)  # Xem kết quả trả về
 
-"""
+
+
+
+CHUYỂN ĐẾN MT ẢO
+############
+source myenv/bin/activate
