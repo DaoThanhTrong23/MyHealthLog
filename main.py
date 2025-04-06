@@ -1,7 +1,6 @@
 import tkinter as tk
-#from home import HomeScreen  # Import giao diện trang chủ
 from PIL import Image, ImageTk
-import customtkinter as ctk
+import customtkinter as ctk #Chưa chắc được xài nha
 import json
 from tkinter import messagebox
 
@@ -9,14 +8,19 @@ class LoginApp:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Đăng Nhập")
-        
-        self.setup_ui()  # Gọi hàm thiết lập giao diện
+        self.icon()
+        self.setup_ui()
         self.root.mainloop()
-
+    def icon(self):
+        ico = Image.open('Images/logo1.png')
+        photo = ImageTk.PhotoImage(ico)
+        self.root.wm_iconphoto(False, photo)
+        
     def setup_ui(self):
-        """Thiết lập giao diện đăng nhập"""
+        self.login_frame = tk.Frame(self.root, width=200, height=200)
+        self.login_frame.pack(pady=20)
         # Kích thước cửa sổ
-        window_width, window_height = 500, 400
+        window_width, window_height = 500, 600
 
         # Lấy kích thước màn hình
         screen_width = self.root.winfo_screenwidth()
@@ -35,24 +39,28 @@ class LoginApp:
         self.photo = ImageTk.PhotoImage(img)
 
         #title Đăng nhập
-        self.title_dangnhap = tk.Label(self.root ,text="ĐĂNG NHẬP",font=("Arial", 20, "bold"))
+        self.title_dangnhap = tk.Label(self.login_frame ,text="Đăng nhập",font=("Arial", 20))
         self.title_dangnhap.pack(pady = 10)
 
         # Hiển thị ảnh
-        self.image_label = tk.Label(self.root, image=self.photo)
+        self.image_label = tk.Label(self.login_frame, image=self.photo)
         self.image_label.pack(pady=10)
 
         
         # Nhãn và ô nhập tên đăng nhập
-        self.entry_username = tk.Entry(self.root,width=30, font=("Arial", 12))
+        self.label_username = tk.Label(self.login_frame, text="Tên đăng nhập:", font=("Arial", 12))
+        self.label_username.pack(padx=0, anchor='w')
+        self.entry_username = tk.Entry(self.login_frame,width=30, font=("Arial", 12))
         self.entry_username.pack(pady=5, ipady=5)
 
         # Nhãn và ô nhập mật khẩu
-        self.entry_password = tk.Entry(self.root,width=30,font=("Arial", 12), show="*")
+        self.label_password = tk.Label(self.login_frame, text="Mật khẩu:", font=("Arial", 12))
+        self.label_password.pack(padx=0, anchor='w')
+        self.entry_password = tk.Entry(self.login_frame,width=30,font=("Arial", 12), show="*")
         self.entry_password.pack(pady=5,ipady=5)
 
         # Nhãn hiển thị thông báo
-        self.label_message = tk.Label(self.root, text="", fg="red")
+        self.label_message = tk.Label(self.login_frame, text="", fg="red")
         self.label_message.pack(pady=5)
 
         # Tạo frame chứa nút bấm để căn chỉnh
@@ -106,7 +114,7 @@ class HomeScreen:
         self.root.resizable(False, False)
 
         # ===== Frame menu trái =====
-        self.menu_frame = tk.Frame(self.root, bg="#2c3e50", width=200)
+        self.menu_frame = tk.Frame(self.root, bg="#2c3e50", width=150)
         self.menu_frame.pack(side="left", fill="y")
 
         # ===== Nội dung chính (bên phải) =====
@@ -114,6 +122,7 @@ class HomeScreen:
         self.content_frame.pack(side="right", fill="both", expand=True)
 
         # ===== Nút trong menu =====
+        
         self.add_menu_button("Tài khoản", self.show_account)
         self.add_menu_button("Chỉ số BMI", self.show_bmi)
         self.add_menu_button("Tính Calo", self.show_calo)
@@ -127,7 +136,7 @@ class HomeScreen:
         self.label_content.pack(pady=30)
 
         self.root.mainloop()
-
+    
     def add_menu_button(self, text, command):
         button = tk.Button(self.menu_frame, text=text, command=command,
                            bg="#34495e", fg="black", font=("Arial", 12),
