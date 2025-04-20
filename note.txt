@@ -14,3 +14,17 @@ print(data)  # Xem kết quả trả về
 CHUYỂN ĐẾN MT ẢO
 ############
 source myenv/bin/activate
+deactivate
+
+[
+  {
+    "username": "trong123",
+    "password": "123456",
+    "fullname": "Đào Thành Trọng",
+    "age": 20,
+    "gender": "Nam",
+    "height": 170,
+    "weight": 60,
+    "medical": "Không"
+  }
+]
