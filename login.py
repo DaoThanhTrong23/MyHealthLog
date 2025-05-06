@@ -4,7 +4,8 @@ import customtkinter as ctk
 import json
 from tkinter import messagebox
 from home import HomeScreen
-
+import hashlib
+from dangky import DangKy
 class LoginApp:
 	def __init__(self):
 		self.root = tk.Tk()
@@ -80,7 +81,7 @@ class LoginApp:
 		self.btn_exit.grid(row=0, column=1, padx=10, pady=10)
 
 		#Nút đăng ký
-		self.btn_dangky = tk.Button(self.login_frame, text="Đăng ký", font=("Arial", 14), fg="red", bd=0)
+		self.btn_dangky = tk.Button(self.login_frame, text="Đăng ký", font=("Arial", 14), fg="red", bd=0, command=self.on_click_dang_ki)
 		self.btn_dangky.pack()
 	def enter_login(self, event= None):
 		self.check_login()
@@ -89,12 +90,13 @@ class LoginApp:
 		username = self.entry_username.get()
 		password = self.entry_password.get()
 
+		password_has = 	hashlib.sha256(password.encode()).hexdigest()
 		try:
 			with open("data/account.json", "r", encoding="utf-8") as f:
 				data = json.load(f)
 
 			for user in data:
-				if user["username"] == username and user["password"] == password:
+				if user["username"] == username and user["password"] == password_has:
 
 					nameUser = user.get("username", "N/A")
 					passwordUser = user.get("password", "N/A")
@@ -118,7 +120,9 @@ class LoginApp:
 			self.label_message.config(text="Lỗi định dạng JSON!")
 		except Exception as e:
 			self.label_message.config(text=f"Lỗi: {e}")
-
+	def on_click_dang_ki(self):
+		self.root.destroy()
+		DangKy()
 
 	def thoat_chuong_trinh(self):
 		"""Đóng chương trình"""

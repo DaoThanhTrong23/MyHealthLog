@@ -11,7 +11,6 @@ class DangKy:
 		self.root.title("Đăng Ký")
 		self.icon()
 		self.setup_ui()
-		self.root.bind('<Return>')
 		self.root.mainloop()
 		
 	def icon(self):
@@ -38,7 +37,7 @@ class DangKy:
 
 		# Nhãn và ô nhập tên đăng nhập
 		label_username = tk.Label(self.dangki, text="Tên đăng nhập:", font=("Arial", 12))
-		label_username.pack(sticky="w", padx=20)
+		label_username.pack(anchor="w", padx=20)
 		self.entry_username = tk.Entry(self.dangki,width=30, font=("Arial", 12),bg="white")
 		self.entry_username.pack(padx=20, ipadx=2, ipady=2)
 		self.entry_username.bind("<KeyRelease>", self.check_username)
@@ -48,13 +47,13 @@ class DangKy:
 
 		# Nhãn và ô nhập mật khẩu
 		label_password = tk.Label(self.dangki, text="Mật khẩu:", font=("Arial", 12))
-		label_password.pack(sticky="w", padx=20)
+		label_password.pack(padx=20, anchor="w")
 		self.entry_password = tk.Entry(self.dangki,width=30,font=("Arial", 12), show="*")
 		self.entry_password.pack(padx=20,ipadx=2, ipady=2)
 		
         # Nhãn và ô nhập lại mật khẩu
 		label_password_ = tk.Label(self.dangki, text="Nhập lại mật khẩu:", font=("Arial", 12))
-		label_password_.pack(sticky="w", padx =20)
+		label_password_.pack(anchor="w",padx =20)
 		
 		self.entry_password_re = tk.Entry(self.dangki,width=30,font=("Arial", 12), show="*")
 		self.entry_password_re.pack(padx=20,ipadx=2, ipady=2)

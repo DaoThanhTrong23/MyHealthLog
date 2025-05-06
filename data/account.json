@@ -1,24 +1,13 @@
 [
     {
         "username": "trong",
-        "password": "123",
-        "fullname": "Đào Thanh Trọng",
-        "age": "60",
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "fullname": " ",
+        "age": "0",
         "gender": "nam",
-        "height": "171",
-        "weight": "65",
-        "illness": "Toi không bị khùng",
-        "role": "Manager"
-    },
-    {
-        "username": "user",
-        "password": "password123",
-        "fullname": "Đào Thanh T",
-        "age": "40",
-        "gender": "Nam",
-        "height": "175",
-        "weight": "80",
-        "illness": "",
+        "height": "0",
+        "weight": "0",
+        "illness": " ",
         "role": "General"
     }
 ]
