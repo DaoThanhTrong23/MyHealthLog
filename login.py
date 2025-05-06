@@ -78,6 +78,10 @@ class LoginApp:
 		# Nút thoát
 		self.btn_exit = tk.Button(button_frame, text="Thoát", command=self.thoat_chuong_trinh, width=5,font=("Arial", 12))
 		self.btn_exit.grid(row=0, column=1, padx=10, pady=10)
+
+		#Nút đăng ký
+		self.btn_dangky = tk.Button(self.login_frame, text="Đăng ký", font=("Arial", 14), fg="red", bd=0)
+		self.btn_dangky.pack()
 	def enter_login(self, event= None):
 		self.check_login()
 
