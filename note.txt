@@ -28,3 +28,11 @@ deactivate
     "medical": "Không"
   }
 ]
+
+
+| Thành phần    | Font gợi ý               | Size  | Style  |
+| ------------- | ------------------------ | ----- | ------ |
+| Tiêu đề chính | Segoe UI / Helvetica     | 18–22 | Bold   |
+| Nhãn (Label)  | Arial / Verdana          | 12    | Normal |
+| Entry         | Verdana / Roboto         | 12    | Normal |
+| Button        | Segoe UI / Arial Rounded | 12–14 | Bold   |

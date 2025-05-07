@@ -23,65 +23,48 @@ class HomeScreen:
         self.root.geometry("1000x600")
         self.root.config(bg="#ecf0f1")
 
-        # ===== Frame menu trái =====
-        self.menu_frame = tk.Frame(self.root, bg="#2c3e50", width=180)
+        #Frame menu trái
+        self.menu_frame = tk.Frame(self.root, bg="#0BBBB6", width=180)
         self.menu_frame.pack(side="left", fill="y")
 
-        # ===== Nội dung chính (bên phải) =====
+        #Nội dung chính (bên phải)
         self.content_frame = tk.Frame(self.root, bg="#ecf0f1")
         self.content_frame.pack(side="right", fill="both", expand=True)
 
-        # ===== Tiêu đề menu =====
-        self.title_menu()
 
-        # ===== Nút trong menu =====
-        self.add_menu_button("Tài khoản", self.show_account)
-        self.add_menu_button("Chỉ số BMI", self.show_bmi)
-        self.add_menu_button("Tính Calo", self.show_calo)
-        if self.role == "Manager":
-            self.add_menu_button("Danh sách User", self.show_listUser)
-        self.add_menu_button("Đăng Xuất", self.logout)
-
-        # ===== Nội dung mặc định =====
-        self.label_content = tk.Label(
-            self.content_frame,
-            text="Chào mừng đến với MyHealthLog!",
-            font=("Arial", 22, "bold"),
-            bg="#ecf0f1",
-            fg="#2c3e50"
-        )
-        self.label_content.pack(pady=30)
-        self.root.mainloop()
-
-
-    def title_menu(self):
-        title = tk.Label(
-            self.menu_frame,
-            text="Menu",
-            font=("Arial", 16, "bold"),
-            bg="#2c3e50",
-            fg="white"
-        )
+        #title menu
+        title = tk.Label(self.menu_frame, text="Menu", font=("Segoe UI", 20, "bold"), bg="#0BBBB6")
         title.pack(pady=20)
 
-    def add_menu_button(self, text, command):
-        button = tk.Button(
-            self.menu_frame,
-            text=text,
-            command=command,
-            bg="#34495e",
-            fg="white",
-            font=("Arial", 12),
-            relief="flat",
-            activebackground="#1abc9c",
-            activeforeground="white",
-            #cursor="hand2"
-        )
-        button.pack(fill="x", pady=8, padx=10, ipady=8)
+        #Button Tài khioan
+        self.tai_khoan_btn = tk.Button(self.menu_frame,text="Tài khoản",command=self.show_account,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        self.tai_khoan_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
+        #Button Chỉ số BMI
+        self.bmi_btn = tk.Button(self.menu_frame,text="Chỉ số BMI",command=self.show_bmi,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        self.bmi_btn.pack(fill="x", pady=6, padx=5, ipady=8)
+        
+        #Button Tính calo
+        self.calo_btn = tk.Button(self.menu_frame,text="Tính calo",command=self.show_calo,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        self.calo_btn.pack(fill="x", pady=6, padx=5, ipady=8)
+
+        #Button Danh sách user
+        if role == "Manager":
+            self.list_user_btn = tk.Button(self.menu_frame,text="Danh sách user",command=self.show_listUser,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+            self.list_user_btn.pack(fill="x", pady=6, padx=5, ipady=8)
+
+        #button đăng xuất
+        self.dang_xuat_btn = tk.Button(self.menu_frame,text="Đăng xuất",command=self.logout,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        self.dang_xuat_btn.pack(fill="x", pady=6, padx=5, ipady=8)
+
+        # ===== Nội dung mặc định =====
+        self.label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Arial", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
+        self.label_content.pack(pady=30)
+
+        self.root.mainloop()
 
     def show_account(self):  
-    # Xóa nội dung cũ
+
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
@@ -118,13 +101,7 @@ class HomeScreen:
         thongtincanhan_frame = tk.Frame(self.content_frame, bg='white', relief="groove", bd=2)
         thongtincanhan_frame.pack(side='top', fill='both', expand=True, pady=10, padx=10)
 
-        title_thongtincanhan = tk.Label(
-            thongtincanhan_frame,
-            text="Thông tin thể trạng cá nhân",
-            font=("Arial", 14, "bold"),
-            bg='white',
-            fg='#2c3e50'
-        )
+        title_thongtincanhan = tk.Label(thongtincanhan_frame,text="Thông tin thể trạng cá nhân",font=("Arial", 14, "bold"),bg='white',fg='#2c3e50')
         title_thongtincanhan.pack(pady=10)
 
         # Frame chứa thông tin và ảnh minh họa

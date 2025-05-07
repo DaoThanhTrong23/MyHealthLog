@@ -12,7 +12,7 @@ class LoginApp:
 		self.root.title("Đăng Nhập")
 		self.icon()
 		self.setup_ui()
-		self.root.bind('<Return>', self.enter_login)
+		self.root.bind('<Return>', self.event_enter_login)
 		self.root.mainloop()
 		
 	def icon(self):
@@ -21,21 +21,6 @@ class LoginApp:
 		self.root.wm_iconphoto(False, photo)
 		
 	def setup_ui(self):
-		self.login_frame = tk.Frame(self.root, width=200, height=200)
-		self.login_frame.pack(pady=20)
-		# Kích thước cửa sổ
-		window_width, window_height = 500, 600
-
-		# Lấy kích thước màn hình
-		screen_width = self.root.winfo_screenwidth()
-		screen_height = self.root.winfo_screenheight()
-
-		# Tính toán vị trí để canh giữa
-		position_x = (screen_width // 2) - (window_width // 2)
-		position_y = (screen_height // 2) - (window_height // 2)
-
-		# Thiết lập kích thước & vị trí cửa sổ
-		self.root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
 		#Ảnh icon login
 		image_path = "Images/login.png"
 		img = Image.open(image_path)
@@ -43,50 +28,46 @@ class LoginApp:
 		self.photo = ImageTk.PhotoImage(img)
 
 		#title Đăng nhập
-		self.title_dangnhap = tk.Label(self.login_frame ,text="Đăng nhập",font=("Arial", 20))
-		self.title_dangnhap.pack(pady = 10)
+		self.title_dangnhap = tk.Label(self.root ,text="Đăng nhập",font=("Segoe UI", 20,"bold"))
+		self.title_dangnhap.grid(column=0, row=0, columnspan=2, pady = 10)
 
 		# Hiển thị ảnh
-		self.image_label = tk.Label(self.login_frame, image=self.photo)
-		self.image_label.pack(pady=10)
+		self.image_label = tk.Label(self.root, image=self.photo)
+		self.image_label.grid(column=0, row=1, columnspan=2, pady=10)
 
 		
 		# Nhãn và ô nhập tên đăng nhập
-		self.label_username = tk.Label(self.login_frame, text="Tên đăng nhập:", font=("Arial", 12))
-		self.label_username.pack(padx=0, anchor='w')
-		self.entry_username = tk.Entry(self.login_frame,width=30, font=("Arial", 12))
-		self.entry_username.pack(pady=5, ipady=5)
+		self.label_username = tk.Label(self.root, text="Tên đăng nhập:", font=("Segoe UI",12))
+		self.label_username.grid(column=0, row=2, columnspan=2, padx=30, sticky='w')
+		self.entry_username = tk.Entry(self.root,width=30, font=("Segoe UI", 12), bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+		self.entry_username.grid(column=0, row=3, columnspan=2, pady=(0, 10), ipady=5, padx=30)
 		
 
 		# Nhãn và ô nhập mật khẩu
-		self.label_password = tk.Label(self.login_frame, text="Mật khẩu:", font=("Arial", 12))
-		self.label_password.pack(padx=0, anchor='w')
-		self.entry_password = tk.Entry(self.login_frame,width=30,font=("Arial", 12), show="*")
-		self.entry_password.pack(pady=5,ipady=5)
+		self.label_password = tk.Label(self.root, text="Mật khẩu:", font=("Segoe UI", 12))
+		self.label_password.grid(column=0, row=4, columnspan=2, padx=30, sticky='w')
+		self.entry_password = tk.Entry(self.root,width=30,font=("Segoe UI", 12), show="*", bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+		self.entry_password.grid(column=0, row=5, columnspan=2, pady=(0, 5),ipady=5, padx=30)
 
 		# Nhãn hiển thị thông báo
-		self.label_message = tk.Label(self.login_frame, text="", fg="red")
-		self.label_message.pack(pady=5)
-
-		# Tạo frame chứa nút bấm để căn chỉnh
-		button_frame = tk.Frame(self.root)
-		button_frame.pack(pady=10)
+		self.label_message = tk.Label(self.root, text="", fg="red")
+		self.label_message.grid(column=0, row=6, columnspan=2, pady=5)
 
 		# Nút đăng nhập
-		self.btn_login = tk.Button(button_frame, text="Đăng Nhập", command=self.check_login, width=15,font=("Arial", 12))
-		self.btn_login.grid(row=0, column=0, padx=10, pady=10)
+		self.btn_login = tk.Button(self.root, text="Đăng Nhập", command=self.on_click_check_login, width=15,font=("Segoe UI", 12, "bold"),fg="white",bg="#4CAF50", activebackground="#45a049", activeforeground="white", relief="flat")
+		self.btn_login.grid(row=7, column=0, padx=5, pady=8)
 
 		# Nút thoát
-		self.btn_exit = tk.Button(button_frame, text="Thoát", command=self.thoat_chuong_trinh, width=5,font=("Arial", 12))
-		self.btn_exit.grid(row=0, column=1, padx=10, pady=10)
+		self.btn_exit = tk.Button(self.root, text="Thoát", command=self.on_click_thoat_chuong_trinh, width=5,font=("Segoe UI", 12, "bold"),fg="white",bg="#f44336", activebackground="red", activeforeground="white", relief="flat")
+		self.btn_exit.grid(row=7, column=1, padx=5, pady=8)
 
 		#Nút đăng ký
-		self.btn_dangky = tk.Button(self.login_frame, text="Đăng ký", font=("Arial", 14), fg="red", bd=0, command=self.on_click_dang_ki)
-		self.btn_dangky.pack()
-	def enter_login(self, event= None):
-		self.check_login()
+		self.btn_dangky = tk.Button(self.root, text="Đăng ký mới", font=("Segoe UI", 12), fg="red", bd=0, command=self.on_click_dang_ki)
+		self.btn_dangky.grid(column=0, row=8, columnspan=2, pady=(5, 25))
+	def event_enter_login(self, event= None):
+		self.on_click_check_login()
 
-	def check_login(self):
+	def on_click_check_login(self):
 		username = self.entry_username.get()
 		password = self.entry_password.get()
 
@@ -124,6 +105,6 @@ class LoginApp:
 		self.root.destroy()
 		DangKy()
 
-	def thoat_chuong_trinh(self):
+	def on_click_thoat_chuong_trinh(self):
 		"""Đóng chương trình"""
 		self.root.destroy()
