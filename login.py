@@ -81,16 +81,16 @@ class LoginApp:
 
 					nameUser = user.get("username", "N/A")
 					passwordUser = user.get("password", "N/A")
-					fullname = user.get("fullname", "N/A")
-					age = user.get("age", 0)
-					gender = user.get("gender", "Nam")
-					height = user.get("height", 0)
-					weight = user.get("weight", 0)
-					illness = user.get("illness", "Không")
+					# fullname = user.get("fullname", "N/A")
+					# age = user.get("age", 0)
+					# gender = user.get("gender", "Nam")
+					# height = user.get("height", 0)
+					# weight = user.get("weight", 0)
+					# illness = user.get("illness", "Không")
 					roleUser = user.get("role", "General")
 
 					self.root.destroy()
-					HomeScreen(name = nameUser, password = passwordUser,fullname = fullname, age = age, gender = gender, height = height, weight = weight, illness = illness ,  role = roleUser)
+					HomeScreen(name = nameUser,  role = roleUser)
 					return
 
 			self.label_message.config(text="Sai tài khoản hoặc mật khẩu!")

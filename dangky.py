@@ -104,31 +104,81 @@ class DangKy:
 				self.entry_password_re.delete(0, tk.END)
 				messagebox.showinfo("Thông báo", "Đăng kí tài khoản thành công!")
 
-	def save_data(self, filename="data/account.json"):
+	def save_data(self, filename_ac="data/account.json", filename_health = "data/health.json", filename_ex = "data/exercise.jon", filename_meal = "data/meal.json"):
 		try:
-			with open(filename, "r", encoding="utf-8") as f:
-				data = json.load(f)
+			with open(filename_ac, "r", encoding="utf-8") as f:
+				data_ac = json.load(f)
 		except FileNotFoundError:
 			print("Lỗi: Không tìm thấy file")
-			data = []
+			data_ac = []
+
+		try:
+			with open(filename_health, "r", encoding="utf-8") as file:
+				data_health = json.load(file)
+		except FileNotFoundError:
+			print("Không tìm thấy file")
+			data_health = []
+
+		try:
+			with open(filename_ex, "r", encoding="utf-8") as file:
+				data_ex = json.load(file)
+		except FileNotFoundError:
+			print("Không tìm thấy file")
+			data_ex = []
+		
+		try:
+			with open(filename_meal, "r", encoding="utf-8") as file:
+				data_meal = json.load(file)
+		except FileNotFoundError:
+			print("Không tìm thấy file")
+			data_meal = []
+
 		name = self.entry_username.get()
 		pas = self.entry_password.get()
 		pas_has = hashlib.sha256(pas.encode()).hexdigest()
 
-		user = {
+		user_ac = {
 			"username": name,
         	"password": pas_has,
-        	"fullname": " ",
+        	"role": "General"
+		}
+		user_health = {
+			"username": name,
+        	"fullname": "",
         	"age": "0",
         	"gender": "nam",
         	"height": "0",
         	"weight": "0",
-        	"illness": " ",
-        	"role": "General"
+        	"illness": "",
+			"activitylevel":"",
+    		"bmi": "",
+    		"calories": "",
+			"goal": "",
+			"calories_goal":""
 		}
-		data.append(user)
-		with open(filename, "w", encoding="utf-8") as file:
-			json.dump(data, file, indent=4, ensure_ascii=False)
+		user_ex = {
+			"username": name,
+			"exercises":[]
+		}
+		user_meal ={
+			"username": name,
+			"exercises":[]
+		}
+		data_ac.append(user_ac)
+		data_health.append(user_health)
+		data_ex.append(user_ex)
+		data_meal.append(user_meal)
+		with open(filename_ac, "w", encoding="utf-8") as file:
+			json.dump(data_ac, file, indent=4, ensure_ascii=False)
+
+		with open(filename_health, "w", encoding="utf-8") as file:
+			json.dump(data_health, file, indent=4, ensure_ascii=False)
+
+		with open(filename_ex, "w", encoding="utf-8") as file:
+			json.dump(data_ex, file, indent=4, ensure_ascii=False)
+
+		with open(filename_meal, "w", encoding="utf-8") as file:
+			json.dump(data_meal, file, indent=4, ensure_ascii=False)
 
 	def on_click_dang_nhap(self):
 		self.root.destroy()

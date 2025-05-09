@@ -2,21 +2,21 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import customtkinter as ctk 
 import json
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 
 
 class HomeScreen:
-    def __init__(self,name, password,fullname, age , gender, height, weight , illness,  role):
+    def __init__(self,name,  role):
         self.root = tk.Tk()
 
         self.name = name
-        self.password = password
-        self.fullname = fullname
-        self.age = age
-        self.gender = gender
-        self.height = height
-        self.weight = weight
-        self.illness = illness
+        # self.password = password
+        # self.fullname = fullname
+        # self.age = age
+        # self.gender = gender
+        # self.height = height
+        # self.weight = weight
+        # self.illness = illness
         self.role = role
 
         self.root.title("MyHealthLog")
@@ -54,8 +54,8 @@ class HomeScreen:
             self.list_user_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
         #button đăng xuất
-        self.dang_xuat_btn = tk.Button(self.menu_frame,text="Đăng xuất",command=self.logout,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
-        self.dang_xuat_btn.pack(fill="x", pady=6, padx=5, ipady=8)
+        self.dang_xuat_btn = tk.Button(self.menu_frame,text="Đăng xuất",command=self.logout,bg="#0BBBB6",fg="red",font=("Segoe UI", 12, "bold"), bd=0,activebackground="#0BBBB6", activeforeground="white")
+        self.dang_xuat_btn.pack(fill="x", pady=5, padx=5, ipady=8)
 
         # ===== Nội dung mặc định =====
         self.label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Arial", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
@@ -68,16 +68,22 @@ class HomeScreen:
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
-    # Card chứa toàn bộ info
+        self.tai_khoan_btn.config(bg="#008080")
+        self.bmi_btn.config(bg="#40E0D0")
+        self.calo_btn.config(bg="#40E0D0")
+        self.list_user_btn.config(bg="#40E0D0")
+
+
+        # Card chứa toàn bộ info
         card_frame = tk.Frame(self.content_frame, bg='white', height=80, relief="groove", bd=2)
         card_frame.pack(side='top', fill='x', pady=10, padx=10)
         card_frame.pack_propagate(False)
 
-    # Frame chính chứa avatar + info
+        # Frame chính chứa avatar + info
         info_frame = tk.Frame(card_frame, bg="white")
         info_frame.pack(side='top', fill="both", expand=True)
 
-    # Avatar
+        # Avatar
         image_path = "Images/icon_user.png"
         img = Image.open(image_path)
         img = img.resize((50, 50))
@@ -85,19 +91,19 @@ class HomeScreen:
         self.image_label = tk.Label(info_frame, image=self.photo, bg="white")
         self.image_label.grid(column=0, row=0, rowspan=2, padx=5, pady=5)
 
-    # Thông tin: Tên
+        # Thông tin: Tên
         label1 = tk.Label(info_frame, text="Tên đăng nhập:", font=("Arial", 12, "bold"), bg='white', fg='black')
         label1.grid(row=0, column=1, sticky='w', padx=5)
         value1 = tk.Label(info_frame, text=self.name, font=("Arial", 12), bg="white", fg="#2c3e50")
         value1.grid(row=0, column=2, sticky='w', padx=5)
 
-    # Thông tin: Quyền
+        # Thông tin: Quyền
         label2 = tk.Label(info_frame, text="Chức vụ:", font=("Arial", 12, "bold"), bg='white', fg='black')
         label2.grid(row=1, column=1, sticky='w', padx=5)
         value2 = tk.Label(info_frame, text=self.role, font=("Arial", 12), bg="white", fg="#2c3e50")
         value2.grid(row=1, column=2, sticky='w', padx=5)
 
-    # Frame Thông tin cá nhân
+        # Frame Thông tin cá nhân
         thongtincanhan_frame = tk.Frame(self.content_frame, bg='white', relief="groove", bd=2)
         thongtincanhan_frame.pack(side='top', fill='both', expand=True, pady=10, padx=10)
 
@@ -117,7 +123,26 @@ class HomeScreen:
         img_minhhoa = tk.Frame(main_info_frame, bg='white')
         img_minhhoa.grid(row=0, column=1, padx=20, sticky='n')
 
-    # Helper function để tạo ô nhập liệu
+        tk.Label(thetrang_frame, text="Họ và tên", font=("Segoe UI", 12)).grid(column=0, row=0, columnspan=2, sticky="w")
+        self.fullname_entry = tk.Entry(thetrang_frame,font=("Segoe UI", 12), bg="white", fg="black", bd=1)
+        self.fullname_entry.grid(column=0, row=1, columnspan=2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # Helper function để tạo ô nhập liệu
         def create_input_field(parent, label_text, info):
             frame_item = tk.Frame(parent, bg='white')
             frame_item.pack(anchor='w', pady=5, fill='x')
@@ -223,16 +248,7 @@ class HomeScreen:
                 messagebox.showerror("Lỗi", f"Không thể đọc lại dữ liệu: {e}")
 
 
-        cancel_button = tk.Button(
-            button_frame,
-            text="Hủy",
-            font=("Arial", 12, "bold"),
-            bg="#e74c3c",
-            fg="white",
-            relief="flat",
-            padx=10,
-            command=cancel_changes
-        )
+        cancel_button = tk.Button(button_frame,text="Hủy",font=("Arial", 12, "bold"),bg="#e74c3c",fg="white",relief="flat",padx=10,command=cancel_changes)
         cancel_button.pack(side='right', padx=20, pady=5)
 
     def save_account_info(self):
@@ -261,6 +277,12 @@ class HomeScreen:
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
+        self.tai_khoan_btn.config(bg="#40E0D0")
+        self.bmi_btn.config(bg="#008080")
+        self.calo_btn.config(bg="#40E0D0")
+        self.list_user_btn.config(bg="#40E0D0")
+ 
+        
         try:
             weight = float(self.weight)
             height_cm = float(self.height)
@@ -289,13 +311,87 @@ class HomeScreen:
         #self.update_content("Tính chỉ số BMI")
 
     def show_calo(self):
+        self.tai_khoan_btn.config(bg="#40E0D0")
+        self.bmi_btn.config(bg="#40E0D0")
+        self.calo_btn.config(bg="#008080")
+        self.list_user_btn.config(bg="#40E0D0")
+ 
+        
         self.update_content("Tính lượng calo cần thiết")
 
     def show_listUser(self):
-        self.update_content("list user")
+        self.tai_khoan_btn.config(bg="#40E0D0")
+        self.bmi_btn.config(bg="#40E0D0")
+        self.calo_btn.config(bg="#40E0D0")
+        self.list_user_btn.config(bg="#008080")
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+
+        # Tiêu đề
+        self.title_list = tk.Label(self.content_frame, text="Danh sách người dùng", font=("Segoe UI", 15, "bold"))
+        self.title_list.grid(column=0, row=0, columnspan=4, pady=10)
+
+        columns = ["stt", "user", "fullname", "age", "gender", "height", "weight", "illness", "role"]
+        self.list_user = ttk.Treeview(self.content_frame, columns=columns, show="headings", height=10)
+        self.list_user.grid(column=0, row=1, columnspan=4, sticky="snew", pady=5, padx=5)
+
+
+        self.list_user.heading("stt", text="Số thứ tự")
+        self.list_user.heading("user", text="Tên đăng nhập")
+        self.list_user.heading("fullname", text="Họ và tên")
+        self.list_user.heading("age", text="Tuổi")
+        self.list_user.heading("gender", text="Giới tính")
+        self.list_user.heading("height", text="Chiều cao")
+        self.list_user.heading("weight", text="Cân nặng")
+        self.list_user.heading("illness", text="Bệnh lý")
+        self.list_user.heading("role", text="Quyền truy cập")
+
+        self.list_user.column("stt", width=80)
+        self.list_user.column("user", width=150)
+        self.list_user.column("fullname", width=200)
+        self.list_user.column("age", width=80)
+        self.list_user.column("gender", width=100)
+        self.list_user.column("height", width=100)
+        self.list_user.column("weight", width=100)
+        self.list_user.column("illness", width=200)
+        self.list_user.column("role", width=120)
+
+
+        try:
+            with open("data/account.json", "r", encoding="utf-8") as file:
+                self.user_data = json.load(file)
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể đọc dữ liệu: {e}")
+            return
+        for stt, user in enumerate(self.user_data):
+            self.list_user.insert("", tk.END, values=(
+                stt + 1,
+                user.get("username", ""),
+                user.get("fullname", ""),
+                user.get("age", ""),
+                user.get("gender", ""),
+                user.get("height", ""),
+                user.get("weight", ""),
+                user.get("illness", ""),
+                user.get("role", "")
+            ))
+
+
+        # Nút Sửa và Xoá (tùy chọn)
+        self.edit_btn = tk.Button(self.content_frame, text="Sửa", bg="#3498db", fg="white", width=10)
+        self.edit_btn.grid(column=1, row=2, pady=10)
+
+        self.delete_btn = tk.Button(self.content_frame, text="Xoá", bg="#e74c3c", fg="white", width=10)
+        self.delete_btn.grid(column=2, row=2, pady=10)
+
 
 
     def logout(self):
+        self.tai_khoan_btn.config(bg="#40E0D0")
+        self.bmi_btn.config(bg="#40E0D0")
+        self.calo_btn.config(bg="#40E0D0")
+        self.list_user_btn.config(bg="#40E0D0")
+
         from main import LoginApp
         check = messagebox.askyesno("Xác nhận", "Bạn có chắc chắn muốn đăng xuất?")
         if check:
