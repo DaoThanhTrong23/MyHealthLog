@@ -154,6 +154,7 @@ class DangKy:
     		"bmi": "",
     		"calories": "",
 			"goal": "",
+			"weight_goal": "",
 			"calories_goal":""
 		}
 		user_ex = {

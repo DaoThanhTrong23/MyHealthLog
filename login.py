@@ -72,35 +72,39 @@ class LoginApp:
 		password = self.entry_password.get()
 
 		password_has = 	hashlib.sha256(password.encode()).hexdigest()
-		try:
-			with open("data/account.json", "r", encoding="utf-8") as f:
-				data = json.load(f)
+		if not username or not password:
+			messagebox.showerror("Lỗi", "Vui lòng nhập đầy đủ thông tin")
+			return
+		else:
+			try:
+				with open("data/account.json", "r", encoding="utf-8") as f:
+					data = json.load(f)
 
-			for user in data:
-				if user["username"] == username and user["password"] == password_has:
+				for user in data:
+					if user["username"] == username and user["password"] == password_has:
 
-					nameUser = user.get("username", "N/A")
-					passwordUser = user.get("password", "N/A")
-					# fullname = user.get("fullname", "N/A")
-					# age = user.get("age", 0)
-					# gender = user.get("gender", "Nam")
-					# height = user.get("height", 0)
-					# weight = user.get("weight", 0)
-					# illness = user.get("illness", "Không")
-					roleUser = user.get("role", "General")
+						nameUser = user.get("username", "N/A")
+						passwordUser = user.get("password", "N/A")
+						# fullname = user.get("fullname", "N/A")
+						# age = user.get("age", 0)
+						# gender = user.get("gender", "Nam")
+						# height = user.get("height", 0)
+						# weight = user.get("weight", 0)
+						# illness = user.get("illness", "Không")
+						roleUser = user.get("role", "General")
 
-					self.root.destroy()
-					HomeScreen(name = nameUser,  role = roleUser)
-					return
+						self.root.destroy()
+						HomeScreen(name = nameUser,  role = roleUser)
+						return
 
-			self.label_message.config(text="Sai tài khoản hoặc mật khẩu!")
+				self.label_message.config(text="Sai tài khoản hoặc mật khẩu!")
 
-		except FileNotFoundError:
-			self.label_message.config(text="Không tìm thấy file tài khoản!")
-		except json.JSONDecodeError:
-			self.label_message.config(text="Lỗi định dạng JSON!")
-		except Exception as e:
-			self.label_message.config(text=f"Lỗi: {e}")
+			except FileNotFoundError:
+				self.label_message.config(text="Không tìm thấy file tài khoản!")
+			except json.JSONDecodeError:
+				self.label_message.config(text="Lỗi định dạng JSON!")
+			except Exception as e:
+				self.label_message.config(text=f"Lỗi: {e}")
 	def on_click_dang_ki(self):
 		self.root.destroy()
 		DangKy()
