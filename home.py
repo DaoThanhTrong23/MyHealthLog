@@ -127,6 +127,23 @@ class HomeScreen:
         self.fullname_entry = tk.Entry(thetrang_frame,font=("Segoe UI", 12), bg="white", fg="black", bd=1)
         self.fullname_entry.grid(column=0, row=1, columnspan=2)
 
+        tk.Label(thetrang_frame, text="Tuổi", font=("Segoe UI", 12)).grid(column=0, row=2, columnspan=2, sticky="w")
+        self.fullname_entry = tk.Entry(thetrang_frame,font=("Segoe UI", 12), bg="white", fg="black", bd=1)
+        self.fullname_entry.grid(column=0, row=3, columnspan=2)
+
+        tk.Label(thetrang_frame, text="Giới tính", font=("Segoe UI", 12)).grid(column=0, row=4, columnspan=2, sticky="w")
+        self.gioitinh = tk.StringVar(value="Nam")
+        gioitinh_btn = tk.Radiobutton(thetrang_frame, text="Nam", variable= self.gioitinh, value="Nam")
+        gioitinh_btn.grid(column=0, row=5)
+        gioitinh_btn = tk.Radiobutton(thetrang_frame, text="Nữ", variable= self.gioitinh, value="Nữ")
+        gioitinh_btn.grid(column=1, row=5)
+         
+        tk.Label(thetrang_frame, text="Chiều cao (cm)").grid(column=0, row=6, columnspan=2)
+        tk.Label(thetrang_frame, text="Cân nặng (kg)").grid(column=0, row=8, columnspan=2)
+        tk.Label(thetrang_frame, text="Bệnh lý").grid(column=0, row=10, columnspan=2)
+        tk.Label(thetrang_frame, text="Cường độ luyện tập").grid(column=0, row=12, columnspan=2)
+        self.activitylevel = tk.StringVar()
+        
 
 
 
