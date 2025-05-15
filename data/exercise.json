@@ -1,6 +1,19 @@
 [
     {
         "username": "trong",
-        "exercises": []
+        "exercises": [
+            {
+                "date": "2025-05-15",
+                "exercise_type": "Tập gym",
+                "duration": 111.0,
+                "calories": 643.8
+            },
+            {
+                "date": "2025-05-15",
+                "exercise_type": "Đi bộ",
+                "duration": 12.0,
+                "calories": 44.08
+            }
+        ]
     }
 ]
