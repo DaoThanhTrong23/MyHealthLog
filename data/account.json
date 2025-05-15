@@ -1,24 +1,7 @@
 [
     {
         "username": "trong",
-        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-        "fullname": " ",
-        "age": "0",
-        "gender": "nam",
-        "height": "0",
-        "weight": "0",
-        "illness": " ",
-        "role": "General"
-    },
-    {
-        "username": "meo",
         "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-        "fullname": " Trần Thị Mèo",
-        "age": "20",
-        "gender": "nữ",
-        "height": "160",
-        "weight": "53",
-        "illness": " ",
         "role": "Manager"
     }
 ]

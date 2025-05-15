@@ -104,31 +104,31 @@ class DangKy:
 				self.entry_password_re.delete(0, tk.END)
 				messagebox.showinfo("Thông báo", "Đăng kí tài khoản thành công!")
 
-	def save_data(self, filename_ac="data/account.json", filename_health = "data/health.json", filename_ex = "data/exercise.jon", filename_meal = "data/meal.json"):
+	def save_data(self):
 		try:
-			with open(filename_ac, "r", encoding="utf-8") as f:
-				data_ac = json.load(f)
+			with open("data/account.json", "r", encoding="utf-8") as file1:
+				data_ac = json.load(file1)
 		except FileNotFoundError:
 			print("Lỗi: Không tìm thấy file")
 			data_ac = []
 
 		try:
-			with open(filename_health, "r", encoding="utf-8") as file:
-				data_health = json.load(file)
+			with open("data/health.json", "r", encoding="utf-8") as file2:
+				data_health = json.load(file2)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
 			data_health = []
 
 		try:
-			with open(filename_ex, "r", encoding="utf-8") as file:
-				data_ex = json.load(file)
+			with open("data/exercise.json", "r", encoding="utf-8") as file3:
+				data_ex = json.load(file3)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
 			data_ex = []
 		
 		try:
-			with open(filename_meal, "r", encoding="utf-8") as file:
-				data_meal = json.load(file)
+			with open("data/meal.json", "r", encoding="utf-8") as file4:
+				data_meal = json.load(file4)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
 			data_meal = []
@@ -150,12 +150,8 @@ class DangKy:
         	"height": "0",
         	"weight": "0",
         	"illness": "",
-			"activitylevel":"",
-    		"bmi": "",
-    		"calories": "",
+			"activitylevel":"1.2",
 			"goal": "",
-			"weight_goal": "",
-			"calories_goal":""
 		}
 		user_ex = {
 			"username": name,
@@ -163,23 +159,23 @@ class DangKy:
 		}
 		user_meal ={
 			"username": name,
-			"exercises":[]
+			"meals":[]
 		}
 		data_ac.append(user_ac)
 		data_health.append(user_health)
 		data_ex.append(user_ex)
 		data_meal.append(user_meal)
-		with open(filename_ac, "w", encoding="utf-8") as file:
-			json.dump(data_ac, file, indent=4, ensure_ascii=False)
+		with open("data/account.json", "w", encoding="utf-8") as file1:
+			json.dump(data_ac, file1, indent=4, ensure_ascii=False)
 
-		with open(filename_health, "w", encoding="utf-8") as file:
-			json.dump(data_health, file, indent=4, ensure_ascii=False)
+		with open("data/health.json", "w", encoding="utf-8") as file2:
+			json.dump(data_health, file2, indent=4, ensure_ascii=False)
 
-		with open(filename_ex, "w", encoding="utf-8") as file:
-			json.dump(data_ex, file, indent=4, ensure_ascii=False)
+		with open("data/exercise.json", "w", encoding="utf-8") as file3:
+			json.dump(data_ex, file3, indent=4, ensure_ascii=False)
 
-		with open(filename_meal, "w", encoding="utf-8") as file:
-			json.dump(data_meal, file, indent=4, ensure_ascii=False)
+		with open("data/meal.json", "w", encoding="utf-8") as file4:
+			json.dump(data_meal, file4, indent=4, ensure_ascii=False)
 
 	def on_click_dang_nhap(self):
 		self.root.destroy()

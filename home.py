@@ -10,15 +10,6 @@ class HomeScreen:
         self.root = tk.Tk()
         self.name = name
         self.role = role
-        # self.password = password
-        # self.fullname = fullname
-        # self.age = age
-        # self.gender = gender
-        # self.height = height
-        # self.weight = weight
-        # self.illness = illness
-        
-
         self.root.title("MyHealthLog")
         self.root.geometry("1200x800")
         self.root.config(bg="#ecf0f1")
@@ -31,7 +22,6 @@ class HomeScreen:
         self.content_frame = tk.Frame(self.root, bg="#ecf0f1")
         self.content_frame.pack(side="right", fill="both", expand=True)
 
-
         #title menu
         title = tk.Label(self.menu_frame, text="Menu", font=("Segoe UI", 20, "bold"), bg="#0BBBB6")
         title.pack(pady=20)
@@ -41,12 +31,12 @@ class HomeScreen:
         self.tai_khoan_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
         #Button Chỉ số BMI
-        self.bmi_btn = tk.Button(self.menu_frame,text="Chỉ số BMI",command=self.show_bmi,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
-        self.bmi_btn.pack(fill="x", pady=6, padx=5, ipady=8)
+        self.luyen_tap_btn = tk.Button(self.menu_frame,text="Luyện tập",command=self.show_luyen_tap,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        self.luyen_tap_btn.pack(fill="x", pady=6, padx=5, ipady=8)
         
         #Button Tính calo
-        self.calo_btn = tk.Button(self.menu_frame,text="Tính calo",command=self.show_calo,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
-        self.calo_btn.pack(fill="x", pady=6, padx=5, ipady=8)
+        self.dinh_duong_btn = tk.Button(self.menu_frame,text="Dinh dưỡng",command=self.show_dinh_duong,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        self.dinh_duong_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
         #Button Danh sách user
         if role == "Manager":
@@ -55,25 +45,61 @@ class HomeScreen:
 
         #button đăng xuất
         self.dang_xuat_btn = tk.Button(self.menu_frame,text="Đăng xuất",command=self.logout,bg="#0BBBB6",fg="red",font=("Segoe UI", 12, "bold"), bd=0,activebackground="#0BBBB6", activeforeground="white")
-        self.dang_xuat_btn.pack(fill="x", pady=5, padx=5, ipady=8)
+        self.dang_xuat_btn.pack(fill="x", side='bottom', pady=20, padx=5, ipady=8)
 
         # ===== Nội dung mặc định =====
-        self.label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Arial", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
-        self.label_content.pack(pady=30)
+        label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Arial", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
+        label_content.pack(pady=30)
+        image_path = "Images/logo1.png"
+        img = Image.open(image_path)
+        img = img.resize((300, 300))
+        photo = ImageTk.PhotoImage(img)
+        image_label = tk.Label(self.content_frame, image=photo, bg=None)
+        image_label.pack(pady=30, anchor="center")
+        slogan = tk.Label(self.content_frame, text=" “Lắng nghe cơ thể - Chủ động thay đổi” ", font=("Segoe UI", 20, "italic", "bold"))
+        slogan.pack(pady=30, anchor="center")
+
+
 
         self.root.mainloop()
 
-    def show_account(self):  
+    def fill_data_update(self):
+        with open("data/health.json", "r", encoding="utf-8") as f:
+            data_accounts = json.load(f)
 
+        for acc in data_accounts:
+            if acc["username"] == self.name:
+                self.var_fullname.set(acc.get("fullname", ""))
+                self.var_age.set(acc.get("age", ""))
+                self.var_gender.set(acc.get("gender", "Nam"))
+                self.var_heigth.set(acc.get("height", ""))
+                self.var_weight.set(acc.get("weight", ""))
+                self.var_illness.set(acc.get("illness", ""))
+                self.var_activitylevel.set(acc.get("activitylevel", "1.2"))
+                self.var_goal.set(acc.get("goal", "Giữ cân"))
+                break
+    #_____________________________________________________________________TÀI KHOẢN__________________________________________________
+    def show_account(self): 
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
         self.tai_khoan_btn.config(bg="#008080")
-        self.bmi_btn.config(bg="#40E0D0")
-        self.calo_btn.config(bg="#40E0D0")
+        self.luyen_tap_btn.config(bg="#40E0D0")
+        self.dinh_duong_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
 
-
+        
+        self.var_fullname = tk.StringVar()
+        self.var_age = tk.StringVar()
+        self.var_gender = tk.StringVar(value="Nam")  # mặc định
+        self.var_heigth = tk.StringVar()
+        self.var_weight = tk.StringVar()
+        self.var_illness = tk.StringVar()
+        self.var_activitylevel = tk.StringVar(value="1.2")
+        self.var_goal = tk.StringVar()  
+        self.fill_data_update()
+        
+        
         # Card chứa toàn bộ info
         card_frame = tk.Frame(self.content_frame, bg='white', height=80, relief="groove", bd=2)
         card_frame.pack(side='top', fill='x', pady=10, padx=10)
@@ -108,54 +134,57 @@ class HomeScreen:
         thongtincanhan_frame.pack(side='top', fill='both', expand=True, pady=10, padx=10)
 
         title_thongtincanhan = tk.Label(thongtincanhan_frame,text="Thông tin thể trạng cá nhân",font=("Arial", 14, "bold"),bg='white',fg='#2c3e50')
-        title_thongtincanhan.pack(pady=10)
+        title_thongtincanhan.pack(pady=20)
 
         # Frame chứa thông tin và ảnh minh họa
         main_info_frame = tk.Frame(thongtincanhan_frame, bg='white')
-        main_info_frame.pack(fill='both', expand=True)
+        main_info_frame.pack(fill='both', expand=True, pady=20)
 
         main_info_frame.columnconfigure(0, weight=3)  # Chiếm 3 phần
         main_info_frame.columnconfigure(1, weight=2)  # Chiếm 2 phần
 
         self.thetrang_frame = tk.Frame(main_info_frame, bg='white')
-        self.thetrang_frame.grid(row=0, column=0, padx=10, sticky='n')
+        self.thetrang_frame.grid(row=0, column=0, padx=(10, 2), sticky='n')
 
         self.img_minhhoa = tk.Frame(main_info_frame, bg='white')
-        self.img_minhhoa.grid(row=0, column=1, padx=10, sticky='n')
+        self.img_minhhoa.grid(row=0, column=1, padx=(2, 10), sticky='n')
 
         tk.Label(self.thetrang_frame, text="Họ và tên",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=0, sticky="w",pady=(0, 10))
-        self.fullname_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12), bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.fullname_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_fullname, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
         self.fullname_entry.grid(column=1, row=0, sticky="ew", pady=(0, 10), ipady=2)
 
         tk.Label(self.thetrang_frame, text="Tuổi", font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=1, sticky="w", pady=(0, 10))
-        self.age_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12), bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.age_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_age, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
         self.age_entry.grid(column=1, row=1, sticky="ew", pady=(0, 10), ipady=2)
+        #self.age_entry.bind("<KeyRelease>", self.update_gender_image)
+        self.age_entry.bind("<KeyRelease>", self.tinh_bmi_calo_gioitingimg_event)
 
         tk.Label(self.thetrang_frame, text="Giới tính", font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=2, sticky="w", pady=(0, 10))
-        self.gender = tk.StringVar(value="Nam")
+        # self.gender = tk.StringVar(value="Nam")
+        self.gender = self.var_gender
         gender_btn = tk.Radiobutton(self.thetrang_frame, text="Nam", variable= self.gender,font=("Segoe UI", 12), value="Nam", bg="white", fg="black")
         gender_btn.grid(column=1, row=2, sticky="w", pady=(0, 10))
         gender_btn = tk.Radiobutton(self.thetrang_frame, text="Nữ", variable= self.gender,font=("Segoe UI", 12), value="Nữ", bg="white", fg="black")
         gender_btn.grid(column=1, row=2, sticky="e", pady=(0, 10))
+        gender_btn.bind("<Button-1>", self.tinh_bmi_calo_gioitingimg_event)
+        
          
         tk.Label(self.thetrang_frame, text="Chiều cao (cm)",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=3, sticky="w", pady=(0, 10))
-        self.heigth_entry = tk.Entry(self.thetrang_frame, font=("Segoe UI", 12), bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.heigth_entry = tk.Entry(self.thetrang_frame, font=("Segoe UI", 12),textvariable=self.var_heigth, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
         self.heigth_entry.grid(column=1, row=3,sticky="ew", pady=(0, 10), ipady=2)
+        self.heigth_entry.bind("<KeyRelease>", self.tinh_bmi_calo_gioitingimg_event)
 
         tk.Label(self.thetrang_frame, text="Cân nặng (kg)",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=4,sticky="w", pady=(0, 10))
-        self.weight_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12), bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.weight_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_weight, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
         self.weight_entry.grid(column=1, row=4,sticky="ew", pady=(0, 10), ipady=2)
-
-        self.weight_entry.bind("<KeyRelease>", self.tinh_bmi)
+        self.weight_entry.bind("<KeyRelease>", self.tinh_bmi_calo_gioitingimg_event)
 
         tk.Label(self.thetrang_frame, text="Bệnh lý",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=5,sticky="w", pady=(0, 10))
-        self.illness_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12), bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.illness_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_illness, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
         self.illness_entry.grid(column=1, row=5, sticky="ew", pady=(0, 10), ipady=2)
 
         tk.Label(self.thetrang_frame, text="Cường độ luyện tập",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=6,columnspan=2, sticky="w", pady=(0, 10))
 
-        self.activitylevel = tk.StringVar()
-        self.activitylevel.set("1.2") 
         self.activity_options = {
             "Ít vận động (Ngồi nhiều, ít tập)": "1.2",
             "Hoạt động nhẹ (Đi bộ nhẹ, tập nhẹ 1-3 ngày/tuần)": "1.375",
@@ -164,17 +193,14 @@ class HomeScreen:
             "Vận động rất nhiều 'Vận động viên' (Tập 2 buổi/ngày)": "1.9"
         }
 
-        self.activity_combobox = ttk.Combobox(
-            self.thetrang_frame,
-            textvariable=self.activitylevel,
-            values=list(self.activity_options.keys()),
-            font=("Segoe UI", 12),
-            state="readonly"
-        )
-        self.activity_combobox.set("Ít vận động (Ngồi nhiều, ít tập)") 
-        self.activity_combobox.grid(column=0, columnspan=2, row=7, sticky="ew", padx=5, pady=5, ipady=3)
+        default_desc = self.get_activity_description_from_value(self.var_activitylevel.get())
 
-        self.activity_combobox.bind("<<ComboboxSelected>>", self.tinh_calo)
+        self.activity_combobox = ttk.Combobox(self.thetrang_frame,values=list(self.activity_options.keys()),font=("Segoe UI", 10),state="readonly")
+        if default_desc:
+            self.activity_combobox.set(default_desc)
+
+        self.activity_combobox.grid(column=0, columnspan=2, row=7, sticky="ew", padx=5, pady=5, ipady=3)
+        self.activity_combobox.bind("<<ComboboxSelected>>", self.tinh_bmi_calo_gioitingimg_event)
 
         self.bmi_label = tk.Label(self.thetrang_frame, text="Chỉ số BMI hiện tại: ",font=("Segoe UI", 12), bg='white', fg='black')
         self.bmi_label.grid(column=0, columnspan=2, row=8, sticky="w", padx=5, pady=5)
@@ -185,27 +211,37 @@ class HomeScreen:
         self.goal_label = tk.Label(self.thetrang_frame, text="Mục tiêu: ",font=("Segoe UI", 12), bg='white', fg='black')
         self.goal_label.grid(column=0, row=10, sticky="w", padx=5, pady=5)
 
-        self.goal_calo = tk.StringVar(value="Giữ cân")
-        goal_calo_btn = tk.Radiobutton(self.thetrang_frame, text="Giảm cân", variable= self.goal_calo,font=("Segoe UI", 12), value="Giảm cân", bg="white", fg="black", command=self.show_entry_weight_goal)
+        self.goal_calo = self.var_goal
+        goal_calo_btn = tk.Radiobutton(self.thetrang_frame, text="Giảm cân", variable= self.goal_calo,font=("Segoe UI", 12), value="Giảm cân", bg="white", fg="black")
         goal_calo_btn.grid(column=0, row=11,columnspan=2, pady=(0, 10), sticky="w")
-        goal_calo_btn = tk.Radiobutton(self.thetrang_frame, text="Giữ cân", variable= self.goal_calo,font=("Segoe UI", 12), value="Giữ cân", bg="white", fg="black", command=self.show_entry_weight_goal)
+        goal_calo_btn = tk.Radiobutton(self.thetrang_frame, text="Giữ cân", variable= self.goal_calo,font=("Segoe UI", 12), value="Giữ cân", bg="white", fg="black")
         goal_calo_btn.grid(column=0, row=11,columnspan=2, pady=(0, 10))
-        goal_calo_btn = tk.Radiobutton(self.thetrang_frame, text="Tăng cân", variable= self.goal_calo,font=("Segoe UI", 12), value="Tăng cân", bg="white", fg="black",command=self.show_entry_weight_goal)
+        goal_calo_btn = tk.Radiobutton(self.thetrang_frame, text="Tăng cân", variable= self.goal_calo,font=("Segoe UI", 12), value="Tăng cân", bg="white", fg="black")
         goal_calo_btn.grid(column=0, row=11,columnspan=2, pady=(0, 10), sticky="e")
 
-        self.calo_goal_label = tk.Label(self.thetrang_frame, text="Mục tiêu Calories/ngày: ",font=("Segoe UI", 12, 'bold'), bg='white', fg='black')
-        self.calo_goal_label.grid(column=0, columnspan=2, row=13, sticky="w", padx=5, pady=5)
+        self.save_new_btn = tk.Button(self.thetrang_frame, text="Lưu thông tin", font=("Segoe UI", 12, 'bold'), bg="green", fg="black", bd=0, command=self.save_account_info)
+        self.save_new_btn.grid(column=0, row=12, sticky="w",pady=10, ipadx=2, ipady=2)
 
-        self.save_new_btn = tk.Button(self.thetrang_frame, text="Lưu thông tin", font=("Segoe UI", 12, 'bold'), bg="green", fg="black", bd=0)
-        self.save_new_btn.grid(column=0, row=14, sticky="w",pady=10, ipadx=2, ipady=2)
-
-        
         self.huy_btn = tk.Button(self.thetrang_frame, text="Hủy", font=("Segoe UI", 12, 'bold'),bg="red", fg="black", bd=0)
-        self.huy_btn.grid(column=1, row=14, sticky="e", pady=10, ipadx=2, ipady=2)
-    # def check_input(self):
+        self.huy_btn.grid(column=1, row=12, sticky="e", pady=10, ipadx=2, ipady=2)
 
+        self.tinh_bmi()
+        self.tinh_calo()
+        self.update_gender_image()
+
+    def get_activity_description_from_value(self, value):
+        for desc, val in self.activity_options.items():
+            if val == value:
+                return desc
+        return None
+
+    # def check_input(self)
+    def tinh_bmi_calo_gioitingimg_event(self, event):
+        self.tinh_bmi()
+        self.tinh_calo()
+        self.update_gender_image()
     #Hàm sự kiện tính BMI
-    def tinh_bmi(self, event):
+    def tinh_bmi(self):
         chieucao = float(self.heigth_entry.get())
         cannang = float(self.weight_entry.get())
 
@@ -231,9 +267,10 @@ class HomeScreen:
             chandoan = "Béo phì cấp độ 3"
 
         self.bmi_label.config(text=f" Chỉ số BMI hiện tại: {self.bmi} {chandoan}")
+        return self.bmi
 
     #Hàm sự kiện tính calo 1 ngày
-    def tinh_calo(self, event):
+    def tinh_calo(self):
         chieucao = float(self.heigth_entry.get())
         cannang = float(self.weight_entry.get())
         tuoi = float(self.age_entry.get())
@@ -249,28 +286,12 @@ class HomeScreen:
 
         self.tdee = bmr * hoatdong
 
-        self.calo_label.config(text=f'Calories cần thiết/ngày: {self.tdee}')
-
-    #Hàm sự kiện tính calo mục tiu
-    def tinh_calo_muc_tieu(self, event=None):
-        
-
-        
-    def show_entry_weight_goal(self):
-        if hasattr(self, 'weight_goal_label'):
-            self.weight_goal_label.destroy()
-        if hasattr(self, 'weight_goal'):
-            self.weight_goal.destroy()
-
-        if self.goal_calo.get() != "Giữ cân":
-            self.weight_goal_label = tk.Label(self.thetrang_frame, text="Cân nặng mong muốn",font=("Segoe UI", 12), bg='white', fg='black')
-            self.weight_goal_label.grid(column=0, row=12, sticky="w", pady=(0, 10))
-
-            self.weight_goal = tk.Entry(self.thetrang_frame, font=("Segoe UI", 12),bg='white', fg='black', insertbackground='black',relief='solid', bd=1)
-            self.weight_goal.grid(column=1, row=12, sticky="ew", pady=(0, 10), ipady=2)
+        self.calo_label.config(text=f'Calories cần thiết/ngày: {self.tdee} kcal')
+        return self.tdee
 
     def save_account_info(self):
-        with open("data/user_health.json", "r", encoding="utf-8") as f:
+
+        with open("data/health.json", "r", encoding="utf-8") as f:
             data_accounts = json.load(f)
 
         for acc in data_accounts:
@@ -281,186 +302,120 @@ class HomeScreen:
                 acc["height"] = self.heigth_entry.get()
                 acc["weight"] = self.weight_entry.get()
                 acc["illness"] = self.illness_entry.get()
-                acc["activitylevvel"] = self.activitylevel.get()
-                acc["bmi"]
-                acc["calories"]
-                acc["goal"]
-                acc["weight_goal"]
-                acc["calories_goal"]
+                selected_desc = self.activity_combobox.get()
+                acc["activitylevel"] = self.activity_options.get(selected_desc, "1.2")
+                acc["goal"] = self.goal_calo.get()
                 break
 
-
-        with open("data/user_health.json", "w", encoding="utf-8") as f:
+        with open("data/health.json", "w", encoding="utf-8") as f:
             json.dump(data_accounts, f, indent=4, ensure_ascii=False)
 
         messagebox.showinfo("Thông báo", "Cập nhật thông tin thành công!")
 
+    def update_gender_image(self):
+        gender = self.gender.get()
+        age = self.age_entry.get()
+        try:
+            tuoi = int(age)
+        except ValueError:
+            print("Tuổi không hợp lệ")
+            return
+        if tuoi < 10:
+            path = "Images/baby1.png"
+        elif tuoi < 18:
+            path = "Images/baby2.png"
+        elif gender == "Nam":
+            path = "Images/nam.png"
+        else:
+            path = "Images/nu.png"
+        try:
+            if hasattr(self, "anhminhhoa") and self.anhminhhoa is not None:
+                self.anhminhhoa.destroy()
+            img = Image.open(path)
+            img = img.resize((180, 400))
+            photo_gender = ImageTk.PhotoImage(img)
+            self.anhminhhoa = tk.Label(self.img_minhhoa, image=photo_gender, bg="white")
+            self.anhminhhoa.image = photo_gender
+            self.anhminhhoa.pack(pady=5, side="left")
+        except Exception as e:
+            print("Lỗi hình ảnh giới tính:", e)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        # Helper function để tạo ô nhập liệu
-        # def create_input_field(parent, label_text, info):
-        #     frame_item = tk.Frame(parent, bg='white')
-        #     frame_item.pack(anchor='w', pady=5, fill='x')
-        #     label = tk.Label(frame_item, text=label_text, font=("Arial", 11), bg='white', fg='black')
-        #     label.pack(side='left', padx=5)
-
-        #     entry_frame = tk.Frame(frame_item, bg='white')
-        #     entry_frame.pack(side='left', fill='x', expand=True, padx=5)
-        #     entry = tk.Entry(entry_frame, textvariable = info, font=("Arial", 12), bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
-        #     entry.pack(fill='both', expand=True, ipady=2, ipadx=2)
-        #     return entry
-    
-        # # Tạo các input field
-
-        # # Trước khi gọi create_input_field
-        # self.var_fullname = tk.StringVar(value=self.fullname)
-        # self.var_age = tk.StringVar(value=self.age)
-        # self.var_gender = tk.StringVar(value=self.gender)
-        # self.var_height = tk.StringVar(value=self.height)
-        # self.var_weight = tk.StringVar(value=self.weight)
-        # self.var_illness = tk.StringVar(value=self.illness)
-
-        # input_hoten = create_input_field(self.thetrang_frame, "Họ và tên:", self.var_fullname)
-        # input_tuoi = create_input_field(self.thetrang_frame, "Tuổi:", self.var_age)
-        # input_gender = create_input_field(self.thetrang_frame, "Giới tính:", self.var_gender)
-        # input_chieucao = create_input_field(self.thetrang_frame, "Chiều cao (cm):", self.var_height)
-        # input_cannang = create_input_field(self.thetrang_frame, "Cân nặng (kg):", self.var_weight)
-        # input_benhly = create_input_field(self.thetrang_frame, "Bệnh lý:", self.var_illness)
-    
-        # Hàm cập nhật hình ảnh theo giới tính
-        def update_gender_image(*args):
-            gender = self.gender.get().strip().lower()
-            age = self.age_entry.get().strip()
-
-            if not age.isdigit():
-                print("Tuổi không hợp lệ: phải là số nguyên dương")
-                return
-
-            tuoi = int(self.age_entry)
-
-            # Chọn hình ảnh theo giới tính và độ tuổi
-            if tuoi < 10:
-                path = "Images/baby1.png"
-            elif tuoi <18:
-                path = "Images/baby2.png"
-            elif gender== "nam":
-                path = "Images/nam.png"
-            else:
-                path = "Images/nu.png"      
-
-            try:
-                img = Image.open(path)
-                img = img.resize((100, 300))
-                photo_gender = ImageTk.PhotoImage(img)
-                image_label.config(image=photo_gender)
-                image_label.image = photo_gender
-            except Exception as e:
-                print("Lỗi hình ảnh giới tính:", e)
-
-        # Hiển thị ảnh ban đầu
-        image_label = tk.Label(self.img_minhhoa, bg='white')
-        image_label.pack(pady=10)
-        update_gender_image()
-      
-        #Save Ac và update ảnh
-        def save_account_and_updat_anh():
-            self.save_account_info()
-            update_gender_image()
-        # Frame chứa nút
-        button_frame = tk.Frame(self.thetrang_frame, bg='white')
-        button_frame.pack(side='bottom', fill='x', pady=10)
-
-        save_button = tk.Button(
-            button_frame,
-            text="Lưu",
-            font=("Arial", 12, "bold"),
-            bg="#1abc9c",
-            fg="white",
-            relief="flat",
-            padx=10,
-            command=save_account_and_updat_anh
-        )
-        save_button.pack(side='left', padx=20, pady=5)
-        
-
-        def cancel_changes():
-            try:
-                with open("data/account.json", "r") as file:
-                    data = json.load(file)
-
-                for account in data:
-                    if account["username"] == self.name:
-                        self.var_fullname.set(account.get("fullname", ""))
-                        self.var_age.set(str(account.get("age", "")))
-                        self.var_gender.set(account.get("gender", ""))
-                        self.var_height.set(str(account.get("height", "")))
-                        self.var_weight.set(str(account.get("weight", "")))
-                        self.var_illness.set(account.get("illness", ""))
-                        #messagebox.showinfo("Thông báo", "Đã khôi phục dữ liệu ban đầu.")
-                        update_gender_image()
-                        break
-            except Exception as e:
-                messagebox.showerror("Lỗi", f"Không thể đọc lại dữ liệu: {e}")
-
-
-        cancel_button = tk.Button(button_frame,text="Hủy",font=("Arial", 12, "bold"),bg="#e74c3c",fg="white",relief="flat",padx=10,command=cancel_changes)
-        cancel_button.pack(side='right', padx=20, pady=5)
-
-
-    def show_bmi(self):
-        # Xóa nội dung cũ
+    #__________________________________________________________LUYỆN TẬP______________________________________________________________________
+    def show_luyen_tap(self):
+    # Xóa nội dung cũ
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
         self.tai_khoan_btn.config(bg="#40E0D0")
-        self.bmi_btn.config(bg="#008080")
-        self.calo_btn.config(bg="#40E0D0")
+        self.luyen_tap_btn.config(bg="#008080")
+        self.dinh_duong_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
- 
-        
+
+        tk.Label(self.content_frame, text="Luyện tập", font=("Segoe UI", 14, "bold")).grid(column=0, row=0, columnspan=2, sticky='ew', pady=(10, 25))
+
+        # --- FRAME NHẬP ---
+        input_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
+        input_frame.grid(column=0, row=1, padx=5, pady=10, sticky="nsew")
+
+        tk.Label(input_frame, text="Loại bài tập:", bg="white", font=("Segoe UI", 12)).pack(pady=5)
+        self.exercise_options = ["Chạy bộ", "Đi bộ", "Đạp xe", "Tập gym", "Yoga", "Bơi lội", "Nhảy dây", "Khác"]
+        self.exercise_type_combobox = ttk.Combobox(input_frame, values=self.exercise_options, font=("Segoe UI", 12), state="readonly")
+        self.exercise_type_combobox.current(0)
+        self.exercise_type_combobox.pack(pady=5)
+        self.exercise_type_combobox.bind("<<ComboboxSelected>>", self.update_calo_estimate)
+
+        tk.Label(input_frame, text="Thời lượng (phút):", bg="white", font=("Segoe UI", 12)).pack(pady=5)
+        self.duration_entry = tk.Entry(input_frame, font=("Segoe UI", 12))
+        self.duration_entry.pack(pady=5)
+        self.duration_entry.bind("<KeyRelease>", self.update_calo_estimate)
+
+        # Calo ước tính
+        self.calo_label = tk.Label(input_frame, text="Calo ước tính: -", bg="white", font=("Segoe UI", 12, "italic"))
+        self.calo_label.pack(pady=10)
+
+        tk.Button(input_frame, text="Lưu bài tập", bg="#40E0D0", fg="black", font=("Segoe UI", 12)).pack(pady=10)
+
+        # --- FRAME LỊCH SỬ ---
+        history_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
+        history_frame.grid(column=1, row=1, padx=10, pady=10, sticky="nsew")
+
+        tk.Label(history_frame, text="Lịch sử buổi tập", bg="white", font=("Segoe UI", 13, "bold")).pack(pady=5)
+
+        columns = ("date", "type", "duration", "calories")
+        self.exercise_tree = ttk.Treeview(history_frame, columns=columns, show="headings")
+        self.exercise_tree.heading("date", text="Ngày")
+        self.exercise_tree.heading("type", text="Loại tập")
+        self.exercise_tree.heading("duration", text="Thời lượng (phút)")
+        self.exercise_tree.heading("calories", text="Calo")
+
+        self.exercise_tree.pack(fill="both", expand=True, padx=10, pady=5)
+
+        # Bảng MET mẫu
+        self.exercise_mets = {"Chạy bộ": 9.8, "Đi bộ": 3.8, "Đạp xe": 7.5, "Tập gym": 6.0,"Yoga": 2.5, "Bơi lội": 8.0, "Nhảy dây": 12.3,"Khác": 5.0}
+
+    def update_calo_estimate(self, event=None):
+        self.var_age = tk.StringVar()
+        self.var_gender = tk.StringVar(value="Nam")
+        self.var_heigth = tk.StringVar()
+        self.var_weight = tk.StringVar()
+        self.fill_data_update()
+
         try:
-            weight = float(self.weight)
-            height_cm = float(self.height)
-            height_m = height_cm / 100
+            exercise_type = self.exercise_type_combobox.get()
+            duration = float(self.duration_entry.get())
+            weight = float(self.var_weight.get()) 
+            met = self.exercise_mets.get(exercise_type, 5.0)
+            calories = round(met * weight * (duration / 60), 2)
+            self.calo_label.config(text=f"Calo ước tính: {calories} kcal")
+        except:
+            self.calo_label.config(text="Calo ước tính: -")
 
-            bmi = round(weight / (height_m ** 2), 2)
-
-        # Phân loại theo chỉ số BMI
-            if bmi < 18.5:
-                category = "Gầy"
-            elif 18.5 <= bmi < 24.9:
-                category = "Bình thường"
-            elif 25 <= bmi < 29.9:
-                category = "Thừa cân"
-            else:
-                category = "Béo phì"
-
-            messagebox.showinfo("Chỉ số BMI", f"BMI của bạn là: {bmi} ({category})")
-
-        except (ValueError, KeyError):
-            messagebox.showerror("Lỗi", "Không thể tính BMI do thiếu dữ liệu.")
-
-
-
-    #def show_bmi(self):
-        #self.update_content("Tính chỉ số BMI")
-
-    def show_calo(self):
+    #______________________________________________________________________Dinh dưỡng_________________________________________________________________
+    def show_dinh_duong(self):
         self.tai_khoan_btn.config(bg="#40E0D0")
-        self.bmi_btn.config(bg="#40E0D0")
-        self.calo_btn.config(bg="#008080")
+        self.luyen_tap_btn.config(bg="#40E0D0")
+        self.dinh_duong_btn.config(bg="#008080")
         self.list_user_btn.config(bg="#40E0D0")
  
         
@@ -468,8 +423,8 @@ class HomeScreen:
 
     def show_listUser(self):
         self.tai_khoan_btn.config(bg="#40E0D0")
-        self.bmi_btn.config(bg="#40E0D0")
-        self.calo_btn.config(bg="#40E0D0")
+        self.luyen_tap_btn.config(bg="#40E0D0")
+        self.dinh_duong_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#008080")
         for widget in self.content_frame.winfo_children():
             widget.destroy()
@@ -535,8 +490,8 @@ class HomeScreen:
 
     def logout(self):
         self.tai_khoan_btn.config(bg="#40E0D0")
-        self.bmi_btn.config(bg="#40E0D0")
-        self.calo_btn.config(bg="#40E0D0")
+        self.luyen_tap_btn.config(bg="#40E0D0")
+        self.dinh_duong_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
 
         from main import LoginApp

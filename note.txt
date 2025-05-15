@@ -60,3 +60,8 @@ Lưu trữ dữ liệu bằng file JSON:
   Dữ liệu người dùng được lưu trong file .json.
   Có thể thao tác CRUD: tạo, đọc, cập nhật, xoá thông tin.
 
+______
+
+
+Chưa chỉnh nút hủy
+chưa chỉnh đầu vào trang tài khoản
