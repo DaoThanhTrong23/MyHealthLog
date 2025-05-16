@@ -1,0 +1,497 @@
+[
+    {
+        "food": "banana",
+        "calories": 242.0,
+        "unit": "calories"
+    },
+    {
+        "food": "apple",
+        "calories": 287.0,
+        "unit": "calories"
+    },
+    {
+        "food": "orange",
+        "calories": 310.0,
+        "unit": "calories"
+    },
+    {
+        "food": "rice",
+        "calories": 303.0,
+        "unit": "calories"
+    },
+    {
+        "food": "chicken breast",
+        "calories": 322.0,
+        "unit": "calories"
+    },
+    {
+        "food": "beef steak",
+        "calories": 429.0,
+        "unit": "calories"
+    },
+    {
+        "food": "pork chop",
+        "calories": 378.0,
+        "unit": "calories"
+    },
+    {
+        "food": "salmon",
+        "calories": 299.0,
+        "unit": "calories"
+    },
+    {
+        "food": "egg",
+        "calories": 303.0,
+        "unit": "calories"
+    },
+    {
+        "food": "bread",
+        "calories": 288.0,
+        "unit": "calories"
+    },
+    {
+        "food": "milk",
+        "calories": 330.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cheese",
+        "calories": 429.0,
+        "unit": "calories"
+    },
+    {
+        "food": "yogurt",
+        "calories": 313.0,
+        "unit": "calories"
+    },
+    {
+        "food": "potato",
+        "calories": 331.0,
+        "unit": "calories"
+    },
+    {
+        "food": "carrot",
+        "calories": 240.0,
+        "unit": "calories"
+    },
+    {
+        "food": "tomato",
+        "calories": 217.0,
+        "unit": "calories"
+    },
+    {
+        "food": "broccoli",
+        "calories": 348.0,
+        "unit": "calories"
+    },
+    {
+        "food": "spinach",
+        "calories": 259.0,
+        "unit": "calories"
+    },
+    {
+        "food": "avocado",
+        "calories": 368.0,
+        "unit": "calories"
+    },
+    {
+        "food": "almonds",
+        "calories": 396.0,
+        "unit": "calories"
+    },
+    {
+        "food": "walnuts",
+        "calories": 248.0,
+        "unit": "calories"
+    },
+    {
+        "food": "peanut butter",
+        "calories": 292.0,
+        "unit": "calories"
+    },
+    {
+        "food": "oatmeal",
+        "calories": 285.0,
+        "unit": "calories"
+    },
+    {
+        "food": "pasta",
+        "calories": 487.0,
+        "unit": "calories"
+    },
+    {
+        "food": "pizza",
+        "calories": 411.0,
+        "unit": "calories"
+    },
+    {
+        "food": "hamburger",
+        "calories": 539.0,
+        "unit": "calories"
+    },
+    {
+        "food": "fried rice",
+        "calories": 359.0,
+        "unit": "calories"
+    },
+    {
+        "food": "noodles",
+        "calories": 483.0,
+        "unit": "calories"
+    },
+    {
+        "food": "tofu",
+        "calories": 250.0,
+        "unit": "calories"
+    },
+    {
+        "food": "lentils",
+        "calories": 308.0,
+        "unit": "calories"
+    },
+    {
+        "food": "chickpeas",
+        "calories": 356.0,
+        "unit": "calories"
+    },
+    {
+        "food": "black beans",
+        "calories": 323.0,
+        "unit": "calories"
+    },
+    {
+        "food": "green beans",
+        "calories": 153.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cucumber",
+        "calories": 154.0,
+        "unit": "calories"
+    },
+    {
+        "food": "onion",
+        "calories": 288.0,
+        "unit": "calories"
+    },
+    {
+        "food": "garlic",
+        "calories": 268.0,
+        "unit": "calories"
+    },
+    {
+        "food": "mushrooms",
+        "calories": 246.0,
+        "unit": "calories"
+    },
+    {
+        "food": "shrimp",
+        "calories": 355.0,
+        "unit": "calories"
+    },
+    {
+        "food": "crab",
+        "calories": 221.0,
+        "unit": "calories"
+    },
+    {
+        "food": "lobster",
+        "calories": 375.0,
+        "unit": "calories"
+    },
+    {
+        "food": "turkey",
+        "calories": 378.0,
+        "unit": "calories"
+    },
+    {
+        "food": "duck",
+        "calories": 515.0,
+        "unit": "calories"
+    },
+    {
+        "food": "bacon",
+        "calories": 462.0,
+        "unit": "calories"
+    },
+    {
+        "food": "sausage",
+        "calories": 556.0,
+        "unit": "calories"
+    },
+    {
+        "food": "butter",
+        "calories": 284.0,
+        "unit": "calories"
+    },
+    {
+        "food": "olive oil",
+        "calories": 369.0,
+        "unit": "calories"
+    },
+    {
+        "food": "sugar",
+        "calories": 335.0,
+        "unit": "calories"
+    },
+    {
+        "food": "honey",
+        "calories": 331.0,
+        "unit": "calories"
+    },
+    {
+        "food": "chocolate",
+        "calories": 316.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cake",
+        "calories": 409.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cookie",
+        "calories": 199.0,
+        "unit": "calories"
+    },
+    {
+        "food": "ice cream",
+        "calories": 472.0,
+        "unit": "calories"
+    },
+    {
+        "food": "coffee",
+        "calories": 274.0,
+        "unit": "calories"
+    },
+    {
+        "food": "tea",
+        "calories": 115.0,
+        "unit": "calories"
+    },
+    {
+        "food": "orange juice",
+        "calories": 311.0,
+        "unit": "calories"
+    },
+    {
+        "food": "apple juice",
+        "calories": 147.0,
+        "unit": "calories"
+    },
+    {
+        "food": "beer",
+        "calories": 417.0,
+        "unit": "calories"
+    },
+    {
+        "food": "wine",
+        "calories": 274.0,
+        "unit": "calories"
+    },
+    {
+        "food": "watermelon",
+        "calories": 189.0,
+        "unit": "calories"
+    },
+    {
+        "food": "grapes",
+        "calories": 291.0,
+        "unit": "calories"
+    },
+    {
+        "food": "pineapple",
+        "calories": 340.0,
+        "unit": "calories"
+    },
+    {
+        "food": "strawberry",
+        "calories": 287.0,
+        "unit": "calories"
+    },
+    {
+        "food": "blueberry",
+        "calories": 326.0,
+        "unit": "calories"
+    },
+    {
+        "food": "raspberry",
+        "calories": 452.0,
+        "unit": "calories"
+    },
+    {
+        "food": "peach",
+        "calories": 290.0,
+        "unit": "calories"
+    },
+    {
+        "food": "pear",
+        "calories": 267.0,
+        "unit": "calories"
+    },
+    {
+        "food": "plum",
+        "calories": 343.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cherry",
+        "calories": 365.0,
+        "unit": "calories"
+    },
+    {
+        "food": "corn",
+        "calories": 303.0,
+        "unit": "calories"
+    },
+    {
+        "food": "sweet potato",
+        "calories": 279.0,
+        "unit": "calories"
+    },
+    {
+        "food": "pumpkin",
+        "calories": 293.0,
+        "unit": "calories"
+    },
+    {
+        "food": "zucchini",
+        "calories": 234.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cauliflower",
+        "calories": 244.0,
+        "unit": "calories"
+    },
+    {
+        "food": "kale",
+        "calories": 269.0,
+        "unit": "calories"
+    },
+    {
+        "food": "lettuce",
+        "calories": 284.0,
+        "unit": "calories"
+    },
+    {
+        "food": "beetroot",
+        "calories": 286.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cabbage",
+        "calories": 379.0,
+        "unit": "calories"
+    },
+    {
+        "food": "radish",
+        "calories": 266.0,
+        "unit": "calories"
+    },
+    {
+        "food": "green peas",
+        "calories": 341.0,
+        "unit": "calories"
+    },
+    {
+        "food": "edamame",
+        "calories": 296.0,
+        "unit": "calories"
+    },
+    {
+        "food": "quinoa",
+        "calories": 337.0,
+        "unit": "calories"
+    },
+    {
+        "food": "chia seeds",
+        "calories": 338.0,
+        "unit": "calories"
+    },
+    {
+        "food": "flax seeds",
+        "calories": 300.0,
+        "unit": "calories"
+    },
+    {
+        "food": "coconut",
+        "calories": 243.0,
+        "unit": "calories"
+    },
+    {
+        "food": "almond milk",
+        "calories": 179.0,
+        "unit": "calories"
+    },
+    {
+        "food": "soy milk",
+        "calories": 147.0,
+        "unit": "calories"
+    },
+    {
+        "food": "cream",
+        "calories": 442.0,
+        "unit": "calories"
+    },
+    {
+        "food": "mayonnaise",
+        "calories": 418.0,
+        "unit": "calories"
+    },
+    {
+        "food": "ketchup",
+        "calories": 372.0,
+        "unit": "calories"
+    },
+    {
+        "food": "mustard",
+        "calories": 357.0,
+        "unit": "calories"
+    },
+    {
+        "food": "salsa",
+        "calories": 152.0,
+        "unit": "calories"
+    },
+    {
+        "food": "soup",
+        "calories": 422.0,
+        "unit": "calories"
+    },
+    {
+        "food": "sandwich",
+        "calories": 527.0,
+        "unit": "calories"
+    },
+    {
+        "food": "fried chicken",
+        "calories": 515.0,
+        "unit": "calories"
+    },
+    {
+        "food": "meatball",
+        "calories": 142.0,
+        "unit": "calories"
+    },
+    {
+        "food": "fish",
+        "calories": 306.0,
+        "unit": "calories"
+    },
+    {
+        "food": "sushi",
+        "calories": 250.0,
+        "unit": "calories"
+    },
+    {
+        "food": "ramen",
+        "calories": 358.0,
+        "unit": "calories"
+    },
+    {
+        "food": "dumplings",
+        "calories": 475.0,
+        "unit": "calories"
+    }
+]

@@ -40,14 +40,14 @@ class LoginApp:
 		self.label_username = tk.Label(self.root, text="Tên đăng nhập:", font=("Segoe UI",12))
 		self.label_username.grid(column=0, row=2, columnspan=2, padx=30, sticky='w')
 		self.entry_username = tk.Entry(self.root,width=30, font=("Segoe UI", 12), bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
-		self.entry_username.grid(column=0, row=3, columnspan=2, pady=(0, 10), ipady=5, padx=30)
+		self.entry_username.grid(column=0, row=3, columnspan=2, pady=(0, 10), ipady=2, padx=30)
 		
 
 		# Nhãn và ô nhập mật khẩu
 		self.label_password = tk.Label(self.root, text="Mật khẩu:", font=("Segoe UI", 12))
 		self.label_password.grid(column=0, row=4, columnspan=2, padx=30, sticky='w')
 		self.entry_password = tk.Entry(self.root,width=30,font=("Segoe UI", 12), show="*", bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
-		self.entry_password.grid(column=0, row=5, columnspan=2, pady=(0, 5),ipady=5, padx=30)
+		self.entry_password.grid(column=0, row=5, columnspan=2, pady=(0, 5),ipady=2, padx=30)
 
 		# Nhãn hiển thị thông báo
 		self.label_message = tk.Label(self.root, text="", fg="red")

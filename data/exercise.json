@@ -3,16 +3,16 @@
         "username": "trong",
         "exercises": [
             {
-                "date": "2025-05-15",
-                "exercise_type": "Tập gym",
-                "duration": 111.0,
-                "calories": 643.8
+                "date": "2025-05-16",
+                "exercise_type": "Chạy bộ",
+                "duration": 10.0,
+                "calories": 94.73
             },
             {
-                "date": "2025-05-15",
-                "exercise_type": "Đi bộ",
-                "duration": 12.0,
-                "calories": 44.08
+                "date": "2025-05-16",
+                "exercise_type": "Yoga",
+                "duration": 333.0,
+                "calories": 804.75
             }
         ]
     }

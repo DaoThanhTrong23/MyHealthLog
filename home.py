@@ -66,8 +66,13 @@ class HomeScreen:
         slogan.pack(pady=30, anchor="center")
 
 
-
+        self.icon()
         self.root.mainloop()
+
+    def icon(self):
+        ico = Image.open('Images/logo1.png')
+        photo = ImageTk.PhotoImage(ico)
+        self.root.wm_iconphoto(False, photo)
 
     def fill_data_update(self):
         with open("data/health.json", "r", encoding="utf-8") as f:
@@ -95,7 +100,6 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
 
-        
         self.var_fullname = tk.StringVar()
         self.var_age = tk.StringVar()
         self.var_gender = tk.StringVar(value="Nam")  # mặc định
@@ -140,6 +144,7 @@ class HomeScreen:
         thongtincanhan_frame = tk.Frame(self.content_frame, bg='white', relief="groove", bd=2)
         thongtincanhan_frame.pack(side='top', fill='both', expand=True, pady=10, padx=10)
 
+
         title_thongtincanhan = tk.Label(thongtincanhan_frame,text="Thông tin thể trạng cá nhân",font=("Arial", 14, "bold"),bg='white',fg='#2c3e50')
         title_thongtincanhan.pack(pady=20)
 
@@ -149,6 +154,10 @@ class HomeScreen:
 
         main_info_frame.columnconfigure(0, weight=3)  # Chiếm 3 phần
         main_info_frame.columnconfigure(1, weight=2)  # Chiếm 2 phần
+
+        main_info_frame.grid_rowconfigure(0, weight=1)
+        main_info_frame.grid_columnconfigure(0, weight=1)
+
 
         self.thetrang_frame = tk.Frame(main_info_frame, bg='white')
         self.thetrang_frame.grid(row=0, column=0, padx=(10, 2), sticky='n')
@@ -360,34 +369,46 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#40E0D0")
 
         self.list_user_btn.config(bg="#40E0D0")
-
+                                                              
         tk.Label(self.content_frame, text="Luyện tập", font=("Segoe UI", 14, "bold")).grid(column=0, row=0, columnspan=2, sticky='ew', pady=(10, 25))
-
+        self.content_frame.grid_rowconfigure(1, weight=1)
+        self.content_frame.grid_columnconfigure(1, weight=1)
+        # self.content_frame.columnconfigure(0, weight=2)  
+        # self.content_frame.columnconfigure(1, weight=3) 
         # --- FRAME NHẬP ---
-        input_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
-        input_frame.grid(column=0, row=1, padx=5, pady=10, sticky="nsew")
+        self.input_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
+        self.input_frame.grid(column=0, row=1, padx=5, pady=10, sticky="nsew")
 
-        tk.Label(input_frame, text="Loại bài tập:", bg="white", font=("Segoe UI", 12)).pack(pady=5)
+        tk.Label(self.input_frame, text="Thông tin tập luyện",font=("Segoe UI", 15),bg="white").pack(pady=15)
+        tk.Label(self.input_frame, text="Loại bài tập", bg="white", font=("Segoe UI", 12)).pack(pady=5, anchor='w')
         self.exercise_options = ["Chạy bộ", "Đi bộ", "Đạp xe", "Tập gym", "Yoga", "Bơi lội", "Nhảy dây", "Khác"]
-        self.exercise_type_combobox = ttk.Combobox(input_frame, values=self.exercise_options, font=("Segoe UI", 12), state="readonly")
+        self.exercise_type_combobox = ttk.Combobox(self.input_frame, values=self.exercise_options, font=("Segoe UI", 12), state="readonly")
         self.exercise_type_combobox.current(0)
-        self.exercise_type_combobox.pack(pady=5, padx=5)
-        self.exercise_type_combobox.bind("<<ComboboxSelected>>", self.update_calo_estimate)
+        self.exercise_type_combobox.pack(pady=5,padx=5, fill='x')
+        self.exercise_type_combobox.bind("<<ComboboxSelected>>", self.update_calo_estimate_event)
 
-        tk.Label(input_frame, text="Thời lượng (phút):", bg="white", font=("Segoe UI", 12)).pack(pady=5)
-        self.duration_entry= tk.Entry(input_frame, font=("Segoe UI", 12),bg='white', fg='black')
-        self.duration_entry.pack()
-        self.duration_entry.bind("<KeyRelease>", self.update_calo_estimate)
+
+        tk.Label(self.input_frame, text="Thời lượng (phút):", bg="white", font=("Segoe UI", 12)).pack(pady=5)
+        self.duration_entry= tk.Entry(self.input_frame, font=("Segoe UI", 12),bg='white', fg='black')
+        self.duration_entry.pack(padx=5,fill='x')
+        self.duration_entry.bind("<KeyRelease>", self.update_calo_estimate_event)
 
         # Calo ước tính
-        self.calo_label = tk.Label(input_frame, text="Calo ước tính: -", bg="white", font=("Segoe UI", 12, "italic"))
+        self.calo_label = tk.Label(self.input_frame, text="Calo ước tính: -", bg="white", font=("Segoe UI", 12, "italic"))
         self.calo_label.pack(pady=10, padx=5)
 
-        tk.Button(input_frame, text="Lưu bài tập", bg="#40E0D0", fg="black", font=("Segoe UI", 12), command=self.save_data_exercise).pack(pady=10)
+        tk.Button(self.input_frame, text="Lưu thông tin", bg="green", fg="black", font=("Segoe UI", 12), command=self.save_data_exercise).pack(pady=10, padx=5, fill='x', ipady=2)
+        
+        tk.Button(self.input_frame, text="Thay đổi",bg="yellow",fg="black", font=("Segoe UI", 12), command=self.update_selected_exercise).pack(pady=5, fill='x', padx=5, ipady=2)
+        tk.Button(self.input_frame, text="Xóa",bg="red", fg="black", font=("Segoe UI", 12), command=self.delete_selected_exercise).pack(pady=5, fill='x', padx=5, ipady=2)
+
+        huy = tk.Button(self.input_frame, text="Hủy", bg="white", bd=0, fg="red",font=("Segoe UI", 12), command=self.on_click_huy_them)
+        huy.pack(pady=10)
 
         # --- FRAME LỊCH SỬ ---
         history_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
         history_frame.grid(column=1, row=1, padx=10, pady=10, sticky="nsew")
+        
 
         tk.Label(history_frame, text="Lịch sử buổi tập", bg="white", font=("Segoe UI", 13, "bold")).pack(pady=5)
 
@@ -410,19 +431,18 @@ class HomeScreen:
                     self.exercise_tree.insert("", tk.END, values=(ex.get("date",""),ex.get("exercise_type",""), ex.get("duration",""), ex.get("calories","") ))
 
         self.exercise_tree.pack(fill="both", expand=True, padx=10, pady=5)
+        self.exercise_tree.bind("<<TreeviewSelect>>", self.on_exercise_select)
+        self.selected_exercise_index = None 
 
-        # self.exercise_tree.bind("<<TreeviewSelect>>", self.on_exercise_select)
-        # self.selected_exercise_index = None 
-
-
-        # Bảng MET mẫu
         self.exercise_mets = {"Chạy bộ": 9.8, "Đi bộ": 3.8, "Đạp xe": 7.5, "Tập gym": 6.0,"Yoga": 2.5, "Bơi lội": 8.0, "Nhảy dây": 12.3,"Khác": 5.0}
 
-        # tk.Button(history_frame, text="Sửa bài tập", command=self.update_selected_exercise).pack(pady=2)
-        # tk.Button(history_frame, text="Xóa bài tập", command=self.delete_selected_exercise).pack(pady=2)
+    def on_click_huy_them(self):
+        self.duration_entry.delete(0, tk.END)
+        self.update_calo_estimate()
 
-
-    def update_calo_estimate(self, event=None):
+    def update_calo_estimate_event(self, event=None):
+        self.update_calo_estimate()
+    def update_calo_estimate(self):
         try:
             exercise_type = self.exercise_type_combobox.get()
             duration = float(self.duration_entry.get())
@@ -434,6 +454,10 @@ class HomeScreen:
             self.calo_label.config(text="Calo ước tính: -")
 
     def save_data_exercise(self):
+        if not self.duration_entry.get():
+            messagebox.showerror("Lỗi", "Vui lòng điền đầy đủ thông tin")
+            return
+        
         try:
             exercise_type = self.exercise_type_combobox.get()
             duration = float(self.duration_entry.get())
@@ -464,111 +488,128 @@ class HomeScreen:
                 json.dump(data, f, ensure_ascii=False, indent=4)
                 
             messagebox.showinfo("Thành công", "Đã lưu bài tập.")
+            self.show_luyen_tap()
 
         except ValueError:
             messagebox.showerror("Lỗi", "Vui lòng nhập đúng định dạng số.")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể lưu dữ liệu: {str(e)}")
 
-    # def on_exercise_select(self, event=None):
-    #     selected = self.exercise_tree.selection()
-    #     if selected:
-    #         item = self.exercise_tree.item(selected[0])
-    #         values = item["values"]
-    #         date, exercise_type, duration, calories = values
-    #         self.exercise_type_combobox.set(exercise_type)
-    #         self.duration_entry.delete(0, tk.END)
-    #         self.duration_entry.insert(0, duration)
-    #         self.calo_label.config(text=f"Calo ước tính: {calories} kcal")
+    def on_exercise_select(self, event=None):
+        selected = self.exercise_tree.selection()
+        if selected:
+            item = self.exercise_tree.item(selected[0])
+            values = item["values"]
+            date, exercise_type, duration, calories = values
+            self.exercise_type_combobox.set(exercise_type)
+            self.duration_entry.delete(0, tk.END)
+            self.duration_entry.insert(0, duration)
+            self.calo_label.config(text=f"Calo ước tính: {calories} kcal")
 
-    #         with open("data/exercise.json", "r", encoding="utf-8") as file:
-    #             data = json.load(file)
-    #         for user in data:
-    #             if user["username"] == self.name:
-    #                 for i, ex in enumerate(user["exercises"]):
-    #                     if (ex["date"], ex["exercise_type"], str(ex["duration"]), str(ex["calories"])) == tuple(map(str, values)):
-    #                         self.selected_exercise_index = i
-    #                         break
+    def delete_selected_exercise(self):
+        selected = self.exercise_tree.selection()
+        if selected:
+            item = self.exercise_tree.item(selected[0])
+            values = item["values"]
+            date, exercise_type, duration, calories = values
+            
+            self.exercise_type_combobox.set(exercise_type)
+            self.duration_entry.delete(0, tk.END)
+            self.duration_entry.insert(0, duration)
+            self.calo_label.config(text=f"Calo ước tính: {calories} kcal")
 
-    # def delete_selected_exercise(self):
-    #     if self.selected_exercise_index is None:
-    #         messagebox.showwarning("Chưa chọn bài tập", "Vui lòng chọn bài tập để xóa.")
-    #         return
+            with open("data/exercise.json", "r", encoding="utf-8") as file:
+                data = json.load(file)
 
-    #     confirm = messagebox.askyesno("Xác nhận", "Bạn chắc chắn muốn xóa bài tập này?")
-    #     if not confirm:
-    #         return
+            for user in data:
+                if user["username"] == self.name:
+                    for i, ex in enumerate(user["exercises"]):
+                        if (ex["date"], ex["exercise_type"], str(ex["duration"]), str(ex["calories"])) == tuple(map(str, values)):
+                            self.selected_exercise_index = i
+                            break
+                        
+        if self.selected_exercise_index is None:
+            messagebox.showwarning("Chưa chọn bài tập", "Vui lòng chọn bài tập để xóa.")
+            return
 
-    #     with open("data/exercise.json", "r", encoding="utf-8") as file:
-    #         data = json.load(file)
+        confirm = messagebox.askyesno("Xác nhận", "Bạn chắc chắn muốn xóa bài tập này?")
+        if not confirm:
+            return
 
-    #     for user in data:
-    #         if user["username"] == self.name:
-    #             user["exercises"].pop(self.selected_exercise_index)
-    #             break
+        with open("data/exercise.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
 
-    #     with open("data/exercise.json", "w", encoding="utf-8") as file:
-    #         json.dump(data, file, ensure_ascii=False, indent=4)
+        for user in data:
+            if user["username"] == self.name:
+                user["exercises"].pop(self.selected_exercise_index)
+                break
 
-    #     self.refresh_exercise_tree()
-    #     self.selected_exercise_index = None
-    #     messagebox.showinfo("Thành công", "Đã xóa bài tập.")
+        with open("data/exercise.json", "w", encoding="utf-8") as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
 
+        self.refresh_exercise_tree()
+        self.duration_entry.delete(0, tk.END)
+        self.selected_exercise_index = None
+        messagebox.showinfo("Thành công", "Đã xóa bài tập.")
+    
+    
+    def update_selected_exercise(self):
+        selected = self.exercise_tree.selection()
+        if selected:
+            item = self.exercise_tree.item(selected[0])
+            values = item["values"]
+            date, old_type, old_duration, old_calories = values
 
-    # def update_selected_exercise(self):
-    #     if self.selected_exercise_index is None:
-    #         messagebox.showwarning("Chưa chọn bài tập", "Vui lòng chọn bài tập để sửa.")
-    #         return
+            with open("data/exercise.json", "r", encoding="utf-8") as file:
+                data = json.load(file)
 
-    #     try:
-    #         exercise_type = self.exercise_type_combobox.get()
-    #         duration = float(self.duration_entry.get())
-    #         date = self.date_entry.get()
-    #         weight = float(self.var_weight.get())
-    #         met = self.exercise_mets.get(exercise_type, 5.0)
-    #         calories = round(met * weight * (duration / 60), 2)
-
-    #         with open("data/exercise.json", "r", encoding="utf-8") as file:
-    #             data = json.load(file)
-
-    #         for user in data:
-    #             if user["username"] == self.name:
-    #                 user["exercises"][self.selected_exercise_index] = {
-    #                     "date": date,
-    #                     "exercise_type": exercise_type,
-    #                     "duration": duration,
-    #                     "calories": calories
-    #                 }
-    #                 break
-
-    #         with open("data/exercise.json", "w", encoding="utf-8") as file:
-    #             json.dump(data, file, ensure_ascii=False, indent=4)
-
-    #         self.refresh_exercise_tree()
-    #         self.selected_exercise_index = None
-    #         messagebox.showinfo("Thành công", "Đã cập nhật bài tập.")
-
-    #     except Exception as e:
-    #         messagebox.showerror("Lỗi", f"Lỗi khi cập nhật: {e}")
-
-    # def refresh_exercise_tree(self):
-    #     for row in self.exercise_tree.get_children():
-    #         self.exercise_tree.delete(row)
-
-    #     with open("data/exercise.json", "r", encoding="utf-8") as file:
-    #         data_ex = json.load(file)
-
-    #     for user in data_ex:
-    #         if user["username"] == self.name:
-    #             for ex in user['exercises']:
-    #                 self.exercise_tree.insert("", tk.END, values=(
-    #                     ex.get("date", ""),
-    #                     ex.get("exercise_type", ""),
-    #                     ex.get("duration", ""),
-    #                     ex.get("calories", "")
-    #                 ))
+            exercise_type = self.exercise_type_combobox.get()
+            duration = float(self.duration_entry.get())
+            weight = float(self.var_weight.get())
+            met = self.exercise_mets.get(exercise_type, 5.0)
+            calories = round(met * weight * (duration / 60), 2)
+            self.calo_label.config(text=f"Calo ước tính: {calories} kcal")
 
 
+            found = False
+            for user in data:
+                if user["username"] == self.name:
+                    for i, ex in enumerate(user["exercises"]):
+                        if (ex["date"], ex["exercise_type"], str(ex["duration"]), str(ex["calories"])) == tuple(map(str, values)):
+                            ex["exercise_type"] = exercise_type
+                            ex["duration"] = duration
+                            ex["calories"] = calories
+                            found = True
+                            break
+
+            if not found:
+                messagebox.showwarning("Không tìm thấy", "Không tìm thấy bài tập để cập nhật.")
+                return
+
+            with open("data/exercise.json", "w", encoding="utf-8") as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+
+            self.refresh_exercise_tree()
+            self.duration_entry.delete(0, tk.END)
+            self.selected_exercise_index = None
+            messagebox.showinfo("Thành công", "Đã cập nhật bài tập.")
+
+    def refresh_exercise_tree(self):
+        for row in self.exercise_tree.get_children():
+            self.exercise_tree.delete(row)
+
+        with open("data/exercise.json", "r", encoding="utf-8") as file:
+            data_ex = json.load(file)
+
+        for user in data_ex:
+            if user["username"] == self.name:
+                for ex in user['exercises']:
+                    self.exercise_tree.insert("", tk.END, values=(
+                        ex.get("date", ""),
+                        ex.get("exercise_type", ""),
+                        ex.get("duration", ""),
+                        ex.get("calories", "")
+                    ))
 
     #______________________________________________________________________Dinh dưỡng_________________________________________________________________
     def show_dinh_duong(self):
@@ -581,16 +622,141 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
 
-        tk.Label(self.content_frame, text="Chế độ ăn uống").grid(column=0, row=0)
+        # self.content_frame.columnconfigure(0, weight=1)  
+        # self.content_frame.columnconfigure(1, weight=1)
+        # self.content_frame.rowconfigure(0, weight=1)
+        # self.content_frame.rowconfigure(1, weight=1)
+        
 
-        self.frame_search_api = tk.Frame(self.content_frame)
-        self.frame_search_api.grid(column=0, row=1)
-
+        tk.Label(self.content_frame, text="Chế độ ăn uống",font=("Segoe UI", 18,"bold")).grid(column=0, row=0, pady=10, columnspan=2)
+        #_______________________________________nhập phần ăn
         self.frame_input = tk.Frame(self.content_frame)
-        self.frame_input.grid(column=0, row=2)
+        self.frame_input.grid(column=0, row=1,pady=0, padx=(10, 0), sticky="swen")
 
+        tk.Label(self.frame_input, text="Thực đơn bửa ăn",font=("Segoe UI", 15), fg="black").grid(row=0, column=0, columnspan=5, sticky="ew")
+        
+        tk.Label(self.frame_input, text="Món ăn",font=("Segoe UI", 11), fg="black").grid(row=1, column=0, columnspan=5, sticky="w")
+        self.monan_options = [
+            "chuối", "táo", "cam", "gạo", "ức gà", "bò bít tết", "sườn heo",
+            "cá hồi", "trứng", "bánh mì", "sữa", "phô mai", "sữa chua", "khoai tây", "cà rốt", "cà chua",
+            "bông cải xanh", "rau bina", "bơ", "hạnh nhân", "óc chó", "bơ đậu phộng", "yến mạch",
+            "mì ống", "pizza", "hamburger", "cơm chiên", "mì sợi", "đậu hũ", "đậu lăng", "đậu gà",
+            "đậu đen", "đậu que", "dưa leo", "hành tây", "tỏi", "nấm", "tôm",
+            "cua", "tôm hùm", "gà tây", "vịt", "thịt xông khói", "xúc xích", "bơ", "dầu ô liu",
+            "đường", "mật ong", "sô cô la", "bánh kem", "bánh quy", "kem", "cà phê", "trà",
+            "nước cam", "nước táo", "bia", "rượu vang", "dưa hấu", "nho", "dứa",
+            "dâu tây", "việt quất", "mâm xôi", "đào", "lê", "mận", "anh đào",
+            "bắp", "khoai lang", "bí đỏ", "bí xanh", "súp lơ", "cải xoăn", "rau xà lách",
+            "củ dền", "bắp cải", "củ cải đỏ", "đậu Hà Lan", "đậu nành non", "hạt diêm mạch", "hạt chia",
+            "hạt lanh", "dừa", "sữa hạnh nhân", "sữa đậu nành", "kem tươi", "sốt mayonnaise",
+            "tương cà", "mù tạt", "sốt salsa", "súp", "bánh sandwich", "gà rán", "viên thịt",
+            "cá", "sushi", "mì ramen", "há cảo"
+        ]
+        
+        self.mon_an_type_entry = tk.Entry(self.frame_input, font=("Segoe UI", 12))
+        self.mon_an_type_entry.grid(row=2, column=0, columnspan=5, sticky="ew")
+        self.mon_an_type_entry.bind("<KeyRelease>", self.search_type_mon_an_event)
+
+        self.mon_an_type_listbox = tk.Listbox(self.frame_input,font=("Segoe UI", 11), height=5)
+        self.mon_an_type_listbox.grid(row=3, column=0, columnspan=5, sticky='ew')
+
+        tk.Label(self.frame_input, text="Số lượng phần ăn",font=("Segoe UI", 11)).grid(row=4, column=0, columnspan=5, sticky='w', pady=(10, 0))
+        self.mon_an_khoi_luong_entry = tk.Entry(self.frame_input, font=("Segoe UI", 11))
+        self.mon_an_khoi_luong_entry.grid(row=5, column=0, columnspan=5, sticky='ew')
+
+        tk.Label(self.frame_input, text="Buổi ăn",font=("Segoe UI", 11), fg="black").grid(row=6, column=0, columnspan=5, sticky='w', pady=(10, 0))
+
+        self.buoi_an = tk.StringVar()
+        self.buoi_an.set("Sáng")
+        buoi_an = tk.Radiobutton(self.frame_input, text="Sáng",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Sáng")
+        buoi_an.grid(row=7, column=0)
+        buoi_an = tk.Radiobutton(self.frame_input, text="Trưa",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Trưa")
+        buoi_an.grid(row=7, column=1)
+        buoi_an = tk.Radiobutton(self.frame_input, text="Chiều",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Chiều")
+        buoi_an.grid(row=7, column=2)
+        buoi_an = tk.Radiobutton(self.frame_input, text="Tối",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Tối")
+        buoi_an.grid(row=7, column=3)
+        buoi_an = tk.Radiobutton(self.frame_input, text="Phụ",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Phụ")
+        buoi_an.grid(row=7, column=4)
+
+        self.mon_an_calo_label = tk.Label(self.frame_input, text="Lượng calo món ăn: ",font=("Segoe UI", 11))
+        self.mon_an_calo_label.grid(row=8, column=0, columnspan=5, sticky="w")
+
+        them_moi_btn = tk.Button(self.frame_input, text="Thêm",font=("Segoe UI", 12, "bold"), bg="green", fg="white", bd=0)
+        them_moi_btn.grid(column=0, row=9, columnspan=5, sticky="we", pady=(20, 10), ipady=2)
+
+        huy_btn = tk.Button(self.frame_input, text="Hủy",font=("Segoe UI", 12, "bold"), fg="red", bg=None, bd=0)
+        huy_btn.grid(column=0, row=10, columnspan=5, sticky="we")
+
+        
+        #______________________________________Tool tra cứu
+        self.frame_search_api = tk.Frame(self.content_frame)
+        self.frame_search_api.grid(column=1, row=1, sticky="swen",padx=(0, 10))
+
+        tk.Label(self.frame_search_api, text="Tra cứu calories các món ăn", font=("Segoe UI", 15)).grid(column=0, row=0, sticky="we")
+        self.tra_cuu_entry = tk.Entry(self.frame_search_api, font=("Segoe UI", 12))
+        self.tra_cuu_entry.grid(row=1, column=0, columnspan=5, sticky="ew")
+        self.tra_cuu_entry.bind("<KeyRelease>", self.search_calo_event)
+
+        self.tra_cuu_listbox = tk.Listbox(self.frame_search_api,font=("Segoe UI", 11), height=5)
+        self.tra_cuu_listbox.grid(row=2, column=0, columnspan=5, sticky='ew')
+
+        self.ten_mon = tk.Label(self.frame_search_api, text="Tên món: ",font=("Segoe UI", 12))
+        self.ten_mon.grid(row=3, column=0, sticky="w")
+        self.calo_mon = tk.Label(self.frame_search_api, text="Calories: ",font=("Segoe UI", 12))
+        self.calo_mon.grid(row=4, column=0, sticky="w")
+
+
+        #______________________________________Show thông tin bửa ăn
         self.frame_list_input = tk.Frame(self.content_frame)
-        self.frame_list_input.grid(column=0, row=3)
+        self.frame_list_input.grid(column=0, row=2, columnspan=2, sticky="swen", padx=10)
+
+        tk.Label(self.frame_list_input, text="Danh sách bửa ăn", font=("Segoe UI", 15)).grid(row=0, column=0)
+        columns = ("date", "type", "duration", "calories")
+        self.health_tree = ttk.Treeview(self.frame_list_input, columns=columns, show="headings")
+        self.health_tree.heading("date", text="Ngày")
+        self.health_tree.heading("type", text="Loại tập")
+        self.health_tree.heading("duration", text="Thời lượng (phút)")
+        self.health_tree.heading("calories", text="Calo")
+
+        self.health_tree.grid(column=0, row=1, sticky="we", pady=10)
+
+        #________________________
+        self.search_type_mon_an()
+        self.search_calo()
+
+    def search_type_mon_an_event(self, event):
+        self.search_type_mon_an()
+    def search_type_mon_an(self):
+        value = self.mon_an_type_entry.get().strip().lower()
+        self.mon_an_type_listbox.delete(0, tk.END)
+        if not value:
+            for mon_an in self.monan_options:
+                self.mon_an_type_listbox.insert(tk.END, mon_an)
+        
+        else:
+            for mon_an in self.monan_options:
+                if value in mon_an.lower().strip():
+                    self.mon_an_type_listbox.delete(0, tk.END)
+                    self.mon_an_type_listbox.insert(tk.END, mon_an)
+
+
+    def search_calo_event(self, event):
+        self.search_calo()
+    def search_calo(self):
+        value = self.tra_cuu_entry.get().strip().lower()
+        self.tra_cuu_listbox.delete(0, tk.END)
+        if not value:
+            for mon_an in self.monan_options:
+                self.tra_cuu_listbox.insert(tk.END, mon_an)
+        
+        else:
+            for mon_an in self.monan_options:
+                if value in mon_an.lower().strip():
+                    self.tra_cuu_listbox.delete(0, tk.END)
+                    self.tra_cuu_listbox.insert(tk.END, mon_an)
+    
+        
     #___________________________________________________________________Theo dõi________________________________________
     def show_theo_doi(self):
         for widget in self.content_frame.winfo_children():
@@ -602,7 +768,7 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#008080")
         self.list_user_btn.config(bg="#40E0D0")
 
-        tk.Label(self.content_frame, text="Chế độ ăn uống").grid(column=0, row=0)
+        tk.Label(self.content_frame, text="Theo dõi").grid(column=0, row=0)
 
 
 
