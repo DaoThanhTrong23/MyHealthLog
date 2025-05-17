@@ -52,6 +52,29 @@ class HomeScreen:
         #button đăng xuất
         self.dang_xuat_btn = tk.Button(self.menu_frame,text="Đăng xuất",command=self.logout,bg="#0BBBB6",fg="red",font=("Segoe UI", 12, "bold"), bd=0,activebackground="#0BBBB6", activeforeground="white")
         self.dang_xuat_btn.pack(fill="x", side='bottom', pady=20, padx=5, ipady=8)
+        
+        #gọi lại các chức năng để fill dữ liệu
+        self.show_account()
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.show_luyen_tap()
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.show_dinh_duong()
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.show_theo_doi()
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.show_listUser()
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.tai_khoan_btn.config(bg="#40E0D0")
+        self.luyen_tap_btn.config(bg="#40E0D0")
+        self.dinh_duong_btn.config(bg="#40E0D0")
+        self.theo_doi_btn.config(bg="#40E0D0")
+        self.list_user_btn.config(bg="#40E0D0")
+        
 
         # ===== Nội dung mặc định =====
         label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Arial", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
@@ -373,8 +396,8 @@ class HomeScreen:
         tk.Label(self.content_frame, text="Luyện tập", font=("Segoe UI", 14, "bold")).grid(column=0, row=0, columnspan=2, sticky='ew', pady=(10, 25))
         self.content_frame.grid_rowconfigure(1, weight=1)
         self.content_frame.grid_columnconfigure(1, weight=1)
-        # self.content_frame.columnconfigure(0, weight=2)  
-        # self.content_frame.columnconfigure(1, weight=3) 
+        self.content_frame.columnconfigure(0, weight=2)  
+        self.content_frame.columnconfigure(1, weight=3) 
         # --- FRAME NHẬP ---
         self.input_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
         self.input_frame.grid(column=0, row=1, padx=5, pady=10, sticky="nsew")
@@ -465,7 +488,8 @@ class HomeScreen:
             met = self.exercise_mets.get(exercise_type, 5.0)
             calories = round(met * weight * (duration / 60), 2)
 
-            today_str = datetime.now().strftime("%Y-%m-%d")
+            today_str = datetime.now().strftime("%d-%m-%Y") 
+            # test--------------------------
         
             new_exercise = {
                 "date": today_str,
@@ -622,6 +646,10 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
 
+
+        # self.content_frame.grid_rowconfigure(1, weight=1)
+        # self.content_frame.grid_columnconfigure(1, weight=1)
+
         # self.content_frame.columnconfigure(0, weight=1)  
         # self.content_frame.columnconfigure(1, weight=1)
         # self.content_frame.rowconfigure(0, weight=1)
@@ -630,12 +658,17 @@ class HomeScreen:
 
         tk.Label(self.content_frame, text="Chế độ ăn uống",font=("Segoe UI", 18,"bold")).grid(column=0, row=0, pady=10, columnspan=2)
         #_______________________________________nhập phần ăn
-        self.frame_input = tk.Frame(self.content_frame)
-        self.frame_input.grid(column=0, row=1,pady=0, padx=(10, 0), sticky="swen")
+        self.frame_input = tk.Frame(self.content_frame, bg="white", bd=1)
+        self.frame_input.grid(column=0, row=1,pady=5, padx=(10, 5), sticky="swen")
+        self.frame_input.columnconfigure(0, weight=1)
+        self.frame_input.columnconfigure(1, weight=1)
+        self.frame_input.columnconfigure(2, weight=1)
+        self.frame_input.columnconfigure(3, weight=1)
+        self.frame_input.columnconfigure(4, weight=1)
 
-        tk.Label(self.frame_input, text="Thực đơn bửa ăn",font=("Segoe UI", 15), fg="black").grid(row=0, column=0, columnspan=5, sticky="ew")
-        
-        tk.Label(self.frame_input, text="Món ăn",font=("Segoe UI", 11), fg="black").grid(row=1, column=0, columnspan=5, sticky="w")
+
+        tk.Label(self.frame_input, text="Thực đơn bửa ăn",font=("Segoe UI", 15), fg="black",bg="white").grid(row=0, column=0, columnspan=5,padx=10, sticky="ew")
+        tk.Label(self.frame_input, text="Món ăn",font=("Segoe UI", 11), fg="black", bg="white").grid(row=1,padx=10, column=0, columnspan=5, sticky="w")
         self.monan_options = [
             "chuối", "táo", "cam", "gạo", "ức gà", "bò bít tết", "sườn heo",
             "cá hồi", "trứng", "bánh mì", "sữa", "phô mai", "sữa chua", "khoai tây", "cà rốt", "cà chua",
@@ -654,76 +687,92 @@ class HomeScreen:
         ]
         
         self.mon_an_type_entry = tk.Entry(self.frame_input, font=("Segoe UI", 12))
-        self.mon_an_type_entry.grid(row=2, column=0, columnspan=5, sticky="ew")
+        self.mon_an_type_entry.grid(row=2, column=0,padx=10, columnspan=5, sticky="ew")
         self.mon_an_type_entry.bind("<KeyRelease>", self.search_type_mon_an_event)
 
         self.mon_an_type_listbox = tk.Listbox(self.frame_input,font=("Segoe UI", 11), height=5)
-        self.mon_an_type_listbox.grid(row=3, column=0, columnspan=5, sticky='ew')
+        self.mon_an_type_listbox.grid(row=3,padx=10, column=0, columnspan=5, sticky='ew')
+        self.mon_an_type_listbox.bind("<<ListboxSelect>>", self.on_click_select_type)
 
-        tk.Label(self.frame_input, text="Số lượng phần ăn",font=("Segoe UI", 11)).grid(row=4, column=0, columnspan=5, sticky='w', pady=(10, 0))
-        self.mon_an_khoi_luong_entry = tk.Entry(self.frame_input, font=("Segoe UI", 11))
-        self.mon_an_khoi_luong_entry.grid(row=5, column=0, columnspan=5, sticky='ew')
+        tk.Label(self.frame_input, text="Số lượng phần ăn",font=("Segoe UI", 11), bg="white", fg="black").grid(row=4, column=0, columnspan=5, sticky='w', pady=(10, 0))
+        self.mon_an_so_luong_entry = tk.Entry(self.frame_input, font=("Segoe UI", 11))
+        self.mon_an_so_luong_entry.grid(row=5, column=0,padx=10, columnspan=5, sticky='ew')
+        self.mon_an_so_luong_entry.bind("<KeyRelease>", self.so_luong_mon_an_event)
+        
 
-        tk.Label(self.frame_input, text="Buổi ăn",font=("Segoe UI", 11), fg="black").grid(row=6, column=0, columnspan=5, sticky='w', pady=(10, 0))
+        tk.Label(self.frame_input, text="Buổi ăn",font=("Segoe UI", 11), fg="black", bg="white").grid(row=6,padx=10, column=0, columnspan=5, sticky='w', pady=(10, 0))
 
         self.buoi_an = tk.StringVar()
         self.buoi_an.set("Sáng")
-        buoi_an = tk.Radiobutton(self.frame_input, text="Sáng",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Sáng")
-        buoi_an.grid(row=7, column=0)
-        buoi_an = tk.Radiobutton(self.frame_input, text="Trưa",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Trưa")
+        buoi_an = tk.Radiobutton(self.frame_input, text="Sáng",font=("Segoe UI", 11), fg="black", bg="white", variable=self.buoi_an, value="Sáng")
+        buoi_an.grid(row=7,padx=(10, 0), column=0)
+        buoi_an = tk.Radiobutton(self.frame_input, text="Trưa",font=("Segoe UI", 11), fg="black", bg="white", variable=self.buoi_an, value="Trưa")
         buoi_an.grid(row=7, column=1)
-        buoi_an = tk.Radiobutton(self.frame_input, text="Chiều",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Chiều")
+        buoi_an = tk.Radiobutton(self.frame_input, text="Chiều",font=("Segoe UI", 11), fg="black", bg="white", variable=self.buoi_an, value="Chiều")
         buoi_an.grid(row=7, column=2)
-        buoi_an = tk.Radiobutton(self.frame_input, text="Tối",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Tối")
+        buoi_an = tk.Radiobutton(self.frame_input, text="Tối",font=("Segoe UI", 11), fg="black", bg="white", variable=self.buoi_an, value="Tối")
         buoi_an.grid(row=7, column=3)
-        buoi_an = tk.Radiobutton(self.frame_input, text="Phụ",font=("Segoe UI", 11), fg="black", variable=self.buoi_an, value="Phụ")
-        buoi_an.grid(row=7, column=4)
+        buoi_an = tk.Radiobutton(self.frame_input, text="Phụ",font=("Segoe UI", 11), fg="black", bg="white", variable=self.buoi_an, value="Phụ")
+        buoi_an.grid(row=7,padx=(0, 10), column=4)
 
-        self.mon_an_calo_label = tk.Label(self.frame_input, text="Lượng calo món ăn: ",font=("Segoe UI", 11))
-        self.mon_an_calo_label.grid(row=8, column=0, columnspan=5, sticky="w")
+        self.mon_an_calo_label = tk.Label(self.frame_input, text="Lượng calo món ăn: ",font=("Segoe UI", 11), fg="black", bg="white")
+        self.mon_an_calo_label.grid(row=8, column=0,padx=(10, 5), columnspan=5, sticky="w")
 
-        them_moi_btn = tk.Button(self.frame_input, text="Thêm",font=("Segoe UI", 12, "bold"), bg="green", fg="white", bd=0)
-        them_moi_btn.grid(column=0, row=9, columnspan=5, sticky="we", pady=(20, 10), ipady=2)
+        them_moi_btn = tk.Button(self.frame_input, text="Thêm",font=("Segoe UI", 12, "bold"), bg="green", fg="white", bd=0, command=self.on_click_them_mon_an)
+        them_moi_btn.grid(column=0, row=9,padx=10, columnspan=5, sticky="we", pady=(10, 10), ipady=2)
+        #them_moi_btn.bind("<Button-1>", self.reset_fill_data_health_tree_event)
 
-        huy_btn = tk.Button(self.frame_input, text="Hủy",font=("Segoe UI", 12, "bold"), fg="red", bg=None, bd=0)
-        huy_btn.grid(column=0, row=10, columnspan=5, sticky="we")
+        huy_btn = tk.Button(self.frame_input, text="Hủy",font=("Segoe UI", 12, "bold"), fg="red", bg="white", bd=0)
+        huy_btn.grid(column=0, row=10,padx=10, columnspan=5, sticky="we")
 
         
         #______________________________________Tool tra cứu
-        self.frame_search_api = tk.Frame(self.content_frame)
-        self.frame_search_api.grid(column=1, row=1, sticky="swen",padx=(0, 10))
+        self.frame_search_api = tk.Frame(self.content_frame, bd=1, bg="white")
+        self.frame_search_api.grid(column=1, row=1, sticky="swen",padx=(5,10), pady=5)
 
-        tk.Label(self.frame_search_api, text="Tra cứu calories các món ăn", font=("Segoe UI", 15)).grid(column=0, row=0, sticky="we")
+        self.frame_search_api.columnconfigure(0, weight=1)
+
+        tk.Label(self.frame_search_api, text="Tra cứu calories các món ăn", font=("Segoe UI", 15), fg="black", bg="white").grid(column=0, row=0,padx=10, pady=15, sticky="we")
         self.tra_cuu_entry = tk.Entry(self.frame_search_api, font=("Segoe UI", 12))
-        self.tra_cuu_entry.grid(row=1, column=0, columnspan=5, sticky="ew")
+        self.tra_cuu_entry.grid(row=1, column=0, columnspan=5,padx=10, sticky="ew")
         self.tra_cuu_entry.bind("<KeyRelease>", self.search_calo_event)
 
         self.tra_cuu_listbox = tk.Listbox(self.frame_search_api,font=("Segoe UI", 11), height=5)
-        self.tra_cuu_listbox.grid(row=2, column=0, columnspan=5, sticky='ew')
+        self.tra_cuu_listbox.grid(row=2, column=0, columnspan=5,padx=10, sticky='ew')
+        self.tra_cuu_listbox.bind("<<ListboxSelect>>", self.on_click_select_tra_cu)
 
-        self.ten_mon = tk.Label(self.frame_search_api, text="Tên món: ",font=("Segoe UI", 12))
-        self.ten_mon.grid(row=3, column=0, sticky="w")
-        self.calo_mon = tk.Label(self.frame_search_api, text="Calories: ",font=("Segoe UI", 12))
-        self.calo_mon.grid(row=4, column=0, sticky="w")
+        self.ten_mon = tk.Label(self.frame_search_api, text="Tên món: ",font=("Segoe UI", 12), bg="white", fg="black")
+        self.ten_mon.grid(row=3, column=0,padx=10,pady=(20, 10), sticky="w")
+        self.calo_mon = tk.Label(self.frame_search_api, text="Calories: ",font=("Segoe UI", 12), bg="white", fg="black")
+        self.calo_mon.grid(row=4, column=0,padx=10,pady=10, sticky="w")
+
+        tk.Button(self.frame_search_api, text="Tra cứu", fg="white", bd=0, bg="blue", font=("Segoe UI", 12, "bold"), command=self.on_click_tra_cuu).grid(column=0, row=5, pady=20,ipady=2, padx=10, sticky="ew")
+        tk.Button(self.frame_search_api, text="Hủy", fg="red", bd=0, bg="white", font=("Segoe UI", 12, "bold"), command=self.on_click_huy_tra_cuu).grid(column=0, row=6, pady=20, padx=10, sticky="ew")
 
 
         #______________________________________Show thông tin bửa ăn
-        self.frame_list_input = tk.Frame(self.content_frame)
-        self.frame_list_input.grid(column=0, row=2, columnspan=2, sticky="swen", padx=10)
+        self.frame_list_input = tk.Frame(self.content_frame, bg="white")
+        self.frame_list_input.grid(column=0, row=2, columnspan=2, sticky="swen", padx=10 ,pady=10)
 
-        tk.Label(self.frame_list_input, text="Danh sách bửa ăn", font=("Segoe UI", 15)).grid(row=0, column=0)
-        columns = ("date", "type", "duration", "calories")
+        self.frame_list_input.columnconfigure(0, weight=1)
+
+        tk.Label(self.frame_list_input, text="Danh sách bửa ăn", font=("Segoe UI", 15), bg="white", fg="black").grid(row=0, column=0)
+        columns = ("ngay", "buoi", "monan","calo","soluong", "tongcalo")
         self.health_tree = ttk.Treeview(self.frame_list_input, columns=columns, show="headings")
-        self.health_tree.heading("date", text="Ngày")
-        self.health_tree.heading("type", text="Loại tập")
-        self.health_tree.heading("duration", text="Thời lượng (phút)")
-        self.health_tree.heading("calories", text="Calo")
+        self.health_tree.heading("ngay", text="Ngày")
+        self.health_tree.heading("buoi", text="Buổi ăn")
+        self.health_tree.heading("monan", text="Món ăn")
+        self.health_tree.heading("calo", text="Calories")
+        self.health_tree.heading("soluong", text="Số lượng")
+        self.health_tree.heading("tongcalo", text="Tổng calo")
+        self.health_tree.grid(column=0, row=1, sticky="we", pady=(10,0))
 
-        self.health_tree.grid(column=0, row=1, sticky="we", pady=10)
+        self.health_tree.bind("<Button-3>", self.on_click_select_option)
 
         #________________________
         self.search_type_mon_an()
         self.search_calo()
+        self.fill_data_health_tree()
 
     def search_type_mon_an_event(self, event):
         self.search_type_mon_an()
@@ -740,8 +789,17 @@ class HomeScreen:
                     self.mon_an_type_listbox.delete(0, tk.END)
                     self.mon_an_type_listbox.insert(tk.END, mon_an)
 
+    def on_click_select_type(self, event):
+        if not self.mon_an_type_listbox.curselection():
+            return
+        else:
+            selection = self.mon_an_type_listbox.get(self.mon_an_type_listbox.curselection())
+            self.mon_an_type_entry.delete(0, tk.END)
+            self.mon_an_type_entry.insert(0, selection)
+            self.mon_an_type_listbox.delete(0, tk.END)
 
     def search_calo_event(self, event):
+        self.tra_cuu_entry.config(bg="white")
         self.search_calo()
     def search_calo(self):
         value = self.tra_cuu_entry.get().strip().lower()
@@ -756,12 +814,375 @@ class HomeScreen:
                     self.tra_cuu_listbox.delete(0, tk.END)
                     self.tra_cuu_listbox.insert(tk.END, mon_an)
     
+    def on_click_select_tra_cu(self, event):
+         if not self.tra_cuu_listbox.curselection():
+            return
+         else:
+            selection = self.tra_cuu_listbox.get(self.tra_cuu_listbox.curselection())
+            self.tra_cuu_entry.delete(0, tk.END)
+            self.tra_cuu_entry.insert(0, selection)
+            self.tra_cuu_listbox.delete(0, tk.END)
+
+    def on_click_tra_cuu(self):
+        if not self.tra_cuu_entry.get():
+            self.tra_cuu_entry.config(bg="red")
+            messagebox.showinfo("Lỗi", "Vui lòng nhập món ăn cần tra cứu")
+            return
         
+        else:
+            raw_input = self.tra_cuu_entry.get().strip()
+            value_vn = raw_input.lower()
+            vietnamese_to_english = {
+                "chuối": "banana",
+                "táo": "apple",
+                "cam": "orange",
+                "gạo": "rice",
+                "ức gà": "chicken breast",
+                "bò bít tết": "steak",
+                "sườn heo": "pork ribs",
+                "cá hồi": "salmon",
+                "trứng": "egg",
+                "bánh mì": "bread",
+                "sữa": "milk",
+                "phô mai": "cheese",
+                "sữa chua": "yogurt",
+                "khoai tây": "potato",
+                "cà rốt": "carrot",
+                "cà chua": "tomato",
+                "bông cải xanh": "broccoli",
+                "rau bina": "spinach",
+                "bơ": "avocado",
+                "hạnh nhân": "almond",
+                "óc chó": "walnut",
+                "bơ đậu phộng": "peanut butter",
+                "yến mạch": "oatmeal",
+                "mì ống": "pasta",
+                "pizza": "pizza",
+                "hamburger": "hamburger",
+                "cơm chiên": "fried rice",
+                "mì sợi": "noodles",
+                "đậu hũ": "tofu",
+                "đậu lăng": "lentils",
+                "đậu gà": "chickpeas",
+                "đậu đen": "black beans",
+                "đậu que": "green beans",
+                "dưa leo": "cucumber",
+                "hành tây": "onion",
+                "tỏi": "garlic",
+                "nấm": "mushroom",
+                "tôm": "shrimp",
+                "cua": "crab",
+                "tôm hùm": "lobster",
+                "gà tây": "turkey",
+                "vịt": "duck",
+                "thịt xông khói": "bacon",
+                "xúc xích": "sausage",
+                "bơ": "butter",
+                "dầu ô liu": "olive oil",
+                "đường": "sugar",
+                "mật ong": "honey",
+                "sô cô la": "chocolate",
+                "bánh kem": "cake",
+                "bánh quy": "cookie",
+                "kem": "ice cream",
+                "cà phê": "coffee",
+                "trà": "tea",
+                "nước cam": "orange juice",
+                "nước táo": "apple juice",
+                "bia": "beer",
+                "rượu vang": "wine",
+                "dưa hấu": "watermelon",
+                "nho": "grape",
+                "dứa": "pineapple",
+                "dâu tây": "strawberry",
+                "việt quất": "blueberry",
+                "mâm xôi": "raspberry",
+                "đào": "peach",
+                "lê": "pear",
+                "mận": "plum",
+                "anh đào": "cherry",
+                "bắp": "corn",
+                "khoai lang": "sweet potato",
+                "bí đỏ": "pumpkin",
+                "bí xanh": "zucchini",
+                "súp lơ": "cauliflower",
+                "cải xoăn": "kale",
+                "rau xà lách": "lettuce",
+                "củ dền": "beetroot",
+                "bắp cải": "cabbage",
+                "củ cải đỏ": "radish",
+                "đậu Hà Lan": "peas",
+                "đậu nành non": "edamame",
+                "hạt diêm mạch": "quinoa",
+                "hạt chia": "chia seeds",
+                "hạt lanh": "flax seeds",
+                "dừa": "coconut",
+                "sữa hạnh nhân": "almond milk",
+                "sữa đậu nành": "soy milk",
+                "kem tươi": "whipped cream",
+                "sốt mayonnaise": "mayonnaise",
+                "tương cà": "ketchup",
+                "mù tạt": "mustard",
+                "sốt salsa": "salsa",
+                "súp": "soup",
+                "bánh sandwich": "sandwich",
+                "gà rán": "fried chicken",
+                "viên thịt": "meatballs",
+                "cá": "fish",
+                "sushi": "sushi",
+                "mì ramen": "ramen",
+                "há cảo": "dumplings"
+            }
+
+            if value_vn not in vietnamese_to_english:
+                messagebox.showerror("Lỗi", f"Không tìm thấy {value_vn}")
+                return
+            value_en = vietnamese_to_english[value_vn]
+
+            try:
+                with open("data/calorie_data_all.json", "r", encoding="utf-8") as file:
+                    data_api = json.load(file)
+            except Exception as ex:
+                messagebox.showerror("Lỗi", f"Lỗi: {ex}")
+            
+            for item_api in data_api:
+                if item_api["food"] == value_en:
+                    self.ten_mon.config(text=f"Tên món: {value_vn}")
+                    calo = item_api["calories"]
+                    self.calo_mon.config(text=f"Calories: {calo}")
+                    break
+        
+    def on_click_huy_tra_cuu(self):
+        self.tra_cuu_entry.delete(0, tk.END)
+        
+        self.ten_mon.config(text="Tên món: ")
+        self.calo_mon.config(text="Calories: ")
+        self.search_calo()
+    def so_luong_mon_an_event(self, event):
+        self.mon_an_so_luong_entry.config(bg="white")
+
+    def on_click_them_mon_an(self):
+        if not self.mon_an_type_entry or not self.mon_an_so_luong_entry:
+            messagebox.showerror("Lỗi", "Vui lòng điền đầy đủ thông tin")
+            return
+        elif not self.mon_an_so_luong_entry.get().strip().isdigit():
+            messagebox.showerror("Lỗi", "Số lượng phải là một số nguyên dương.")
+            self.mon_an_so_luong_entry.config(bg="red")
+            return
+        else:
+            raw_input = self.mon_an_type_entry.get().strip()
+            value_vn = raw_input.lower()
+
+            vietnamese_to_english = {
+                "chuối": "banana",
+                "táo": "apple",
+                "cam": "orange",
+                "gạo": "rice",
+                "ức gà": "chicken breast",
+                "bò bít tết": "steak",
+                "sườn heo": "pork ribs",
+                "cá hồi": "salmon",
+                "trứng": "egg",
+                "bánh mì": "bread",
+                "sữa": "milk",
+                "phô mai": "cheese",
+                "sữa chua": "yogurt",
+                "khoai tây": "potato",
+                "cà rốt": "carrot",
+                "cà chua": "tomato",
+                "bông cải xanh": "broccoli",
+                "rau bina": "spinach",
+                "bơ": "avocado",
+                "hạnh nhân": "almond",
+                "óc chó": "walnut",
+                "bơ đậu phộng": "peanut butter",
+                "yến mạch": "oatmeal",
+                "mì ống": "pasta",
+                "pizza": "pizza",
+                "hamburger": "hamburger",
+                "cơm chiên": "fried rice",
+                "mì sợi": "noodles",
+                "đậu hũ": "tofu",
+                "đậu lăng": "lentils",
+                "đậu gà": "chickpeas",
+                "đậu đen": "black beans",
+                "đậu que": "green beans",
+                "dưa leo": "cucumber",
+                "hành tây": "onion",
+                "tỏi": "garlic",
+                "nấm": "mushroom",
+                "tôm": "shrimp",
+                "cua": "crab",
+                "tôm hùm": "lobster",
+                "gà tây": "turkey",
+                "vịt": "duck",
+                "thịt xông khói": "bacon",
+                "xúc xích": "sausage",
+                "bơ": "butter",
+                "dầu ô liu": "olive oil",
+                "đường": "sugar",
+                "mật ong": "honey",
+                "sô cô la": "chocolate",
+                "bánh kem": "cake",
+                "bánh quy": "cookie",
+                "kem": "ice cream",
+                "cà phê": "coffee",
+                "trà": "tea",
+                "nước cam": "orange juice",
+                "nước táo": "apple juice",
+                "bia": "beer",
+                "rượu vang": "wine",
+                "dưa hấu": "watermelon",
+                "nho": "grape",
+                "dứa": "pineapple",
+                "dâu tây": "strawberry",
+                "việt quất": "blueberry",
+                "mâm xôi": "raspberry",
+                "đào": "peach",
+                "lê": "pear",
+                "mận": "plum",
+                "anh đào": "cherry",
+                "bắp": "corn",
+                "khoai lang": "sweet potato",
+                "bí đỏ": "pumpkin",
+                "bí xanh": "zucchini",
+                "súp lơ": "cauliflower",
+                "cải xoăn": "kale",
+                "rau xà lách": "lettuce",
+                "củ dền": "beetroot",
+                "bắp cải": "cabbage",
+                "củ cải đỏ": "radish",
+                "đậu Hà Lan": "peas",
+                "đậu nành non": "edamame",
+                "hạt diêm mạch": "quinoa",
+                "hạt chia": "chia seeds",
+                "hạt lanh": "flax seeds",
+                "dừa": "coconut",
+                "sữa hạnh nhân": "almond milk",
+                "sữa đậu nành": "soy milk",
+                "kem tươi": "whipped cream",
+                "sốt mayonnaise": "mayonnaise",
+                "tương cà": "ketchup",
+                "mù tạt": "mustard",
+                "sốt salsa": "salsa",
+                "súp": "soup",
+                "bánh sandwich": "sandwich",
+                "gà rán": "fried chicken",
+                "viên thịt": "meatballs",
+                "cá": "fish",
+                "sushi": "sushi",
+                "mì ramen": "ramen",
+                "há cảo": "dumplings"
+            }
+
+            if value_vn not in vietnamese_to_english:
+                messagebox.showerror("Lỗi", f"Không tìm thấy {value_vn}")
+                return
+            value_en = vietnamese_to_english[value_vn]
+            try:
+                with open("data/calorie_data_all.json", "r", encoding="utf-8") as file:
+                    data_api = json.load(file)
+            except Exception as ex:
+                messagebox.showerror("Lỗi", f"{ex}")
+            for item in data_api:
+                if item["food"] == value_en:
+                    calo = item["calories"]
+                    break
+            soluong = float(self.mon_an_so_luong_entry.get())
+            tongcalo = soluong * calo
+            buoi_an = self.buoi_an.get()
+            today = datetime.now().strftime("%d-%m-%Y")
+            new_data_mon_an = {
+                "date": today,
+                "meal": buoi_an,
+                "eating": value_vn,
+                "calo": calo,
+                "quantity": soluong,
+                "totalcalo": tongcalo
+            }
+            try:
+                with open("data/meal.json", "r", encoding="utf-8") as file:
+                    data_meal = json.load(file)
+            except Exception as ex:
+                messagebox.showerror("Lỗi", f"{ex}")
+                return
+            for user in data_meal:
+                if user["username"] == self.name:
+                    user["meals"].append(new_data_mon_an)
+                break
+            try:
+                with open("data/meal.json", "w", encoding="utf-8") as file:
+                    json.dump(data_meal, file, ensure_ascii=False, indent=4)
+                    messagebox.showinfo("Thông báo", "Thêm thành công")
+
+                self.mon_an_type_entry.delete(0, tk.END)
+                self.mon_an_so_luong_entry.delete(0, tk.END)
+                #self.mon_an_so_luong_entry.insert(0, "1")
+                self.buoi_an.set("Sáng")
+
+                self.reset_fill_data_health_tree_event()
+
+            except Exception as ex:
+                messagebox.showerror("Lỗi", f"{ex}")
+                return
+            
+
+    def fill_data_health_tree(self):
+        try: 
+            with open("data/meal.json", "r", encoding="utf-8") as file:
+                data_meals = json.load(file)
+        except Exception as ex:
+            messagebox.showerror("Lỗi",f"{ex}")
+            return
+        for user in data_meals:
+            if user["username"] == self.name:
+                for item in user["meals"]:
+                    self.health_tree.insert("", tk.END, values=(item.get("date", ""), item.get("meal", ""), item.get("eating", ""), item.get("calo", ""), item.get("quantity", ""), item.get("totalcalo", "")))
+
+    def reset_fill_data_health_tree_event(self):
+        for row in self.health_tree.get_children():
+            self.health_tree.delete(row)
+        self.fill_data_health_tree()    
+
+    def on_click_select_option(self, event):
+        selected_item = self.health_tree.identify_row(event.y)
+        if selected_item:
+            self.health_tree.selection_set(selected_item)
+
+            self.health_tree_menu = tk.Menu(self.root, tearoff=0)
+            self.health_tree_menu.add_command(label="Sửa", font=("Segoe UI", 12))
+            self.health_tree_menu.add_command(label="Xóa", font=("Segoe UI", 12))
+            self.health_tree_menu.add_separator()
+            self.health_tree_menu.add_command(label="Thoát", font=("Segoe UI", 12), command=lambda: None)
+
+            self.health_tree_menu.tk_popup(event.x_root, event.y_root)
+
+    # def on_click_select_option(self, event):
+    # # Đóng menu cũ nếu có
+    #     if hasattr(self, "custom_menu") and self.custom_menu.winfo_exists():
+    #         self.custom_menu.destroy()
+
+    #     # Tạo menu popup bằng Toplevel
+    #     self.custom_menu = tk.Toplevel(self.root)
+    #     self.custom_menu.overrideredirect(True)  # Ẩn viền cửa sổ
+    #     self.custom_menu.geometry(f"+{event.x_root}+{event.y_root}")
+
+    #     # Làm nền và bo góc (trong giới hạn)
+    #     frame = tk.Frame(self.custom_menu, bg="#f0f0f0", bd=2, relief="raised")
+    #     frame.pack()
+
+    #     def close_menu():
+    #         self.custom_menu.destroy()
+
+    #     tk.Button(frame, text="Sửa", command=lambda: print("Sửa")).pack(fill="x")
+    #     tk.Button(frame, text="Xóa", command=lambda: print("Xóa")).pack(fill="x")
+    #     tk.Button(frame, text="Thoát", command=close_menu).pack(fill="x")
+
     #___________________________________________________________________Theo dõi________________________________________
     def show_theo_doi(self):
         for widget in self.content_frame.winfo_children():
             widget.destroy()
-
+        
         self.tai_khoan_btn.config(bg="#40E0D0")
         self.luyen_tap_btn.config(bg="#40E0D0")
         self.dinh_duong_btn.config(bg="#40E0D0")
