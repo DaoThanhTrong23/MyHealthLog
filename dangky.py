@@ -146,12 +146,12 @@ class DangKy:
 			"username": name,
         	"fullname": "",
         	"age": "0",
-        	"gender": "nam",
+        	"gender": "Nam",
         	"height": "0",
         	"weight": "0",
         	"illness": "",
 			"activitylevel":"1.2",
-			"goal": "",
+			"goal": "Giữ cân",
 		}
 		user_ex = {
 			"username": name,

@@ -1,19 +1,14 @@
 [
     {
+        "username": "admin",
+        "exercises": []
+    },
+    {
         "username": "trong",
-        "exercises": [
-            {
-                "date": "17-05-2025",
-                "exercise_type": "Nhảy dây",
-                "duration": 15.0,
-                "calories": 178.35
-            },
-            {
-                "date": "17-05-2025",
-                "exercise_type": "Yoga",
-                "duration": 30.0,
-                "calories": 72.5
-            }
-        ]
+        "exercises": []
+    },
+    {
+        "username": "user1",
+        "exercises": []
     }
 ]

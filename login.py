@@ -85,16 +85,10 @@ class LoginApp:
 
 						nameUser = user.get("username", "N/A")
 						passwordUser = user.get("password", "N/A")
-						# fullname = user.get("fullname", "N/A")
-						# age = user.get("age", 0)
-						# gender = user.get("gender", "Nam")
-						# height = user.get("height", 0)
-						# weight = user.get("weight", 0)
-						# illness = user.get("illness", "Không")
 						roleUser = user.get("role", "General")
 
 						self.root.destroy()
-						HomeScreen(name = nameUser,  role = roleUser)
+						HomeScreen(name = nameUser, role = roleUser)
 						return
 
 				self.label_message.config(text="Sai tài khoản hoặc mật khẩu!")
@@ -104,11 +98,10 @@ class LoginApp:
 			except json.JSONDecodeError:
 				self.label_message.config(text="Lỗi định dạng JSON!")
 			except Exception as e:
-				self.label_message.config(text=f"Lỗi: {e}")
+				messagebox.showerror("Lỗi", f"{e}")
 	def on_click_dang_ki(self):
 		self.root.destroy()
 		DangKy()
 
 	def on_click_thoat_chuong_trinh(self):
-		"""Đóng chương trình"""
 		self.root.destroy()
