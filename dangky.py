@@ -145,10 +145,10 @@ class DangKy:
 		user_health = {
 			"username": name,
         	"fullname": "",
-        	"age": "0",
+        	"age": "1",
         	"gender": "Nam",
-        	"height": "0",
-        	"weight": "0",
+        	"height": "1",
+        	"weight": "1",
         	"illness": "",
 			"activitylevel":"1.2",
 			"goal": "Giữ cân",

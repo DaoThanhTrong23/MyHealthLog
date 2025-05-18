@@ -5,7 +5,64 @@
     },
     {
         "username": "trong",
-        "meals": []
+        "meals": [
+            {
+                "date": "18-05-2025",
+                "meal": "Sáng",
+                "eating": "ức gà",
+                "calo": 322.0,
+                "quantity": 4.0,
+                "totalcalo": 1288.0
+            },
+            {
+                "date": "18-05-2025",
+                "meal": "Tối",
+                "eating": "mì ramen",
+                "calo": 358.0,
+                "quantity": 2.0,
+                "totalcalo": 716.0
+            },
+            {
+                "date": "18-05-2025",
+                "meal": "Sáng",
+                "eating": "cam",
+                "calo": 310.0,
+                "quantity": 1.0,
+                "totalcalo": 310.0
+            },
+            {
+                "date": "18-05-2025",
+                "meal": "Sáng",
+                "eating": "táo",
+                "calo": 287.0,
+                "quantity": 1.0,
+                "totalcalo": 287.0
+            },
+            {
+                "date": "18-05-2025",
+                "meal": "Sáng",
+                "eating": "phô mai",
+                "calo": 429.0,
+                "quantity": 1.0,
+                "totalcalo": 429.0
+            },
+            {
+                "date": "19-05-2025",
+                "meal": "Sáng",
+                "eating": "gạo",
+                "calo": 303.0,
+                "quantity": 0.0,
+                "totalcalo": 0.0
+            },
+            {
+                "date": "19-05-2025",
+                "meal": "Sáng",
+                "eating": "cam",
+                "calo": 310.0,
+                "quantity": 2.0,
+                "totalcalo": 620.0
+            }
+        ]
     },
     {
         "username": "user1",

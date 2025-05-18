@@ -5,7 +5,32 @@
     },
     {
         "username": "trong",
-        "exercises": []
+        "exercises": [
+            {
+                "date": "18-05-2025",
+                "exercise_type": "Chạy bộ",
+                "duration": 2.0,
+                "calories": 16.33
+            },
+            {
+                "date": "19-05-2025",
+                "exercise_type": "Chạy bộ",
+                "duration": 12.0,
+                "calories": 98.0
+            },
+            {
+                "date": "19-05-2025",
+                "exercise_type": "Chạy bộ",
+                "duration": 1.0,
+                "calories": 8.17
+            },
+            {
+                "date": "19-05-2025",
+                "exercise_type": "Chạy bộ",
+                "duration": 2.0,
+                "calories": 18.62
+            }
+        ]
     },
     {
         "username": "user1",

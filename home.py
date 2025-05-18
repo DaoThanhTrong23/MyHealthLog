@@ -8,6 +8,7 @@ from datetime import datetime
 class HomeScreen:
     def __init__(self,name,  role):
         self.root = tk.Tk()
+        self.root.config(bg="white")
         self.name = name
         self.role = role
         self.root.title("MyHealthLog")
@@ -27,25 +28,39 @@ class HomeScreen:
         title.pack(pady=20)
 
         #Button Tài khioan
-        self.tai_khoan_btn = tk.Button(self.menu_frame,text="Tài khoản",command=self.show_account,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        img1 = Image.open("Images/icon_taikhoan.png").resize((40, 40)).convert("RGBA")
+        photo1 = ImageTk.PhotoImage(img1)
+
+        self.tai_khoan_btn = tk.Button(self.menu_frame,text="Tài khoản",image=photo1,compound="top",command=self.show_account,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.tai_khoan_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
         #Button luyện tập
-        self.luyen_tap_btn = tk.Button(self.menu_frame,text="Luyện tập",command=self.show_luyen_tap,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        img2 = Image.open("Images/icon_luyentap.png").resize((40, 40)).convert("RGBA")
+        photo2 = ImageTk.PhotoImage(img2)
+
+        self.luyen_tap_btn = tk.Button(self.menu_frame,text="Luyện tập",image=photo2, compound="top",command=self.show_luyen_tap,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.luyen_tap_btn.pack(fill="x", pady=6, padx=5, ipady=8)
         
         #Button dinh dưỡng
-        self.dinh_duong_btn = tk.Button(self.menu_frame,text="Dinh dưỡng",command=self.show_dinh_duong,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        img3 = Image.open("Images/icon_buaan.png").resize((40, 40)).convert("RGBA")
+        photo3 = ImageTk.PhotoImage(img3)
+
+        self.dinh_duong_btn = tk.Button(self.menu_frame,text="Dinh dưỡng",image=photo3, compound="top",command=self.show_dinh_duong,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.dinh_duong_btn.pack(fill="x", pady=6, padx=5, ipady=8)
         
-
         #Button theo dõi
-        self.theo_doi_btn = tk.Button(self.menu_frame,text="Theo dõi",command=self.show_theo_doi,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        img4 = Image.open("Images/icon_thongke.png").resize((40, 40)).convert("RGBA")
+        photo4 = ImageTk.PhotoImage(img4)
+
+        self.theo_doi_btn = tk.Button(self.menu_frame,text="Theo dõi",image=photo4, compound="top",command=self.show_theo_doi,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.theo_doi_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
-
         #Button Danh sách user
-        self.list_user_btn = tk.Button(self.menu_frame,text="Danh sách user",command=self.show_listUser,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
+        img5 = Image.open("Images/icon_danhsach.png").resize((40, 40)).convert("RGBA")
+        photo5 = ImageTk.PhotoImage(img5)
+
+
+        self.list_user_btn = tk.Button(self.menu_frame,text="Danh sách user",image=photo5,compound="top",command=self.show_listUser,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         if role == "Manager":
             self.list_user_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
@@ -75,9 +90,8 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
         
-
         # ===== Nội dung mặc định =====
-        label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Arial", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
+        label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Segoe UI", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
         label_content.pack(pady=30)
         image_path = "Images/logo1.png"
         img = Image.open(image_path)
@@ -87,7 +101,6 @@ class HomeScreen:
         image_label.pack(pady=30, anchor="center")
         slogan = tk.Label(self.content_frame, text=" “Lắng nghe cơ thể - Chủ động thay đổi” ", font=("Segoe UI", 20, "italic", "bold"))
         slogan.pack(pady=30, anchor="center")
-
 
         self.icon()
         self.root.mainloop()
@@ -133,7 +146,6 @@ class HomeScreen:
         self.var_goal = tk.StringVar()  
         self.fill_data_update()
         
-        
         # Card chứa toàn bộ info
         card_frame = tk.Frame(self.content_frame, bg='white', height=80, relief="groove", bd=2)
         card_frame.pack(side='top', fill='x', pady=10, padx=10)
@@ -152,23 +164,22 @@ class HomeScreen:
         self.image_label.grid(column=0, row=0, rowspan=2, padx=5, pady=5)
 
         # Thông tin: Tên
-        label1 = tk.Label(info_frame, text="Tên đăng nhập:", font=("Arial", 12, "bold"), bg='white', fg='black')
+        label1 = tk.Label(info_frame, text="Tên đăng nhập:", font=("Segoe UI", 12, "bold"), bg='white', fg='black')
         label1.grid(row=0, column=1, sticky='w', padx=5)
-        value1 = tk.Label(info_frame, text=self.name, font=("Arial", 12), bg="white", fg="#2c3e50")
+        value1 = tk.Label(info_frame, text=self.name, font=("Segoe UI", 12), bg="white", fg="#2c3e50")
         value1.grid(row=0, column=2, sticky='w', padx=5)
 
         # Thông tin: Quyền
-        label2 = tk.Label(info_frame, text="Chức vụ:", font=("Arial", 12, "bold"), bg='white', fg='black')
+        label2 = tk.Label(info_frame, text="Chức vụ:", font=("Segoe UI", 12, "bold"), bg='white', fg='black')
         label2.grid(row=1, column=1, sticky='w', padx=5)
-        value2 = tk.Label(info_frame, text=self.role, font=("Arial", 12), bg="white", fg="#2c3e50")
+        value2 = tk.Label(info_frame, text=self.role, font=("Segoe UI", 12), bg="white", fg="#2c3e50")
         value2.grid(row=1, column=2, sticky='w', padx=5)
 
         # Frame Thông tin cá nhân
         thongtincanhan_frame = tk.Frame(self.content_frame, bg='white', relief="groove", bd=2)
         thongtincanhan_frame.pack(side='top', fill='both', expand=True, pady=10, padx=10)
 
-
-        title_thongtincanhan = tk.Label(thongtincanhan_frame,text="Thông tin thể trạng cá nhân",font=("Arial", 14, "bold"),bg='white',fg='#2c3e50')
+        title_thongtincanhan = tk.Label(thongtincanhan_frame,text="Thông tin thể trạng cá nhân",font=("Segoe UI", 14, "bold"),bg='white',fg='#2c3e50')
         title_thongtincanhan.pack(pady=20)
 
         # Frame chứa thông tin và ảnh minh họa
@@ -181,7 +192,6 @@ class HomeScreen:
         main_info_frame.grid_rowconfigure(0, weight=1)
         main_info_frame.grid_columnconfigure(0, weight=1)
 
-
         self.thetrang_frame = tk.Frame(main_info_frame, bg='white')
         self.thetrang_frame.grid(row=0, column=0, padx=(10, 2), sticky='n')
 
@@ -189,11 +199,11 @@ class HomeScreen:
         self.img_minhhoa.grid(row=0, column=1, padx=(2, 10), sticky='n')
 
         tk.Label(self.thetrang_frame, text="Họ và tên",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=0, sticky="w",pady=(0, 10))
-        self.fullname_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_fullname, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.fullname_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_fullname, bg='white', fg='black', insertbackground='black',bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.fullname_entry.grid(column=1, row=0, sticky="ew", pady=(0, 10), ipady=2)
 
         tk.Label(self.thetrang_frame, text="Tuổi", font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=1, sticky="w", pady=(0, 10))
-        self.age_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_age, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.age_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_age, bg='white', fg='black', insertbackground='black',bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.age_entry.grid(column=1, row=1, sticky="ew", pady=(0, 10), ipady=2)
         #self.age_entry.bind("<KeyRelease>", self.update_gender_image)
         self.age_entry.bind("<KeyRelease>", self.tinh_bmi_calo_gioitingimg_event)
@@ -207,19 +217,18 @@ class HomeScreen:
         gender_btn.grid(column=1, row=2, sticky="e", pady=(0, 10))
         gender_btn.bind("<Button-1>", self.tinh_bmi_calo_gioitingimg_event)
         
-         
         tk.Label(self.thetrang_frame, text="Chiều cao (cm)",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=3, sticky="w", pady=(0, 10))
-        self.heigth_entry = tk.Entry(self.thetrang_frame, font=("Segoe UI", 12),textvariable=self.var_heigth, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.heigth_entry = tk.Entry(self.thetrang_frame, font=("Segoe UI", 12),textvariable=self.var_heigth, bg='white', fg='black', insertbackground='black', bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.heigth_entry.grid(column=1, row=3,sticky="ew", pady=(0, 10), ipady=2)
         self.heigth_entry.bind("<KeyRelease>", self.tinh_bmi_calo_gioitingimg_event)
 
         tk.Label(self.thetrang_frame, text="Cân nặng (kg)",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=4,sticky="w", pady=(0, 10))
-        self.weight_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_weight, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.weight_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_weight, bg='white', fg='black', insertbackground='black', bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.weight_entry.grid(column=1, row=4,sticky="ew", pady=(0, 10), ipady=2)
         self.weight_entry.bind("<KeyRelease>", self.tinh_bmi_calo_gioitingimg_event)
 
         tk.Label(self.thetrang_frame, text="Bệnh lý",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=5,sticky="w", pady=(0, 10))
-        self.illness_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_illness, bg='white', fg='black', insertbackground='black', relief='solid', bd=1)
+        self.illness_entry = tk.Entry(self.thetrang_frame,font=("Segoe UI", 12),textvariable=self.var_illness, bg='white', fg='black', insertbackground='black', bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.illness_entry.grid(column=1, row=5, sticky="ew", pady=(0, 10), ipady=2)
 
         tk.Label(self.thetrang_frame, text="Cường độ luyện tập",font=("Segoe UI", 12), bg='white', fg='black').grid(column=0, row=6,columnspan=2, sticky="w", pady=(0, 10))
@@ -231,10 +240,15 @@ class HomeScreen:
             "Vận động nhiều (Tập nặng 6-7 ngày/tuần)": "1.725",
             "Vận động rất nhiều 'Vận động viên' (Tập 2 buổi/ngày)": "1.9"
         }
-
         default_desc = self.get_activity_description_from_value(self.var_activitylevel.get())
 
-        self.activity_combobox = ttk.Combobox(self.thetrang_frame,values=list(self.activity_options.keys()),font=("Segoe UI", 10),state="readonly")
+        self.activity_combobox = ttk.Combobox(
+            self.thetrang_frame,
+            values=list(self.activity_options.keys()),
+            state="readonly",
+            font=("Segoe UI", 12)
+        )
+
         if default_desc:
             self.activity_combobox.set(default_desc)
 
@@ -258,12 +272,11 @@ class HomeScreen:
         goal_calo_btn = tk.Radiobutton(self.thetrang_frame, text="Tăng cân", variable= self.goal_calo,font=("Segoe UI", 12), value="Tăng cân", bg="white", fg="black")
         goal_calo_btn.grid(column=0, row=11,columnspan=2, pady=(0, 10), sticky="e")
         
+        self.save_new_btn = tk.Button(self.thetrang_frame, text="Lưu thông tin", font=("Segoe UI", 12, 'bold'), bg="green", fg="white", bd=0, command=self.save_account_info)
+        self.save_new_btn.grid(column=0, row=12, sticky="w",pady=15, ipadx=15, ipady=2)
 
-        self.save_new_btn = tk.Button(self.thetrang_frame, text="Lưu thông tin", font=("Segoe UI", 12, 'bold'), bg="green", fg="black", bd=0, command=self.save_account_info)
-        self.save_new_btn.grid(column=0, row=12, sticky="w",pady=10, ipadx=2, ipady=2)
-
-        self.huy_btn = tk.Button(self.thetrang_frame, text="Hủy", font=("Segoe UI", 12, 'bold'),bg="red", fg="black", bd=0)
-        self.huy_btn.grid(column=1, row=12, sticky="e", pady=10, ipadx=2, ipady=2)
+        self.huy_btn = tk.Button(self.thetrang_frame, text="Hủy", font=("Segoe UI", 12, 'bold'),bg="red", fg="white", bd=0, command=self.on_click_huy_tai_khoan)
+        self.huy_btn.grid(column=1, row=12, sticky="e", pady=10, ipadx=5, ipady=2)
 
         self.tinh_bmi()
         self.tinh_calo()
@@ -333,6 +346,16 @@ class HomeScreen:
         with open("data/health.json", "r", encoding="utf-8") as f:
             data_accounts = json.load(f)
 
+        if not self.age_entry.get().isdigit() or int(self.age_entry.get()) <= 0:
+            messagebox.showerror("Lỗi", "Tuổi phải là số nguyên dương")
+            return
+        if not self.heigth_entry.get().isdigit() or int(self.heigth_entry.get()) <= 0:
+            messagebox.showerror("Lỗi", "Chiều cao phải là số nguyên dương")
+            return
+        if not self.weight_entry.get().isdigit() or int(self.weight_entry.get()) <= 0:
+            messagebox.showerror("Lỗi", "Cân nặng phải là số nguyên dương")
+            return
+        
         for acc in data_accounts:
             if acc["username"] == self.name:
                 acc["fullname"] = self.fullname_entry.get()
@@ -378,7 +401,11 @@ class HomeScreen:
             self.anhminhhoa.pack(pady=5, side="left")
         except Exception as e:
             print("Lỗi hình ảnh giới tính:", e)
-
+    
+    def on_click_huy_tai_khoan(self):
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.show_account()
 
     #__________________________________________________________LUYỆN TẬP______________________________________________________________________
     def show_luyen_tap(self):
@@ -392,7 +419,7 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#40E0D0")
         self.list_user_btn.config(bg="#40E0D0")
                                                               
-        tk.Label(self.content_frame, text="Luyện tập", font=("Segoe UI", 14, "bold")).grid(column=0, row=0, columnspan=2, sticky='ew', pady=(10, 25))
+        tk.Label(self.content_frame, text="Luyện tập", font=("Segoe UI", 14, "bold")).grid(column=0, row=0, columnspan=2, sticky='we', pady=(10, 25))
         self.content_frame.grid_rowconfigure(1, weight=1)
         self.content_frame.grid_rowconfigure(2, weight=0)
 
@@ -403,31 +430,34 @@ class HomeScreen:
         self.input_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
         self.input_frame.grid(column=0, row=1, padx=5, pady=10, sticky="nsew")
 
-        tk.Label(self.input_frame, text="Thông tin tập luyện",font=("Segoe UI", 15),bg="white").pack(pady=15)
-        tk.Label(self.input_frame, text="Loại bài tập", bg="white", font=("Segoe UI", 12)).pack(pady=5, anchor='w')
+        self.input_frame.grid_columnconfigure(0, weight=1)
+
+        tk.Label(self.input_frame, text="Thông tin tập luyện", font=("Segoe UI", 13, "bold"),bg="white").grid(column=0, row=0, sticky="we", pady=10)
+        tk.Label(self.input_frame, text="Loại bài tập:", bg="white", font=("Segoe UI", 12)).grid(column=0, row=1, pady=(10,3), sticky="w")
         self.exercise_options = ["Chạy bộ", "Đi bộ", "Đạp xe", "Tập gym", "Yoga", "Bơi lội", "Nhảy dây", "Khác"]
+
         self.exercise_type_combobox = ttk.Combobox(self.input_frame, values=self.exercise_options, font=("Segoe UI", 12), state="readonly")
         self.exercise_type_combobox.current(0)
-        self.exercise_type_combobox.pack(pady=5,padx=5, fill='x')
+        self.exercise_type_combobox.grid(column=0, row=2, pady=5,padx=5, sticky="swen")
         self.exercise_type_combobox.bind("<<ComboboxSelected>>", self.update_calo_estimate_event)
 
 
-        tk.Label(self.input_frame, text="Thời lượng (phút):", bg="white", font=("Segoe UI", 12)).pack(pady=5)
-        self.duration_entry= tk.Entry(self.input_frame, font=("Segoe UI", 12),bg='white', fg='black')
-        self.duration_entry.pack(padx=5,fill='x')
+        tk.Label(self.input_frame, text="Thời lượng (phút):", bg="white", font=("Segoe UI", 12)).grid(column=0, row=3, pady=(10,5), sticky="w")
+        self.duration_entry= tk.Entry(self.input_frame, font=("Segoe UI", 12),bg='white', fg='black', bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+        self.duration_entry.grid(column=0, row=4, padx=5, sticky="swen")
         self.duration_entry.bind("<KeyRelease>", self.update_calo_estimate_event)
 
         # Calo ước tính
         self.calo_label = tk.Label(self.input_frame, text="Calo ước tính: -", bg="white", font=("Segoe UI", 12, "italic"))
-        self.calo_label.pack(pady=10, padx=5)
+        self.calo_label.grid(column=0, row=5, pady=(20,10), padx=5, sticky="w")
 
-        tk.Button(self.input_frame, text="Lưu thông tin", bg="green", fg="black", font=("Segoe UI", 12), command=self.save_data_exercise).pack(pady=10, padx=5, fill='x', ipady=2)
+        tk.Button(self.input_frame, text="Lưu thông tin", bg="green", fg="white", font=("Segoe UI", 12, 'bold'), command=self.save_data_exercise).grid(column=0, row=6, pady=10, padx=5, sticky="swen", ipady=2)
         
-        tk.Button(self.input_frame, text="Thay đổi",bg="yellow",fg="black", font=("Segoe UI", 12), command=self.update_selected_exercise).pack(pady=5, fill='x', padx=5, ipady=2)
-        tk.Button(self.input_frame, text="Xóa",bg="red", fg="black", font=("Segoe UI", 12), command=self.delete_selected_exercise).pack(pady=5, fill='x', padx=5, ipady=2)
+        tk.Button(self.input_frame, text="Thay đổi",bg="orange",fg="white", font=("Segoe UI", 12, 'bold'), command=self.update_selected_exercise).grid(column=0, row=7, pady=5, sticky="swen", padx=5, ipady=2)
+        tk.Button(self.input_frame, text="Xóa",bg="red", fg="white", font=("Segoe UI", 12, 'bold'), command=self.delete_selected_exercise).grid(column=0, row=8, pady=5, sticky="swen", padx=5, ipady=2)
 
-        huy = tk.Button(self.input_frame, text="Hủy", bg="white", bd=0, fg="red",font=("Segoe UI", 12), command=self.on_click_huy_them)
-        huy.pack(pady=10)
+        huy = tk.Button(self.input_frame, text="Hủy", bg="white", bd=0, fg="red",font=("Segoe UI", 12, 'bold'), command=self.on_click_huy_them)
+        huy.grid(column=0, row=9, pady=10)
 
         # --- FRAME LỊCH SỬ ---
         history_frame = tk.Frame(self.content_frame, bg="white", bd=1, relief="solid")
@@ -436,8 +466,12 @@ class HomeScreen:
 
         tk.Label(history_frame, text="Lịch sử buổi tập", bg="white", font=("Segoe UI", 13, "bold")).pack(pady=5)
 
+        style = ttk.Style()
+        style.configure("Custom.Treeview", font=("Segoe UI", 11)) 
+        style.configure("Custom.Treeview.Heading", font=("Segoe UI", 11, "bold"))
+
         columns = ("date", "type", "duration", "calories")
-        self.exercise_tree = ttk.Treeview(history_frame, columns=columns, show="headings")
+        self.exercise_tree = ttk.Treeview(history_frame, columns=columns, show="headings", style="Custom.Treeview")
         self.exercise_tree.heading("date", text="Ngày")
         self.exercise_tree.heading("type", text="Loại tập")
         self.exercise_tree.heading("duration", text="Thời lượng (phút)")
@@ -461,9 +495,10 @@ class HomeScreen:
         self.exercise_mets = {"Chạy bộ": 9.8, "Đi bộ": 3.8, "Đạp xe": 7.5, "Tập gym": 6.0,"Yoga": 2.5, "Bơi lội": 8.0, "Nhảy dây": 12.3,"Khác": 5.0}
 
     def on_click_huy_them(self):
-        self.duration_entry.delete(0, tk.END)
-        self.update_calo_estimate()
-
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.show_luyen_tap()
+        
     def update_calo_estimate_event(self, event=None):
         self.update_calo_estimate()
     def update_calo_estimate(self):
@@ -484,13 +519,18 @@ class HomeScreen:
         
         try:
             exercise_type = self.exercise_type_combobox.get()
-            duration = float(self.duration_entry.get())
+
+            if self.duration_entry.get().isdigit() and int(self.duration_entry.get()) > 0:
+                duration = float(self.duration_entry.get())
+            else:
+                messagebox.showerror("Lỗi", "Thời lượng phải là số nguyên dương")
+                return
+
             weight = float(self.var_weight.get())
             met = self.exercise_mets.get(exercise_type, 5.0)
             calories = round(met * weight * (duration / 60), 2)
 
             today_str = datetime.now().strftime("%d-%m-%Y") 
-            # test--------------------------
         
             new_exercise = {
                 "date": today_str,
@@ -577,9 +617,11 @@ class HomeScreen:
         self.selected_exercise_index = None
         messagebox.showinfo("Thành công", "Đã xóa bài tập.")
     
-    
     def update_selected_exercise(self):
         selected = self.exercise_tree.selection()
+        if not selected:
+            messagebox.showerror("Lỗi", "Vui lòng chọn hành động")
+            return
         if selected:
             item = self.exercise_tree.item(selected[0])
             values = item["values"]
@@ -589,7 +631,12 @@ class HomeScreen:
                 data = json.load(file)
 
             exercise_type = self.exercise_type_combobox.get()
-            duration = float(self.duration_entry.get())
+
+            if self.duration_entry.get().isdigit() and int(self.duration_entry.get()) > 0:
+                duration = float(self.duration_entry.get())
+            else:
+                messagebox.showerror("Lỗi", "Thời lượng phải là số nguyên dương")
+                return
             weight = float(self.var_weight.get())
             met = self.exercise_mets.get(exercise_type, 5.0)
             calories = round(met * weight * (duration / 60), 2)
@@ -649,6 +696,9 @@ class HomeScreen:
 
         self.content_frame.grid_rowconfigure(1, weight=1)
         self.content_frame.grid_rowconfigure(2, weight=1)
+        self.content_frame.columnconfigure(0, weight=1)
+        self.content_frame.columnconfigure(1, weight=1)
+
 
         tk.Label(self.content_frame, text="Chế độ ăn uống",font=("Segoe UI", 18,"bold")).grid(column=0, row=0, pady=10, columnspan=2)
         #_______________________________________nhập phần ăn
@@ -680,7 +730,7 @@ class HomeScreen:
             "cá", "sushi", "mì ramen", "há cảo"
         ]
         
-        self.mon_an_type_entry = tk.Entry(self.frame_input, font=("Segoe UI", 12))
+        self.mon_an_type_entry = tk.Entry(self.frame_input, font=("Segoe UI", 12), bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.mon_an_type_entry.grid(row=2, column=0,padx=10, columnspan=5, sticky="ew")
         self.mon_an_type_entry.bind("<KeyRelease>", self.search_type_mon_an_event)
 
@@ -688,8 +738,8 @@ class HomeScreen:
         self.mon_an_type_listbox.grid(row=3,padx=10, column=0, columnspan=5, sticky='ew')
         self.mon_an_type_listbox.bind("<<ListboxSelect>>", self.on_click_select_type)
 
-        tk.Label(self.frame_input, text="Số lượng phần ăn",font=("Segoe UI", 11), bg="white", fg="black").grid(row=4, column=0, columnspan=5, sticky='w', pady=(10, 0))
-        self.mon_an_so_luong_entry = tk.Entry(self.frame_input, font=("Segoe UI", 11))
+        tk.Label(self.frame_input, text="Số lượng phần ăn",font=("Segoe UI", 11), bg="white", fg="black").grid(row=4, column=0, columnspan=5, sticky='w',padx=10, pady=(15, 0))
+        self.mon_an_so_luong_entry = tk.Entry(self.frame_input, font=("Segoe UI", 11), bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.mon_an_so_luong_entry.insert(0, 1)
         self.mon_an_so_luong_entry.grid(row=5, column=0,padx=10, columnspan=5, sticky='ew')
         self.mon_an_so_luong_entry.bind("<KeyRelease>", self.so_luong_mon_an_event)
@@ -711,9 +761,9 @@ class HomeScreen:
         buoi_an.grid(row=7,padx=(0, 10), column=4)
 
         them_moi_btn = tk.Button(self.frame_input, text="Thêm",font=("Segoe UI", 12, "bold"), bg="green", fg="white", bd=0, command=self.on_click_them_mon_an)
-        them_moi_btn.grid(column=0, row=8,padx=10, columnspan=5, sticky="we", pady=(10, 10), ipady=2)
+        them_moi_btn.grid(column=0, row=8,padx=10, columnspan=5, sticky="we", pady=10, ipady=2)
 
-        huy_btn = tk.Button(self.frame_input, text="Hủy",font=("Segoe UI", 12, "bold"), fg="red", bg="white", bd=0)
+        huy_btn = tk.Button(self.frame_input, text="Hủy",font=("Segoe UI", 12, "bold"), fg="red", bg="white", bd=0, command=self.on_click_huy_dinh_duong)
         huy_btn.grid(column=0, row=9,padx=10, columnspan=5, sticky="we")
 
         
@@ -724,7 +774,7 @@ class HomeScreen:
         self.frame_search_api.columnconfigure(0, weight=1)
 
         tk.Label(self.frame_search_api, text="Tra cứu calories các món ăn", font=("Segoe UI", 15), fg="black", bg="white").grid(column=0, row=0,padx=10, pady=15, sticky="we")
-        self.tra_cuu_entry = tk.Entry(self.frame_search_api, font=("Segoe UI", 12))
+        self.tra_cuu_entry = tk.Entry(self.frame_search_api, font=("Segoe UI", 12), bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.tra_cuu_entry.grid(row=1, column=0, columnspan=5,padx=10, sticky="ew")
         self.tra_cuu_entry.bind("<KeyRelease>", self.search_calo_event)
 
@@ -737,8 +787,8 @@ class HomeScreen:
         self.calo_mon = tk.Label(self.frame_search_api, text="Calories: ",font=("Segoe UI", 12), bg="white", fg="black")
         self.calo_mon.grid(row=4, column=0,padx=10,pady=10, sticky="w")
 
-        tk.Button(self.frame_search_api, text="Tra cứu", fg="white", bd=0, bg="blue", font=("Segoe UI", 12, "bold"), command=self.on_click_tra_cuu).grid(column=0, row=5, pady=20,ipady=2, padx=10, sticky="ew")
-        tk.Button(self.frame_search_api, text="Hủy", fg="red", bd=0, bg="white", font=("Segoe UI", 12, "bold"), command=self.on_click_huy_tra_cuu).grid(column=0, row=6, pady=20, padx=10, sticky="ew")
+        tk.Button(self.frame_search_api, text="Tra cứu", fg="white", bd=0, bg="blue", font=("Segoe UI", 12, "bold"), command=self.on_click_tra_cuu).grid(column=0, row=5, pady=(35,10),ipady=2, padx=10, sticky="ew")
+        tk.Button(self.frame_search_api, text="Hủy", fg="red", bd=0, bg="white", font=("Segoe UI", 12, "bold"), command=self.on_click_huy_dinh_duong).grid(column=0, row=6, padx=10, sticky="ew")
 
 
         #______________________________________Show thông tin bửa ăn
@@ -751,8 +801,8 @@ class HomeScreen:
         columns = ("ngay", "buoi", "monan","calo","soluong", "tongcalo")
 
         style = ttk.Style()
-        style.configure("Custom.Treeview", font=("Arial", 11)) 
-        style.configure("Custom.Treeview.Heading", font=("Arial", 12, "bold")) 
+        style.configure("Custom.Treeview", font=("Segoe UI", 11)) 
+        style.configure("Custom.Treeview.Heading", font=("Segoe UI", 11, "bold")) 
 
         self.health_tree = ttk.Treeview(self.frame_list_input,columns=columns, show="headings", style="Custom.Treeview")
         self.health_tree.heading("ngay", text="Ngày")
@@ -954,21 +1004,19 @@ class HomeScreen:
                     self.calo_mon.config(text=f"Calories: {calo}")
                     break
         
-    def on_click_huy_tra_cuu(self):
-        self.tra_cuu_entry.delete(0, tk.END)
-        
-        self.ten_mon.config(text="Tên món: ")
-        self.calo_mon.config(text="Calories: ")
-        self.search_calo()
+    def on_click_huy_dinh_duong(self):
+        for widget in self.content_frame.winfo_children():
+            widget.destroy()
+        self.show_dinh_duong()
 
     def so_luong_mon_an_event(self, event):
         self.mon_an_so_luong_entry.config(bg="white")
 
     def on_click_them_mon_an(self):
-        if not self.mon_an_type_entry.get() or not self.mon_an_so_luong_entry.get():
+        if not self.mon_an_type_entry.get() or not self.mon_an_so_luong_entry.get() :
             messagebox.showerror("Lỗi", "Vui lòng điền đầy đủ thông tin")
             return
-        elif not self.mon_an_so_luong_entry.get().strip().isdigit():
+        elif not self.mon_an_so_luong_entry.get().isdigit()  or int(self.mon_an_so_luong_entry.get()) <= 0:
             messagebox.showerror("Lỗi", "Số lượng phải là một số nguyên dương.")
             self.mon_an_so_luong_entry.config(bg="red")
             return
@@ -1004,22 +1052,22 @@ class HomeScreen:
             try:
                 with open("data/meal.json", "r", encoding="utf-8") as file:
                     data_meal = json.load(file)
+
             except Exception as ex:
                 messagebox.showerror("Lỗi", f"{ex}")
                 return
             for user in data_meal:
                 if user["username"] == self.name:
                     user["meals"].append(new_data_mon_an)
-                break
+                    break
             try:
                 with open("data/meal.json", "w", encoding="utf-8") as file:
                     json.dump(data_meal, file, ensure_ascii=False, indent=4)
                     messagebox.showinfo("Thông báo", "Thêm thành công")
-                
-                self.mon_an_type_entry.delete(0, tk.END)
-                self.mon_an_so_luong_entry.delete(0, tk.END)
-                self.buoi_an.set("Sáng")
-                self.mon_an_so_luong_entry.insert(0, 1)
+
+                for widget in self.content_frame.winfo_children():
+                    widget.destroy()
+                self.show_dinh_duong()
 
                 self.reset_fill_data_health_tree_event()
 
@@ -1085,7 +1133,7 @@ class HomeScreen:
 
         tk.Label(frame_update, text="Món ăn",font=("Segoe UI", 12), fg="black", bg=None).grid(column=0, columnspan=5, row=1, padx=10, sticky="w")
 
-        self.update_mon_an_type_entry = tk.Entry(frame_update, font=("Segoe UI", 12), textvariable=eating_var)
+        self.update_mon_an_type_entry = tk.Entry(frame_update, font=("Segoe UI", 12), textvariable=eating_var,bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.update_mon_an_type_entry.grid(column=0, columnspan=5, row=2, padx=10, sticky="swen")
         self.update_mon_an_type_entry.bind("<KeyRelease>", self.update_creen_search_type_mon_an_event)
 
@@ -1093,10 +1141,9 @@ class HomeScreen:
         self.update_mon_an_type_listbox.grid(column=0, columnspan=5, row=3, padx=10,sticky="swen")
         self.update_mon_an_type_listbox.bind("<<ListboxSelect>>", self.update_select_type)
         
-
         quantity_var = tk.StringVar(value=quantity)
         tk.Label(frame_update, text="Số lượng phần ăn",font=("Segoe UI", 12), bg=None, fg="black").grid(column=0, columnspan=5, row=4,sticky="w", pady=5, padx=10)
-        self.update_creen_mon_an_so_luong_entry = tk.Entry(frame_update, font=("Segoe UI", 11), textvariable=quantity_var)
+        self.update_creen_mon_an_so_luong_entry = tk.Entry(frame_update, font=("Segoe UI", 11), textvariable=quantity_var,bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         self.update_creen_mon_an_so_luong_entry.grid(column=0, columnspan=5, row=5, padx=10,sticky="swen")
         self.update_creen_mon_an_so_luong_entry.bind("<KeyRelease>", self.so_luong_mon_an_event)
 
@@ -1113,12 +1160,10 @@ class HomeScreen:
         update_btn = tk.Button(frame_update, text="Lưu thay đổi",font=("Segoe UI", 12, "bold"), bg="green", fg="white", bd=0, command=self.save_updated_meal_info)
         update_btn.grid(column=0, columnspan=5, row=8, padx=10, sticky="swen", pady=10)
 
-        huy_btn = tk.Button(frame_update, text="Hủy",font=("Segoe UI", 12, "bold"), fg="red", bg="white", bd=0, command=self.update_creen_on_click_huy)
+        huy_btn = tk.Button(frame_update, text="Hủy",font=("Segoe UI", 12, "bold"), fg="red", bg=None, bd=0, command=self.update_creen_on_click_huy)
         huy_btn.grid(column=0, columnspan=5, row=9, padx=10,pady=(0, 20), sticky="swen")
 
         self.update_creen_search_type_mon_an()
-
-   
 
     def update_creen_search_type_mon_an_event(self, event):
         self.update_creen_search_type_mon_an()
@@ -1212,16 +1257,13 @@ class HomeScreen:
         try:
             with open("data/meal.json", "w", encoding="utf-8") as file:
                 json.dump(data_meal_update, file, ensure_ascii=False, indent=4)
-
             messagebox.showinfo("Thành công", "Đã lưu thay đổi thành công.")
             self.creen_update.destroy()
             self.reset_fill_data_health_tree_event() 
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Không thể ghi file meal.json: {ex}")
 
-
     def update_creen_menu_click_delete(self):
-        # self.update_item_selected = self.health_tree.selection()
 
         if self.update_item_selected:
             item = self.health_tree.item(self.update_item_selected[0])
@@ -1258,6 +1300,7 @@ class HomeScreen:
 
     def update_creen_on_click_huy(self):
         self.creen_update.destroy()
+
     def on_click_lam_moi(self):
         self.reset_fill_data_health_tree_event()
     #___________________________________________________________________Theo dõi________________________________________
@@ -1271,7 +1314,7 @@ class HomeScreen:
         self.theo_doi_btn.config(bg="#008080")
         self.list_user_btn.config(bg="#40E0D0")
 
-        tk.Label(self.content_frame, text="Theo Dõi Sức Khoẻ", font=("Arial", 18, "bold"), fg="#005B9A").pack(pady=15)
+        tk.Label(self.content_frame, text="Theo Dõi Sức Khoẻ", font=("Segoe UI", 18, "bold"), fg="#005B9A").pack(pady=15)
 
         frame_scroll = tk.Frame(self.content_frame)
         frame_scroll.pack(anchor="center", expand=True, fill="both",pady= 10)
@@ -1294,7 +1337,11 @@ class HomeScreen:
 
         # === Gắn cuộn chuột ===
         def _on_mousewheel(event):
-            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            try:
+                if str(canvas) in str(canvas.tk.call("winfo", "exists", canvas._w)):
+                    canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            except Exception as e:
+                print(f"Lỗi cuộn chuột: {e}")
 
         canvas.bind_all("<MouseWheel>", _on_mousewheel)
 
@@ -1302,22 +1349,27 @@ class HomeScreen:
         self.frame_thongke = tk.Frame(scrollable_frame, bg="white", padx=20, pady=20)
         self.frame_thongke.pack(anchor="center", padx=250)
 
-
         today = datetime.now().strftime("%d-%m-%Y")
 
         top_frame = tk.Frame(self.frame_thongke, bg="white")
         top_frame.pack(pady=10)
 
-        tk.Label(top_frame, text="Chọn ngày (dd-mm-yyyy):", font=("Arial", 11, "bold"), bg="white").grid(row=0, column=0, padx=5, pady=10)
-        date_entry = tk.Entry(top_frame, font=("Arial", 11))
+        tk.Label(top_frame, text="Chọn ngày (dd-mm-yyyy):", font=("Segoe UI", 11, "bold"), bg="white").grid(row=0, column=0, padx=5, pady=10)
+        date_entry = tk.Entry(top_frame, font=("Segoe UI", 11), bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
         date_entry.insert(0, today)
         date_entry.grid(row=0, column=1, padx=5)
-        tk.Button(top_frame, text="Xem", font=("Arial", 11), bg="#3498db", fg="white", command=lambda: self.thong_ke_theo_ngay(date_entry.get())).grid(row=0, column=2, padx=0, ipadx=10)
+        tk.Button(top_frame, text="Xem", font=("Segoe UI", 11), bg="#3498db", fg="white", command=lambda: self.thong_ke_theo_ngay(date_entry.get())).grid(row=0, column=2, padx=0, ipadx=10)
 
         self.thong_ke_theo_ngay(today)
 
-
     def thong_ke_theo_ngay(self, selected_date):
+
+        try:
+            datetime.strptime(selected_date, "%d-%m-%Y")
+        except ValueError:
+            messagebox.showerror("Lỗi", "Sai định dạng (dd-mm-yyyy)")
+            return
+
         for widget in self.frame_thongke.winfo_children()[1:]:
             widget.destroy()
 
@@ -1365,12 +1417,12 @@ class HomeScreen:
             pass
 
         # PHẦN 1: Thông tin tổng quát
-        thongtin_frame = tk.LabelFrame(self.frame_thongke, text="Thông tin tổng hợp", font=("Arial", 12, "bold"), bg="white", fg="#005B9A")
+        thongtin_frame = tk.LabelFrame(self.frame_thongke, text="Thông tin tổng hợp", font=("Segoe UI", 12, "bold"), bg="white", fg="#005B9A")
         thongtin_frame.pack(padx=10, pady=10, fill="x")
 
         def info_row(frame, label, value):
-            tk.Label(frame, text=label, font=("Arial", 11), bg="white").pack(anchor="w", padx=10, pady=2)
-            tk.Label(frame, text=value, font=("Arial", 11, "bold"), bg="white", fg="#2c3e50").pack(anchor="w", padx=20)
+            tk.Label(frame, text=label, font=("Segoe UI", 11), bg="white").pack(anchor="w", padx=10, pady=2)
+            tk.Label(frame, text=value, font=("Segoe UI", 11, "bold"), bg="white", fg="#2c3e50").pack(anchor="w", padx=20)
 
         info_row(thongtin_frame, "Lượng calo cần thiết (TDEE):", f"{self.tdee} calo")
         info_row(thongtin_frame, "Mục tiêu:", muctieu)
@@ -1379,17 +1431,17 @@ class HomeScreen:
 
         # PHẦN 2: Danh sách món ăn
         if food_list:
-            meal_frame = tk.LabelFrame(self.frame_thongke, text="Danh sách món ăn", font=("Arial", 12, "bold"), bg="white", fg="#005B9A")
+            meal_frame = tk.LabelFrame(self.frame_thongke, text="Danh sách món ăn", font=("Segoe UI", 12, "bold"), bg="white", fg="#005B9A")
             meal_frame.pack(padx=10, pady=5, fill="x")
             for food in food_list:
-                tk.Label(meal_frame, text=f"- {food}", font=("Arial", 11), bg="white", anchor="w").pack(anchor="w", padx=15)
+                tk.Label(meal_frame, text=f"- {food}", font=("Segoe UI", 11), bg="white", anchor="w").pack(anchor="w", padx=15)
 
         # PHẦN 3: Danh sách hoạt động
         if activity_list:
-            ex_frame = tk.LabelFrame(self.frame_thongke, text="Hoạt động luyện tập", font=("Arial", 12, "bold"), bg="white", fg="#005B9A")
+            ex_frame = tk.LabelFrame(self.frame_thongke, text="Hoạt động luyện tập", font=("Segoe UI", 12, "bold"), bg="white", fg="#005B9A")
             ex_frame.pack(padx=10, pady=5, fill="x")
             for act in activity_list:
-                tk.Label(ex_frame, text=f"- {act}", font=("Arial", 11), bg="white", anchor="w").pack(anchor="w", padx=15)
+                tk.Label(ex_frame, text=f"- {act}", font=("Segoe UI", 11), bg="white", anchor="w").pack(anchor="w", padx=15)
 
         # PHẦN 4: Kết luận và lời khuyên
         net_calo = total_calo_in - total_calo_out
@@ -1421,11 +1473,11 @@ class HomeScreen:
             else:
                 khuyen = "Bạn đang thiếu calo nhẹ, hãy đảm bảo ăn uống đầy đủ để duy trì cân nặng."
 
-        result_frame = tk.LabelFrame(self.frame_thongke, text="Kết luận và lời khuyên", font=("Arial", 12, "bold"), bg="white", fg="#005B9A")
+        result_frame = tk.LabelFrame(self.frame_thongke, text="Kết luận và lời khuyên", font=("Segoe UI", 12, "bold"), bg="white", fg="#005B9A")
         result_frame.pack(padx=10, pady=10, fill="x")
 
-        tk.Label(result_frame, text=f"Kết luận: {ket_luan}", font=("Arial", 11), bg="white").pack(anchor="w", padx=10, pady=5)
-        tk.Label(result_frame, text=f"Lời khuyên: {khuyen}", font=("Arial", 11), bg="white").pack(anchor="w", padx=10, pady=5)
+        tk.Label(result_frame, text=f"Kết luận: {ket_luan}", font=("Segoe UI", 11), bg="white").pack(anchor="w", padx=10, pady=5)
+        tk.Label(result_frame, text=f"Lời khuyên: {khuyen}", font=("Segoe UI", 11), bg="white").pack(anchor="w", padx=10, pady=5)
 
 
     #___________________________________________________________________List user________________________________________________________________
@@ -1439,20 +1491,43 @@ class HomeScreen:
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
+        self.content_frame.columnconfigure(0, weight=1)
+        self.content_frame.columnconfigure(1, weight=0)
+
+
+        self.content_frame.rowconfigure(1, weight=1)
+        self.content_frame.rowconfigure(2, weight=0)
+
+
         tk.Label(self.content_frame, text="Danh sách người dùng", font=("Segoe UI", 15, "bold")).grid(column=0, row=0)
 
-        self.frame_ds_user = tk.Frame(self.content_frame, bg="white", bd=2, relief="solid")
-        self.frame_ds_user.grid(column=0, row=1,sticky="snew", padx=20, pady=10)
+       
 
-        tk.Label(self.frame_ds_user, text="Nhập tên tài khoản cần tìm:", font=("Segoe UI", 12, "bold"), bg="white").grid(column=0, row=0, padx=5, pady=10, sticky="w")
+        self.frame_ds_user = tk.Frame(self.content_frame, bg="white", bd=2, relief="solid")
+        self.frame_ds_user.grid(column=0, row=1,sticky="snew", pady=10, padx=5)
+
+
+        
+        # Cho phép frame_ds_user mở rộng
+        self.frame_ds_user.columnconfigure(1, weight=1)
+
+        self.frame_ds_user.rowconfigure(1, weight=1)
+        # self.frame_ds_user.rowconfigure(2, weight=1)
+
+
+        tk.Label(self.frame_ds_user, text="Nhập tên tài khoản cần tìm:", font=("Segoe UI", 12, "bold"), bg="white").grid(column=0, row=0, padx=10, pady=20, sticky="w")
         self.search_entry = tk.Entry(self.frame_ds_user,font=("Segoe UI", 12), bd=2,relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
-        self.search_entry.grid(column=1, row=0, padx=5,pady=10, ipady=2, sticky="w")
-        tk.Button(self.frame_ds_user, text="Tìm",font=("Segoe UI", 11), bd=0, background="green", fg="black", command=self.search_user).grid(column=2, row=0, padx=5,ipadx=20, sticky="w")
-        tk.Button(self.frame_ds_user, text="Hủy",font=("Segoe UI", 11), bd=0, background="white", fg="red", command=self.huy_search_user).grid(column=3, row=0, padx=5,ipadx=20, sticky="w")
+        self.search_entry.grid(column=1, row=0, padx=(5,0),pady=10, ipady=2, sticky="we")
+        tk.Button(self.frame_ds_user, text="Tìm",font=("Segoe UI", 11, "bold"), bd=0, background="green", fg="white", command=self.search_user).grid(column=2, row=0,ipadx=40, sticky="w")
+        tk.Button(self.frame_ds_user, text="Hủy",font=("Segoe UI", 11, "bold"), bd=0, background="white", fg="red", command=self.huy_search_user).grid(column=3,padx=10, row=0, sticky="w")
+
+        style = ttk.Style()
+        style.configure("Custom.Treeview", font=("Segoe UI", 11)) 
+        style.configure("Custom.Treeview.Heading", font=("Segoe UI", 11, "bold")) 
 
         columns = ["STT", "Tên Đăng Nhập", "Họ Tên", "Tuổi", "Giới Tính", "Chiều Cao", "Cân Nặng", "Bệnh Lý", "Quyền"]
-        self.list_user = ttk.Treeview(self.frame_ds_user, columns=columns, show="headings", height=10)
-        self.list_user.grid(column=0, row=2, columnspan=4, sticky="nsew", pady=5, padx=5)
+        self.list_user = ttk.Treeview(self.frame_ds_user, columns=columns, show="headings", style="Custom.Treeview")
+        self.list_user.grid(column=0, row=1, columnspan=4, sticky="nsew", pady=5, padx=10)
 
         self.list_user.bind("<Button-3>", self.event_show_menu_edit_user)
 
@@ -1556,66 +1631,103 @@ class HomeScreen:
             messagebox.showwarning("Chọn người dùng", "Vui lòng chọn một người dùng để sửa.")
             return
 
-        values = self.list_user.item(selected[0])["values"]
-        username = values[1]
+        item = self.list_user.item(selected[0])
+        values = item["values"]  
+        stt, username, fullname, age, gender, height, weight, illness, role = values
 
         if username == "admin":
             messagebox.showerror("Lỗi", "Đây là tài khoản admin không thể chỉnh sửa!")
             return
 
         user = next((u for u in self.user_data if u["username"] == username), None)
+
         health_user = next((h for h in self.health_data if h["username"] == username), None)
 
         if not user or not health_user:
             messagebox.showerror("Lỗi", "Không tìm thấy người dùng.")
             return
 
-        # Tạo cửa sổ sửa
+        # Cửa sổ sửa
         edit_window = tk.Toplevel(self.root)
-        edit_window.title("Sửa thông tin người dùng")
-        edit_window.geometry("350x400")
+        edit_window.title("Chỉnh sửa thông tin")
+        edit_window.geometry("335x415")
+        edit_window.resizable(False, False)
 
-        fields = {
-            "fullname": "Họ và tên",
-            "age": "Tuổi",
-            "gender": "Giới tính",
-            "height": "Chiều cao",
-            "weight": "Cân nặng",
-            "illness": "Bệnh lý",
-            "role": "Phân quyền"
-        }
+        icon = tk.PhotoImage(file="Images/logo1.png")
+        edit_window.iconphoto(False, icon)
 
-        entries = {}
+        # Họ và tên
+        tk.Label(edit_window, text="Họ và tên:", font=("Segoe UI", 11, "bold")).grid(row=0, column=0, sticky="w", padx=10, pady=10)
+        fullname_entry = tk.Entry(edit_window, font=("Segoe UI", 12),bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+        fullname_entry.insert(0, fullname)
+        fullname_entry.grid(row=0, column=1, padx=10, pady=10, sticky="we")
 
-        for i, (field, label) in enumerate(fields.items()):
-            tk.Label(edit_window, text=label + ":").grid(row=i, column=0, sticky="w", padx=10, pady=5)
+        # Tuổi
+        tk.Label(edit_window, text="Tuổi:", font=("Segoe UI", 11, "bold")).grid(row=1, column=0, sticky="w", padx=10, pady=10)
+        age_entry = tk.Entry(edit_window, font=("Segoe UI", 12), validate="key",bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+        age_entry.insert(0, age)
+        age_entry.grid(row=1, column=1, padx=10, pady=10, sticky="we")
 
-            if field == "gender":
-                entry = ttk.Combobox(edit_window, values=["Nam", "Nữ"], state="readonly")
-                entry.set(health_user.get("gender", ""))
+        # Giới tính
+        tk.Label(edit_window, text="Giới tính:", font=("Segoe UI", 11, "bold")).grid(row=2, column=0, sticky="w", padx=10, pady=10)
+        gender_entry = ttk.Combobox(edit_window, values=["Nam", "Nữ"], font=("Segoe UI", 12), state="readonly")
+        gender_entry.set(gender)
+        gender_entry.grid(row=2, column=1, padx=10, pady=10, sticky="we")
 
-            elif field == "role":
-                entry = ttk.Combobox(edit_window, values=["Manager", "General"], state="readonly")
-                entry.set(user.get("role", ""))
-            else:
-                entry = tk.Entry(edit_window)
-                if field in health_user:
-                    entry.insert(0, str(health_user.get(field, "")))
-                else:
-                    entry.insert(0, str(user.get(field, "")))
-            entry.grid(row=i, column=1, padx=10, pady=5)
-            entries[field] = entry
+        # Chiều cao
+        tk.Label(edit_window, text="Chiều cao:", font=("Segoe UI", 11, "bold")).grid(row=3, column=0, sticky="w", padx=10, pady=10)
+        height_entry = tk.Entry(edit_window, font=("Segoe UI", 12), validate="key",bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+        height_entry.insert(0,height)
+        height_entry.grid(row=3, column=1, padx=10, pady=10, sticky="we")
 
+        # Cân nặng
+        tk.Label(edit_window, text="Cân nặng:", font=("Segoe UI", 11, "bold")).grid(row=4, column=0, sticky="w", padx=10, pady=10)
+        weight_entry = tk.Entry(edit_window, font=("Segoe UI", 12), validate="key",bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+        weight_entry.insert(0, weight)
+        weight_entry.grid(row=4, column=1, padx=10, pady=10, sticky="we")
+
+        # Bệnh lý
+        tk.Label(edit_window, text="Bệnh lý:", font=("Segoe UI", 11, "bold")).grid(row=5, column=0, sticky="w", padx=10, pady=10)
+        illness_entry = tk.Entry(edit_window, font=("Segoe UI", 12),bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
+        illness_entry.insert(0, illness)
+        illness_entry.grid(row=5, column=1, padx=10, pady=10, sticky="we")
+
+        # Phân quyền
+        tk.Label(edit_window, text="Phân quyền:", font=("Segoe UI", 11, "bold")).grid(row=6, column=0, sticky="w", padx=10, pady=10)
+        role_entry = ttk.Combobox(edit_window, values=["Manager", "General"], font=("Segoe UI", 12), state="readonly")
+        role_entry.set(role)
+        role_entry.grid(row=6, column=1, padx=10, pady=10, sticky="we")
+
+        # Nút lưu
         def save_changes():
-            # Cập nhật health.json
-            for field in ["fullname", "age", "gender", "height", "weight", "illness"]:
-                health_user[field] = entries[field].get()
+            health_user["fullname"] = fullname_entry.get()
+            if (age_entry.get().isdigit()) and int(age_entry.get()) > 0:
+                health_user["age"] = age_entry.get()
+            else:
+                messagebox.showerror("Lỗi", "Tuổi phải là số nguyên dương.")
+                return
+            
+            health_user["gender"] = gender_entry.get()
+
+            if (height_entry.get().isdigit()) and int(height_entry.get()) > 0:
+
+                health_user["height"] = height_entry.get()
+            else:
+                messagebox.showerror("Lỗi", "Chiều cao phải là số nguyên dương.")
+                return
+            
+            if (weight_entry.get().isdigit()) and int(weight_entry.get()) > 0:
+                health_user["weight"] = weight_entry.get()
+            else:
+                messagebox.showerror("Lỗi", "Cân nặng phải là số nguyên dương.")
+                return
+            
+            health_user["illness"] = illness_entry.get()
+            user["role"] = role_entry.get()
 
             with open("data/health.json", "w", encoding="utf-8") as file:
                 json.dump(self.health_data, file, indent=4, ensure_ascii=False)
 
-            # Cập nhật account.json
-            user["role"] = entries["role"].get()
             with open("data/account.json", "w", encoding="utf-8") as file:
                 json.dump(self.user_data, file, indent=4, ensure_ascii=False)
 
@@ -1623,8 +1735,7 @@ class HomeScreen:
             messagebox.showinfo("Thành công", "Đã cập nhật thông tin người dùng.")
             edit_window.destroy()
 
-        tk.Button(edit_window, text="Lưu", command=save_changes, bg="green", fg="white", width=15).grid(row=len(fields), column=0, columnspan=2, pady=15)
-
+        tk.Button(edit_window, text="Lưu", command=save_changes, font=("Segoe UI", 12, "bold"), bg="green", fg="white").grid(row=7, column=0, columnspan=2, pady=15, padx=10, sticky="we")
 
     def delete_user(self, selected):
         # selected = self.list_user.selection()
@@ -1712,7 +1823,7 @@ class HomeScreen:
         card = tk.Frame(self.content_frame, bg="white", bd=2, relief="groove")
         card.pack(pady=30, padx=30, fill="both", expand=True)
 
-        label = tk.Label(card, text=text, font=("Arial", 18), bg="white", fg="#2c3e50")
+        label = tk.Label(card, text=text, font=("Segoe UI", 18), bg="white", fg="#2c3e50")
         label.pack(pady=30)
 
 
