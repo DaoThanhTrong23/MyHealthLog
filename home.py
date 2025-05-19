@@ -714,17 +714,17 @@ class HomeScreen:
         tk.Label(self.frame_input, text="Thực đơn bửa ăn",font=("Segoe UI", 15), fg="black",bg="white").grid(row=0, column=0, columnspan=5,padx=10, sticky="ew")
         tk.Label(self.frame_input, text="Món ăn",font=("Segoe UI", 11), fg="black", bg="white").grid(row=1,padx=10, column=0, columnspan=5, sticky="w")
         self.monan_options = [
-            "chuối", "táo", "cam", "gạo", "ức gà", "bò bít tết", "sườn heo",
+            "chuối", "táo", "cam", "cơm", "ức gà", "bò bít tết", "sườn heo",
             "cá hồi", "trứng", "bánh mì", "sữa", "phô mai", "sữa chua", "khoai tây", "cà rốt", "cà chua",
-            "bông cải xanh", "rau bina", "bơ", "hạnh nhân", "óc chó", "bơ đậu phộng", "yến mạch",
+            "bông cải xanh", "rau bina", "quả bơ", "hạnh nhân", "óc chó", "bơ đậu phộng", "yến mạch",
             "mì ống", "pizza", "hamburger", "cơm chiên", "mì sợi", "đậu hũ", "đậu lăng", "đậu gà",
             "đậu đen", "đậu que", "dưa leo", "hành tây", "tỏi", "nấm", "tôm",
             "cua", "tôm hùm", "gà tây", "vịt", "thịt xông khói", "xúc xích", "bơ", "dầu ô liu",
             "đường", "mật ong", "sô cô la", "bánh kem", "bánh quy", "kem", "cà phê", "trà",
             "nước cam", "nước táo", "bia", "rượu vang", "dưa hấu", "nho", "dứa",
-            "dâu tây", "việt quất", "mâm xôi", "đào", "lê", "mận", "anh đào",
+            "dâu tây", "việt quất", "mâm xôi", "đào", "lê", "mận", "cherry",
             "bắp", "khoai lang", "bí đỏ", "bí xanh", "súp lơ", "cải xoăn", "rau xà lách",
-            "củ dền", "bắp cải", "củ cải đỏ", "đậu Hà Lan", "đậu nành non", "hạt diêm mạch", "hạt chia",
+            "củ dền", "bắp cải", "củ cải đỏ", "đậu hà lan", "đậu nành non", "hạt diêm mạch", "hạt chia",
             "hạt lanh", "dừa", "sữa hạnh nhân", "sữa đậu nành", "kem tươi", "sốt mayonnaise",
             "tương cà", "mù tạt", "sốt salsa", "súp", "bánh sandwich", "gà rán", "viên thịt",
             "cá", "sushi", "mì ramen", "há cảo"
@@ -824,10 +824,10 @@ class HomeScreen:
                 "chuối": "banana",
                 "táo": "apple",
                 "cam": "orange",
-                "gạo": "rice",
+                "cơm": "rice",
                 "ức gà": "chicken breast",
-                "bò bít tết": "steak",
-                "sườn heo": "pork ribs",
+                "bò bít tết": "beef steak",
+                "sườn heo": "pork chop",
                 "cá hồi": "salmon",
                 "trứng": "egg",
                 "bánh mì": "bread",
@@ -839,9 +839,9 @@ class HomeScreen:
                 "cà chua": "tomato",
                 "bông cải xanh": "broccoli",
                 "rau bina": "spinach",
-                "bơ": "avocado",
-                "hạnh nhân": "almond",
-                "óc chó": "walnut",
+                "quả bơ": "avocado",
+                "hạnh nhân": "almonds",
+                "óc chó": "walnuts",
                 "bơ đậu phộng": "peanut butter",
                 "yến mạch": "oatmeal",
                 "mì ống": "pasta",
@@ -880,7 +880,7 @@ class HomeScreen:
                 "bia": "beer",
                 "rượu vang": "wine",
                 "dưa hấu": "watermelon",
-                "nho": "grape",
+                "nho": "grapes",
                 "dứa": "pineapple",
                 "dâu tây": "strawberry",
                 "việt quất": "blueberry",
@@ -888,7 +888,7 @@ class HomeScreen:
                 "đào": "peach",
                 "lê": "pear",
                 "mận": "plum",
-                "anh đào": "cherry",
+                "cherry": "cherry",
                 "bắp": "corn",
                 "khoai lang": "sweet potato",
                 "bí đỏ": "pumpkin",
@@ -899,7 +899,7 @@ class HomeScreen:
                 "củ dền": "beetroot",
                 "bắp cải": "cabbage",
                 "củ cải đỏ": "radish",
-                "đậu Hà Lan": "peas",
+                "đậu hà lan": "green peas",
                 "đậu nành non": "edamame",
                 "hạt diêm mạch": "quinoa",
                 "hạt chia": "chia seeds",
@@ -907,7 +907,7 @@ class HomeScreen:
                 "dừa": "coconut",
                 "sữa hạnh nhân": "almond milk",
                 "sữa đậu nành": "soy milk",
-                "kem tươi": "whipped cream",
+                "kem tươi": "cream",
                 "sốt mayonnaise": "mayonnaise",
                 "tương cà": "ketchup",
                 "mù tạt": "mustard",
@@ -915,7 +915,7 @@ class HomeScreen:
                 "súp": "soup",
                 "bánh sandwich": "sandwich",
                 "gà rán": "fried chicken",
-                "viên thịt": "meatballs",
+                "viên thịt": "meatball",
                 "cá": "fish",
                 "sushi": "sushi",
                 "mì ramen": "ramen",
@@ -1037,6 +1037,8 @@ class HomeScreen:
                 if item["food"] == value_en:
                     calo = item["calories"]
                     break
+            
+            
             soluong = float(self.mon_an_so_luong_entry.get())
             tongcalo = soluong * calo
             buoi_an = self.buoi_an.get()

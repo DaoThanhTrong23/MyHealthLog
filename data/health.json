@@ -15,7 +15,7 @@
         "fullname": "Đào Thanh Trọng",
         "age": "18",
         "gender": "Nam",
-        "height": "170",
+        "height": "169",
         "weight": "57",
         "illness": "",
         "activitylevel": "1.9",
@@ -23,13 +23,13 @@
     },
     {
         "username": "user1",
-        "fullname": "",
-        "age": "1",
+        "fullname": "Nguyễn Văn A",
+        "age": "10",
         "gender": "Nam",
-        "height": "1",
-        "weight": "1",
+        "height": "160",
+        "weight": "50",
         "illness": "",
         "activitylevel": "1.2",
-        "goal": "Giữ cân"
+        "goal": "Tăng cân"
     }
 ]

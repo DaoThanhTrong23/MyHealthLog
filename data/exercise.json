@@ -34,6 +34,25 @@
     },
     {
         "username": "user1",
-        "exercises": []
+        "exercises": [
+            {
+                "date": "19-05-2025",
+                "exercise_type": "Đi bộ",
+                "duration": 10.0,
+                "calories": 31.67
+            },
+            {
+                "date": "19-05-2025",
+                "exercise_type": "Nhảy dây",
+                "duration": 30.0,
+                "calories": 307.5
+            },
+            {
+                "date": "19-05-2025",
+                "exercise_type": "Đạp xe",
+                "duration": 60.0,
+                "calories": 375.0
+            }
+        ]
     }
 ]
