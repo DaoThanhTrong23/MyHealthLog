@@ -6,6 +6,19 @@ from tkinter import messagebox
 from home import HomeScreen
 import hashlib
 from dangky import DangKy
+import sys
+import os
+
+def resource_path(relative_path):
+    """ Trả về đường dẫn thực đến file tài nguyên (dùng cho PyInstaller) """
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 class LoginApp:
 	def __init__(self):
 		self.root = tk.Tk()
@@ -16,14 +29,14 @@ class LoginApp:
 		self.root.mainloop()
 		
 	def icon(self):
-		ico = Image.open('Images/logo1.png')
+		ico = Image.open(resource_path('Images/logo1.png'))
 		photo = ImageTk.PhotoImage(ico)
 		self.root.wm_iconphoto(False, photo)
 		
 	def setup_ui(self):
 		#Ảnh icon login
 		image_path = "Images/login.png"
-		img = Image.open(image_path)
+		img = Image.open(resource_path(image_path))
 		img = img.resize((95,95))
 		self.photo = ImageTk.PhotoImage(img)
 
@@ -77,7 +90,7 @@ class LoginApp:
 			return
 		else:
 			try:
-				with open("data/account.json", "r", encoding="utf-8") as f:
+				with open(resource_path("data/account.json"), "r", encoding="utf-8") as f:
 					data = json.load(f)
 
 				for user in data:

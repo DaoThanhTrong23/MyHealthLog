@@ -4,6 +4,17 @@ import customtkinter as ctk
 import json
 from tkinter import messagebox, ttk
 from datetime import datetime
+import sys
+import os
+
+def resource_path(relative_path):
+    """ Trả về đường dẫn thực đến file tài nguyên (dùng cho PyInstaller) """
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 class HomeScreen:
     def __init__(self,name,  role):
@@ -28,35 +39,35 @@ class HomeScreen:
         title.pack(pady=20)
 
         #Button Tài khioan
-        img1 = Image.open("Images/icon_taikhoan.png").resize((40, 40)).convert("RGBA")
+        img1 = Image.open(resource_path("Images/icon_taikhoan.png")).resize((40, 40)).convert("RGBA")
         photo1 = ImageTk.PhotoImage(img1)
 
         self.tai_khoan_btn = tk.Button(self.menu_frame,text="Tài khoản",image=photo1,compound="top",command=self.show_account,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.tai_khoan_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
         #Button luyện tập
-        img2 = Image.open("Images/icon_luyentap.png").resize((40, 40)).convert("RGBA")
+        img2 = Image.open(resource_path("Images/icon_luyentap.png")).resize((40, 40)).convert("RGBA")
         photo2 = ImageTk.PhotoImage(img2)
 
         self.luyen_tap_btn = tk.Button(self.menu_frame,text="Luyện tập",image=photo2, compound="top",command=self.show_luyen_tap,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.luyen_tap_btn.pack(fill="x", pady=6, padx=5, ipady=8)
         
         #Button dinh dưỡng
-        img3 = Image.open("Images/icon_buaan.png").resize((40, 40)).convert("RGBA")
+        img3 = Image.open(resource_path("Images/icon_buaan.png")).resize((40, 40)).convert("RGBA")
         photo3 = ImageTk.PhotoImage(img3)
 
         self.dinh_duong_btn = tk.Button(self.menu_frame,text="Dinh dưỡng",image=photo3, compound="top",command=self.show_dinh_duong,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.dinh_duong_btn.pack(fill="x", pady=6, padx=5, ipady=8)
         
         #Button theo dõi
-        img4 = Image.open("Images/icon_thongke.png").resize((40, 40)).convert("RGBA")
+        img4 = Image.open(resource_path("Images/icon_thongke.png")).resize((40, 40)).convert("RGBA")
         photo4 = ImageTk.PhotoImage(img4)
 
         self.theo_doi_btn = tk.Button(self.menu_frame,text="Theo dõi",image=photo4, compound="top",command=self.show_theo_doi,bg="#40E0D0",fg="black",font=("Segoe UI", 12, "bold"), relief="flat",activebackground="#40E0D0",activeforeground="white")
         self.theo_doi_btn.pack(fill="x", pady=6, padx=5, ipady=8)
 
         #Button Danh sách user
-        img5 = Image.open("Images/icon_danhsach.png").resize((40, 40)).convert("RGBA")
+        img5 = Image.open(resource_path("Images/icon_danhsach.png")).resize((40, 40)).convert("RGBA")
         photo5 = ImageTk.PhotoImage(img5)
 
 
@@ -94,7 +105,7 @@ class HomeScreen:
         label_content = tk.Label(self.content_frame, text="Chào mừng đến với MyHealthLog!",font=("Segoe UI", 22, "bold"), bg="#ecf0f1",fg="#2c3e50")
         label_content.pack(pady=30)
         image_path = "Images/logo1.png"
-        img = Image.open(image_path)
+        img = Image.open(resource_path(image_path))
         img = img.resize((300, 300))
         photo = ImageTk.PhotoImage(img)
         image_label = tk.Label(self.content_frame, image=photo, bg=None)
@@ -106,12 +117,12 @@ class HomeScreen:
         self.root.mainloop()
 
     def icon(self):
-        ico = Image.open('Images/logo1.png')
+        ico = Image.open(resource_path('Images/logo1.png'))
         photo = ImageTk.PhotoImage(ico)
         self.root.wm_iconphoto(False, photo)
 
     def fill_data_update(self):
-        with open("data/health.json", "r", encoding="utf-8") as f:
+        with open(resource_path("data/health.json"), "r", encoding="utf-8") as f:
             data_accounts = json.load(f)
 
         for acc in data_accounts:
@@ -157,7 +168,7 @@ class HomeScreen:
 
         # Avatar
         image_path = "Images/icon_user.png"
-        img = Image.open(image_path)
+        img = Image.open(resource_path(image_path))
         img = img.resize((50, 50))
         self.photo = ImageTk.PhotoImage(img)
         self.image_label = tk.Label(info_frame, image=self.photo, bg="white")
@@ -343,7 +354,7 @@ class HomeScreen:
 
     def save_account_info(self):
 
-        with open("data/health.json", "r", encoding="utf-8") as f:
+        with open(resource_path("data/health.json"), "r", encoding="utf-8") as f:
             data_accounts = json.load(f)
 
         if not self.age_entry.get().isdigit() or int(self.age_entry.get()) <= 0:
@@ -369,7 +380,7 @@ class HomeScreen:
                 acc["goal"] = self.goal_calo.get()
                 break
 
-        with open("data/health.json", "w", encoding="utf-8") as f:
+        with open(resource_path("data/health.json"), "w", encoding="utf-8") as f:
             json.dump(data_accounts, f, indent=4, ensure_ascii=False)
 
         messagebox.showinfo("Thông báo", "Cập nhật thông tin thành công!")
@@ -393,7 +404,7 @@ class HomeScreen:
         try:
             if hasattr(self, "anhminhhoa") and self.anhminhhoa is not None:
                 self.anhminhhoa.destroy()
-            img = Image.open(path)
+            img = Image.open(resource_path(path))
             img = img.resize((180, 400))
             photo_gender = ImageTk.PhotoImage(img)
             self.anhminhhoa = tk.Label(self.img_minhhoa, image=photo_gender, bg="white")
@@ -478,7 +489,7 @@ class HomeScreen:
         self.exercise_tree.heading("calories", text="Calo")
 
         try:
-            with open("data/exercise.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file:
                 data_ex = json.load(file)
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể đọc dữ liệu: {e}")
@@ -539,7 +550,7 @@ class HomeScreen:
                 "calories": calories
             }
         
-            with open("data/exercise.json", "r", encoding="utf-8") as f:
+            with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as f:
                 data = json.load(f)
 
             for user in data:
@@ -549,7 +560,7 @@ class HomeScreen:
             else:
                 messagebox.showerror("Lỗi", "Không tìm thấy người dùng.")
                 return
-            with open("data/exercise.json", "w", encoding="utf-8") as f:
+            with open(resource_path("data/exercise.json"), "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
                 
             messagebox.showinfo("Thành công", "Đã lưu bài tập.")
@@ -583,7 +594,7 @@ class HomeScreen:
             self.duration_entry.insert(0, duration)
             self.calo_label.config(text=f"Calo ước tính: {calories} kcal")
 
-            with open("data/exercise.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file:
                 data = json.load(file)
 
             for user in data:
@@ -601,7 +612,7 @@ class HomeScreen:
         if not confirm:
             return
 
-        with open("data/exercise.json", "r", encoding="utf-8") as file:
+        with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file:
             data = json.load(file)
 
         for user in data:
@@ -609,7 +620,7 @@ class HomeScreen:
                 user["exercises"].pop(self.selected_exercise_index)
                 break
 
-        with open("data/exercise.json", "w", encoding="utf-8") as file:
+        with open(resource_path("data/exercise.json"), "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
         self.refresh_exercise_tree()
@@ -627,7 +638,7 @@ class HomeScreen:
             values = item["values"]
             date, old_type, old_duration, old_calories = values
 
-            with open("data/exercise.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file:
                 data = json.load(file)
 
             exercise_type = self.exercise_type_combobox.get()
@@ -658,7 +669,7 @@ class HomeScreen:
                 messagebox.showwarning("Không tìm thấy", "Không tìm thấy bài tập để cập nhật.")
                 return
 
-            with open("data/exercise.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/exercise.json"), "w", encoding="utf-8") as file:
                 json.dump(data, file, ensure_ascii=False, indent=4)
 
             self.refresh_exercise_tree()
@@ -670,7 +681,7 @@ class HomeScreen:
         for row in self.exercise_tree.get_children():
             self.exercise_tree.delete(row)
 
-        with open("data/exercise.json", "r", encoding="utf-8") as file:
+        with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file:
             data_ex = json.load(file)
 
         for user in data_ex:
@@ -992,7 +1003,7 @@ class HomeScreen:
             value_en = self.vietnamese_to_english[value_vn]
 
             try:
-                with open("data/calorie_data_all.json", "r", encoding="utf-8") as file:
+                with open(resource_path("data/calorie_data_all.json"), "r", encoding="utf-8") as file:
                     data_api = json.load(file)
             except Exception as ex:
                 messagebox.showerror("Lỗi", f"Lỗi: {ex}")
@@ -1029,7 +1040,7 @@ class HomeScreen:
                 return
             value_en = self.vietnamese_to_english[value_vn]
             try:
-                with open("data/calorie_data_all.json", "r", encoding="utf-8") as file:
+                with open(resource_path("data/calorie_data_all.json"), "r", encoding="utf-8") as file:
                     data_api = json.load(file)
             except Exception as ex:
                 messagebox.showerror("Lỗi", f"{ex}")
@@ -1052,7 +1063,7 @@ class HomeScreen:
                 "totalcalo": tongcalo
             }
             try:
-                with open("data/meal.json", "r", encoding="utf-8") as file:
+                with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file:
                     data_meal = json.load(file)
 
             except Exception as ex:
@@ -1063,7 +1074,7 @@ class HomeScreen:
                     user["meals"].append(new_data_mon_an)
                     break
             try:
-                with open("data/meal.json", "w", encoding="utf-8") as file:
+                with open(resource_path("data/meal.json"), "w", encoding="utf-8") as file:
                     json.dump(data_meal, file, ensure_ascii=False, indent=4)
                     messagebox.showinfo("Thông báo", "Thêm thành công")
 
@@ -1079,7 +1090,7 @@ class HomeScreen:
             
     def fill_data_health_tree(self):
         try: 
-            with open("data/meal.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file:
                 data_meals = json.load(file)
         except Exception as ex:
             messagebox.showerror("Lỗi",f"{ex}")
@@ -1128,7 +1139,7 @@ class HomeScreen:
         frame_update = tk.Frame(self.creen_update)
         frame_update.grid(column=0, row=0, sticky="swen", padx=0)
 
-        icon = tk.PhotoImage(file="Images/logo1.png")
+        icon = tk.PhotoImage(file=resource_path("Images/logo1.png"))
         self.creen_update.iconphoto(False, icon)
 
         tk.Label(frame_update, text=date, font=("Segoe UI", 12, "bold")).grid(column=0, row=0, columnspan=5,sticky="swen", padx=10)
@@ -1211,7 +1222,7 @@ class HomeScreen:
         value_en = self.vietnamese_to_english[new_eating]
 
         try:
-            with open("data/calorie_data_all.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/calorie_data_all.json"), "r", encoding="utf-8") as file:
                 data_api = json.load(file)
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Không thể đọc file calorie_data_all.json: {ex}")
@@ -1231,7 +1242,7 @@ class HomeScreen:
 
         # Cập nhật vào file meal.json
         try:
-            with open("data/meal.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file:
                 data_meal_update = json.load(file)
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Không thể đọc file meal.json: {ex}")
@@ -1257,7 +1268,7 @@ class HomeScreen:
             return
 
         try:
-            with open("data/meal.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/meal.json"), "w", encoding="utf-8") as file:
                 json.dump(data_meal_update, file, ensure_ascii=False, indent=4)
             messagebox.showinfo("Thành công", "Đã lưu thay đổi thành công.")
             self.creen_update.destroy()
@@ -1272,7 +1283,7 @@ class HomeScreen:
             self.values_select_update = item["values"]
             date, meal, eating, calo, quantity, totalcalo = self.values_select_update
         try:
-            with open("data/meal.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file:
                 data_meal_update = json.load(file)
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Không thể đọc file meal.json: {ex}")
@@ -1291,7 +1302,7 @@ class HomeScreen:
             messagebox.showerror("Lỗi", "Không tìm thấy mục cần xóa.")
             return
         try:
-            with open("data/meal.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/meal.json"), "w", encoding="utf-8") as file:
                 json.dump(data_meal_update, file, ensure_ascii=False, indent=4)
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Không thể ghi file meal.json: {ex}")
@@ -1381,7 +1392,7 @@ class HomeScreen:
         activity_list = []
 
         try:
-            with open("data/health.json", "r", encoding="utf-8") as f:
+            with open(resource_path("data/health.json"), "r", encoding="utf-8") as f:
                 health_data = json.load(f)
             for user in health_data:
                 if user["username"] == self.name:
@@ -1394,7 +1405,7 @@ class HomeScreen:
 
         # Dữ liệu calo ăn
         try:
-            with open("data/meal.json", "r", encoding="utf-8") as f:
+            with open(resource_path("data/meal.json"), "r", encoding="utf-8") as f:
                 meals_data = json.load(f)
             for user in meals_data:
                 if user["username"] == self.name:
@@ -1407,7 +1418,7 @@ class HomeScreen:
 
         # Dữ liệu calo đốt
         try:
-            with open("data/exercise.json", "r", encoding="utf-8") as f:
+            with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as f:
                 exercises_data = json.load(f)
             for user in exercises_data:
                 if user["username"] == self.name:
@@ -1546,12 +1557,12 @@ class HomeScreen:
             self.list_user.delete(row)
             
         try:
-            with open("data/account.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/account.json"), "r", encoding="utf-8") as file:
                 self.user_data = json.load(file)
 
             for stt, user in enumerate(self.user_data):
                 try:
-                    with open("data/health.json", "r", encoding="utf-8") as file:
+                    with open(resource_path("data/health.json"), "r", encoding="utf-8") as file:
                         self.health_data = json.load(file)
 
                     for health_user in self.health_data:
@@ -1582,13 +1593,13 @@ class HomeScreen:
             self.list_user.delete(row)
 
         try:
-            with open("data/account.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/account.json"), "r", encoding="utf-8") as file:
                 user_data = json.load(file)
 
             for stt, user in enumerate(user_data):
                 if user["username"] == keyword:
                     try:
-                        with open("data/health.json", "r", encoding="utf-8") as file:
+                        with open(resource_path("data/health.json"), "r", encoding="utf-8") as file:
                             health_data = json.load(file)
 
                         for health_user in health_data:
@@ -1655,7 +1666,7 @@ class HomeScreen:
         edit_window.geometry("335x415")
         edit_window.resizable(False, False)
 
-        icon = tk.PhotoImage(file="Images/logo1.png")
+        icon = tk.PhotoImage(file=resource_path("Images/logo1.png"))
         edit_window.iconphoto(False, icon)
 
         # Họ và tên
@@ -1727,10 +1738,10 @@ class HomeScreen:
             health_user["illness"] = illness_entry.get()
             user["role"] = role_entry.get()
 
-            with open("data/health.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/health.json"), "w", encoding="utf-8") as file:
                 json.dump(self.health_data, file, indent=4, ensure_ascii=False)
 
-            with open("data/account.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/account.json"), "w", encoding="utf-8") as file:
                 json.dump(self.user_data, file, indent=4, ensure_ascii=False)
 
             self.load_user_data()
@@ -1760,28 +1771,28 @@ class HomeScreen:
 
         # Xoá khỏi account
         self.user_data = [u for u in self.user_data if u["username"] != username]
-        with open("data/account.json", "w", encoding="utf-8") as file:
+        with open(resource_path("data/account.json"), "w", encoding="utf-8") as file:
             json.dump(self.user_data, file, indent=4, ensure_ascii=False)
 
         # Xoá khỏi health
         try:
-            with open("data/health.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/health.json"), "r", encoding="utf-8") as file:
                 health_data = json.load(file)
             health_data = [h for h in health_data if h["username"] != username]
 
-            with open("data/health.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/health.json"), "w", encoding="utf-8") as file:
                 json.dump(health_data, file, indent=4, ensure_ascii=False)
             self.health_data = health_data
         except Exception as e:
             messagebox.showerror("Lỗi", f"Lỗi khi xoá dữ liệu sức khoẻ: {e}")
         #Xóa trong meal
         try:
-            with open("data/meal.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file:
                 meal_data = json.load(file)
 
             meal_data = [h for h in meal_data if h["username"] != username]
 
-            with open("data/meal.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/meal.json"), "w", encoding="utf-8") as file:
                 json.dump(meal_data, file, indent=4, ensure_ascii=False)
 
         except Exception as e:
@@ -1789,11 +1800,11 @@ class HomeScreen:
 
         #Xóa trong ex
         try:
-            with open("data/exercise.json", "r", encoding="utf-8") as file:
+            with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file:
                 ex_data = json.load(file)
             ex_data = [h for h in ex_data if h["username"] != username]
 
-            with open("data/exercise.json", "w", encoding="utf-8") as file:
+            with open(resource_path("data/exercise.json"), "w", encoding="utf-8") as file:
                 json.dump(ex_data, file, indent=4, ensure_ascii=False)
 
         except Exception as e:

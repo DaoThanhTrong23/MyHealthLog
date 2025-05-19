@@ -71,3 +71,30 @@ chưa chỉnh đầu vào trang tài khoản
 
 
 dòng 140 warning
+
+
+
+dòng 140 warning
+
+
+______________đóng gói______________
+
+import sys
+import os
+
+def resource_path(relative_path):
+    """ Trả về đường dẫn thực đến file tài nguyên (dùng cho PyInstaller) """
+    try:
+        # Khi chạy dưới dạng file .exe (PyInstaller), sẽ có biến _MEIPASS
+        base_path = sys._MEIPASS
+    except AttributeError:
+        # Khi chạy bằng Python trực tiếp (chưa đóng gói)
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+terminal: pyinstaller --onefile --noconsole --add-data "data;data" --add-data "Images;Images" main.py
+
+pyinstaller --onefile --noconsole --icon=Images/favicon.ico --add-data "data;data" --add-data "Images;Images" main.py
+
+

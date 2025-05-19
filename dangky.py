@@ -4,6 +4,17 @@ import json
 from tkinter import messagebox
 import hashlib
 from tkinter import PhotoImage
+import sys
+import os
+
+def resource_path(relative_path):
+    """ Trả về đường dẫn thực đến file tài nguyên (dùng cho PyInstaller) """
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 class DangKy:
 	def __init__(self):
@@ -14,13 +25,13 @@ class DangKy:
 		self.root.mainloop()
 		
 	def icon(self):
-		ico = Image.open('Images/logo1.png')
+		ico = Image.open(resource_path('Images/logo1.png'))
 		photo = ImageTk.PhotoImage(ico)
 		self.root.wm_iconphoto(False, photo)
 		
 	def setup_ui(self):
 		image_path = "Images/login.png"
-		img = Image.open(image_path)
+		img = Image.open(resource_path(image_path))
 		img = img.resize((95,95))
 		self.photo = ImageTk.PhotoImage(img)
 
@@ -68,7 +79,7 @@ class DangKy:
 	def event_check_username(self, event=None):
 		username = self.entry_username.get()
 		try:
-			with open("data/account.json", "r") as file:
+			with open(resource_path("data/account.json", "r")) as file:
 				data = json.load(file)
 		except FileNotFoundError:
 			data = []
@@ -106,28 +117,28 @@ class DangKy:
 
 	def save_data(self):
 		try:
-			with open("data/account.json", "r", encoding="utf-8") as file1:
+			with open(resource_path("data/account.json"), "r", encoding="utf-8") as file1:
 				data_ac = json.load(file1)
 		except FileNotFoundError:
 			print("Lỗi: Không tìm thấy file")
 			data_ac = []
 
 		try:
-			with open("data/health.json", "r", encoding="utf-8") as file2:
+			with open(resource_path("data/health.json"), "r", encoding="utf-8") as file2:
 				data_health = json.load(file2)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
 			data_health = []
 
 		try:
-			with open("data/exercise.json", "r", encoding="utf-8") as file3:
+			with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file3:
 				data_ex = json.load(file3)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
 			data_ex = []
 		
 		try:
-			with open("data/meal.json", "r", encoding="utf-8") as file4:
+			with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file4:
 				data_meal = json.load(file4)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
@@ -165,16 +176,16 @@ class DangKy:
 		data_health.append(user_health)
 		data_ex.append(user_ex)
 		data_meal.append(user_meal)
-		with open("data/account.json", "w", encoding="utf-8") as file1:
+		with open(resource_path("data/account.json"), "w", encoding="utf-8") as file1:
 			json.dump(data_ac, file1, indent=4, ensure_ascii=False)
 
-		with open("data/health.json", "w", encoding="utf-8") as file2:
+		with open(resource_path("data/health.json"), "w", encoding="utf-8") as file2:
 			json.dump(data_health, file2, indent=4, ensure_ascii=False)
 
-		with open("data/exercise.json", "w", encoding="utf-8") as file3:
+		with open(resource_path("data/exercise.json"), "w", encoding="utf-8") as file3:
 			json.dump(data_ex, file3, indent=4, ensure_ascii=False)
 
-		with open("data/meal.json", "w", encoding="utf-8") as file4:
+		with open(resource_path("data/meal.json"), "w", encoding="utf-8") as file4:
 			json.dump(data_meal, file4, indent=4, ensure_ascii=False)
 
 	def on_click_dang_nhap(self):
