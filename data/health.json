@@ -1,35 +1,24 @@
 [
     {
         "username": "admin",
-        "fullname": "",
-        "age": "0",
-        "gender": "nam",
-        "height": "0",
-        "weight": "0",
+        "fullname": "Đào Thanh Trọng",
+        "age": "20",
+        "gender": "Nam",
+        "height": "170",
+        "weight": "58",
         "illness": "",
         "activitylevel": "1.2",
-        "goal": ""
+        "goal": "Giữ cân"
     },
     {
         "username": "trong",
         "fullname": "Đào Thanh Trọng",
-        "age": "18",
+        "age": "1",
         "gender": "Nam",
-        "height": "169",
-        "weight": "57",
-        "illness": "",
-        "activitylevel": "1.9",
-        "goal": "Giữ cân"
-    },
-    {
-        "username": "user1",
-        "fullname": "Nguyễn Văn A",
-        "age": "10",
-        "gender": "Nam",
-        "height": "160",
-        "weight": "50",
+        "height": "1",
+        "weight": "1",
         "illness": "",
         "activitylevel": "1.2",
-        "goal": "Tăng cân"
+        "goal": "Giữ cân"
     }
 ]

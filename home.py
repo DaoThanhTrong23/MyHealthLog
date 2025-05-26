@@ -6,6 +6,7 @@ from tkinter import messagebox, ttk
 from datetime import datetime
 import sys
 import os
+import re
 
 def resource_path(relative_path):
     """ Trả về đường dẫn thực đến file tài nguyên (dùng cho PyInstaller) """
@@ -366,6 +367,16 @@ class HomeScreen:
         if not self.weight_entry.get().isdigit() or int(self.weight_entry.get()) <= 0:
             messagebox.showerror("Lỗi", "Cân nặng phải là số nguyên dương")
             return
+        
+        if re.search(r'\d', self.fullname_entry.get()):
+            messagebox.showerror("Lỗi", "Họ và tên là các ký tự chữ cái")
+            self.fullname_entry.delete(0, tk.END)
+            return
+        
+        # if not re.fullmatch(r'^([[A-ZÀ-Ỵ][a-zà-ỹ]+)(\s[A-ZÀ-Ỵ][a-zà-ỹ]+)*$', self.fullname_entry.get()):
+        #     messagebox.showerror("Lỗi", "Sai định dạng, viết hoa chữ cái đầu VD(Nguyễn Văn A)")
+        #     self.fullname_entry.delete(0, tk.END)
+        #     return
         
         for acc in data_accounts:
             if acc["username"] == self.name:
@@ -1511,16 +1522,11 @@ class HomeScreen:
         self.content_frame.rowconfigure(1, weight=1)
         self.content_frame.rowconfigure(2, weight=0)
 
-
         tk.Label(self.content_frame, text="Danh sách người dùng", font=("Segoe UI", 15, "bold")).grid(column=0, row=0)
-
-       
 
         self.frame_ds_user = tk.Frame(self.content_frame, bg="white", bd=2, relief="solid")
         self.frame_ds_user.grid(column=0, row=1,sticky="snew", pady=10, padx=5)
 
-
-        
         # Cho phép frame_ds_user mở rộng
         self.frame_ds_user.columnconfigure(1, weight=1)
 
@@ -1713,11 +1719,18 @@ class HomeScreen:
 
         # Nút lưu
         def save_changes():
+
+            if re.search(r'\d', fullname_entry.get()):
+                messagebox.showerror("Lỗi", "Họ và tên không được có ký tự số")
+                edit_window.destroy()
+                return
+            
             health_user["fullname"] = fullname_entry.get()
             if (age_entry.get().isdigit()) and int(age_entry.get()) > 0:
                 health_user["age"] = age_entry.get()
             else:
                 messagebox.showerror("Lỗi", "Tuổi phải là số nguyên dương.")
+                edit_window.destroy()
                 return
             
             health_user["gender"] = gender_entry.get()
@@ -1727,12 +1740,14 @@ class HomeScreen:
                 health_user["height"] = height_entry.get()
             else:
                 messagebox.showerror("Lỗi", "Chiều cao phải là số nguyên dương.")
+                edit_window.destroy()
                 return
             
             if (weight_entry.get().isdigit()) and int(weight_entry.get()) > 0:
                 health_user["weight"] = weight_entry.get()
             else:
                 messagebox.showerror("Lỗi", "Cân nặng phải là số nguyên dương.")
+                edit_window.destroy()
                 return
             
             health_user["illness"] = illness_entry.get()

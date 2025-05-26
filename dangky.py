@@ -6,6 +6,7 @@ import hashlib
 from tkinter import PhotoImage
 import sys
 import os
+import re
 
 def resource_path(relative_path):
     """ Trả về đường dẫn thực đến file tài nguyên (dùng cho PyInstaller) """
@@ -48,7 +49,6 @@ class DangKy:
 		label_username.grid(column=0, row=2, columnspan=2, sticky="w", padx=30)
 		self.entry_username = tk.Entry(self.root,width=30, font=("Segoe UI", 12), bd=2, relief="groove", highlightthickness=1, highlightcolor="#4a90e2")
 		self.entry_username.grid(column=0, row=3, columnspan=2, padx=30 ,ipady=3)
-
 		self.entry_username.bind("<KeyRelease>", self.event_check_username)
 
 		self.label_message = tk.Label(self.root, text="", fg="red")
@@ -76,10 +76,10 @@ class DangKy:
 		#Button hủy trở lại đăng nhập
 		self.huy_btn = tk.Button(self.root, text="Trở lại đăng nhập",font=("Segoe UI", 12), fg="red", bd=0, command=self.on_click_dang_nhap)
 		self.huy_btn.grid(column=0, row=10, columnspan=2, pady=(10, 25))
-	def event_check_username(self, event=None):
+	def event_check_username(self, event):
 		username = self.entry_username.get()
 		try:
-			with open(resource_path("data/account.json", "r")) as file:
+			with open(resource_path("data/account.json"),"r") as file:
 				data = json.load(file)
 		except FileNotFoundError:
 			data = []
@@ -89,6 +89,7 @@ class DangKy:
 				self.label_message.config(text="Tên đăng nhập đã được sử dụng")
 				self.entry_username.config(bg="red")
 				return
+			
 		self.label_message.config(text="")
 		self.entry_username.config(bg="white")
 	def on_click_dang_ky(self):
@@ -99,12 +100,45 @@ class DangKy:
 			messagebox.showerror("Lỗi", "Vui lòng nhập đầy đủ thông tin")
 			return
 		else:
-			if len(password) <6:
-				messagebox.showerror("Lỗi", "Mật khẩu phải từ 6 kí tự")
-				self.entry_password.delete(0 , tk.END)
-				self.entry_password_re.delete(0, tk.END)
-				return
-			elif password != password_re:
+			pattern = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[!@#$%^&*][a-zA-Z\d!@#$%^&*]{8,16}$'
+			if not re.match(pattern, password):
+				if len(password) < 8 or len(password) > 16:
+					messagebox.showerror("Lỗi", "Chiều dài mật khẩu từ phải từ 8-16 kí tự")
+					self.entry_password.delete(0 , tk.END)
+					self.entry_password_re.delete(0, tk.END)
+					return
+				if ' ' in password:
+					messagebox.showerror("Lỗi", "Mật khẩu không được có khoản trắng")
+					self.entry_password.delete(0 , tk.END)
+					self.entry_password_re.delete(0, tk.END)
+					return
+				if not re.search(r'[a-z]', password):
+					messagebox.showerror("Lỗi", "Mật khấu phải có ít nhất 1 ký tự a-z")
+					self.entry_password.delete(0 , tk.END)
+					self.entry_password_re.delete(0, tk.END)
+					return
+				if not re.search(r'[A-Z]', password):
+					messagebox.showerror("Lỗi", "Mật khẩu phải có ít nhất 1 kí tự A-Z")
+					self.entry_password.delete(0 , tk.END)
+					self.entry_password_re.delete(0, tk.END)
+					return
+				if not re.search(r'[!@#$%^&*]', password):
+					messagebox.showerror("Lỗi", "Mật khẩu phải có ít nhất 1 kí tự đặc biệt")
+					self.entry_password.delete(0 , tk.END)
+					self.entry_password_re.delete(0, tk.END)
+					return
+				if not re.search(r'\d', password):
+					messagebox.showerror("Lỗi", "Mật khẩu phải có ít nhất 1 chữ số")
+					self.entry_password.delete(0 , tk.END)
+					self.entry_password_re.delete(0, tk.END)
+					return
+
+			# if len(password) <6:
+			# 	messagebox.showerror("Lỗi", "Mật khẩu phải từ 6 kí tự")
+			# 	self.entry_password.delete(0 , tk.END)
+			# 	self.entry_password_re.delete(0, tk.END)
+			# 	return
+			if password != password_re:
 				messagebox.showerror("Lỗi", "Vui lòng nhập lại password")
 				self.entry_password_re.delete(0, tk.END)
 				return
