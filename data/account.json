@@ -1,12 +1,3 @@
 [
-    {
-        "username": "admin",
-        "password": "fdd838b687df260a19f752d5c06e7aa0034222fefbf9dab42242e030e6d24ad5",
-        "role": "Manager"
-    },
-    {
-        "username": "trong",
-        "password": "fdd838b687df260a19f752d5c06e7aa0034222fefbf9dab42242e030e6d24ad5",
-        "role": "General"
-    }
+    
 ]

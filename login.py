@@ -18,6 +18,11 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+def get_data_path(filename):
+    # Lưu vào thư mục AppData (Windows) hoặc ~/.local/share/... (Linux)
+    base_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "MyHealthLog")
+    os.makedirs(base_dir, exist_ok=True)
+    return os.path.join(base_dir, filename)
 
 class LoginApp:
 	def __init__(self):
@@ -90,7 +95,8 @@ class LoginApp:
 			return
 		else:
 			try:
-				with open(resource_path("data/account.json"), "r", encoding="utf-8") as f:
+				#with open(resource_path("data/account.json"), "r", encoding="utf-8") as f:
+				with open(get_data_path("account.json"), "r", encoding="utf-8") as f:
 					data = json.load(f)
 
 				for user in data:
@@ -105,7 +111,6 @@ class LoginApp:
 						return
 
 				self.label_message.config(text="Sai tài khoản hoặc mật khẩu!")
-
 			except FileNotFoundError:
 				self.label_message.config(text="Không tìm thấy file tài khoản!")
 			except json.JSONDecodeError:

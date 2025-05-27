@@ -17,6 +17,13 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+def get_data_path(filename):
+    # Lưu vào thư mục AppData (Windows) hoặc ~/.local/share/... (Linux)
+    base_dir = os.path.join(os.path.expanduser("~"), "AppData", "Local", "MyHealthLog")
+    os.makedirs(base_dir, exist_ok=True)
+    return os.path.join(base_dir, filename)
+
+
 class DangKy:
 	def __init__(self):
 		self.root = tk.Tk()
@@ -79,7 +86,8 @@ class DangKy:
 	def event_check_username(self, event):
 		username = self.entry_username.get()
 		try:
-			with open(resource_path("data/account.json"),"r") as file:
+			#with open(resource_path("data/account.json"),"r") as file:
+			with open(get_data_path("account.json"),"r") as file:
 				data = json.load(file)
 		except FileNotFoundError:
 			data = []
@@ -151,28 +159,33 @@ class DangKy:
 
 	def save_data(self):
 		try:
-			with open(resource_path("data/account.json"), "r", encoding="utf-8") as file1:
+			#with open(resource_path("data/account.json"), "r", encoding="utf-8") as file1:
+			with open(get_data_path("account.json"), "r", encoding="utf-8") as file1:
 				data_ac = json.load(file1)
 		except FileNotFoundError:
 			print("Lỗi: Không tìm thấy file")
 			data_ac = []
 
 		try:
-			with open(resource_path("data/health.json"), "r", encoding="utf-8") as file2:
+			#with open(resource_path("data/health.json"), "r", encoding="utf-8") as file2:
+			with open(get_data_path("health.json"), "r", encoding="utf-8") as file2:
 				data_health = json.load(file2)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
 			data_health = []
 
 		try:
-			with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file3:
+			#with open(resource_path("data/exercise.json"), "r", encoding="utf-8") as file3:
+			with open(get_data_path("exercise.json"), "r", encoding="utf-8") as file3:
 				data_ex = json.load(file3)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
 			data_ex = []
 		
 		try:
-			with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file4:
+			#with open(resource_path("data/meal.json"), "r", encoding="utf-8") as file4:
+			with open(get_data_path("meal.json"), "r", encoding="utf-8") as file4:
+
 				data_meal = json.load(file4)
 		except FileNotFoundError:
 			print("Không tìm thấy file")
@@ -182,10 +195,15 @@ class DangKy:
 		pas = self.entry_password.get()
 		pas_has = hashlib.sha256(pas.encode()).hexdigest()
 
+		if name == "admin":
+			role = "Manager"
+		else:
+			role = "General"
+
 		user_ac = {
 			"username": name,
         	"password": pas_has,
-        	"role": "General"
+        	"role": role
 		}
 		user_health = {
 			"username": name,
@@ -210,16 +228,25 @@ class DangKy:
 		data_health.append(user_health)
 		data_ex.append(user_ex)
 		data_meal.append(user_meal)
-		with open(resource_path("data/account.json"), "w", encoding="utf-8") as file1:
+
+		#with open(resource_path("data/account.json"), "w", encoding="utf-8") as file1:
+		with open(get_data_path("account.json"), "w", encoding="utf-8") as file1:
+
 			json.dump(data_ac, file1, indent=4, ensure_ascii=False)
 
-		with open(resource_path("data/health.json"), "w", encoding="utf-8") as file2:
+		#with open(resource_path("data/health.json"), "w", encoding="utf-8") as file2:
+		with open(get_data_path("health.json"), "w", encoding="utf-8") as file2:
+
 			json.dump(data_health, file2, indent=4, ensure_ascii=False)
 
-		with open(resource_path("data/exercise.json"), "w", encoding="utf-8") as file3:
+		#with open(resource_path("data/exercise.json"), "w", encoding="utf-8") as file3:
+		with open(get_data_path("exercise.json"), "w", encoding="utf-8") as file3:
+
 			json.dump(data_ex, file3, indent=4, ensure_ascii=False)
 
-		with open(resource_path("data/meal.json"), "w", encoding="utf-8") as file4:
+		#with open(resource_path("data/meal.json"), "w", encoding="utf-8") as file4:
+		with open(get_data_path("meal.json"), "w", encoding="utf-8") as file4:
+
 			json.dump(data_meal, file4, indent=4, ensure_ascii=False)
 
 	def on_click_dang_nhap(self):
