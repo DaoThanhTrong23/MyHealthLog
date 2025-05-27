@@ -4,6 +4,12 @@ Tkinter
 Đóng gói__________
 pyinstaller --onefile --noconsole --icon=Images/favicon.ico --add-data "data;data" --add-data "Images;Images" main.py
 
+GitHub
+git restore .
+git pull origin main --rebase
+
+C:\Users\daoth\AppData\Local\MyHealthLog
+
 tài khoản - password
 admin -   P@ssword01
 
