@@ -13,3 +13,11 @@ C:\Users\daoth\AppData\Local\MyHealthLog
 tài khoản - password
 admin -   P@ssword01
 
+cách dùng:
+lần đầu mở app: 
+Đăng kí -> nhập tên đăng nhập bắt buộc "admin" và password -> trở lại đăng Nhập
+
+tất cả dữ liệu json được lưu ở
+
+C:\Users\tenmay\AppData\Local\MyHealthLog
+ví dụ: C:\Users\daoth\AppData\Local\MyHealthLog
